@@ -1,43 +1,43 @@
 # 🤖 AI Automation Stack
 
-> **Turnkey Local AI Automation: n8n + Agent Zero + ComfyUI**
+> **Automação de IA Local Pronta para Uso: n8n + Agent Zero + ComfyUI**
 
-A single-command deployable stack for AI-powered workflow automation with image generation capabilities.
-
----
-
-## 📚 Documentation
-
-**👉 [START HERE: Documentation Index](INDEX.md)** - Choose the right guide for you!
-
-- **🚀 [QUICK START](QUICK-START.md)** - 3 simple steps to get started
-- **📖 [EASY INSTALL GUIDE](EASY-INSTALL.md)** - Step-by-step for Windows/Mac
-- **🐧 [UBUNTU INSTALL GUIDE](UBUNTU-INSTALL.md)** - Complete guide for Ubuntu/Linux
-- **🔧 [TROUBLESHOOTING](TROUBLESHOOTING.md)** - Fix common problems
-- **📋 [SUMMARY](SUMMARY.md)** - Overview &amp; learning path
-- **🎯 [CHEAT SHEET](CHEAT-SHEET.md)** - Quick reference (print this!)
-- **📘 Full Documentation** - You're reading it now!
+Uma stack implantável com um único comando para automação de workflows movida por IA, com capacidades de geração de imagens.
 
 ---
 
-## 🎯 What's Included
+## 📚 Documentação
 
-| Service | Purpose | Port | URL |
+**👉 [COMECE AQUI: Índice da Documentação](INDEX.md)** - Escolha o guia certo para você!
+
+- **🚀 [INÍCIO RÁPIDO](QUICK-START.md)** - 3 passos simples para começar
+- **📖 [GUIA DE INSTALAÇÃO FÁCIL](EASY-INSTALL.md)** - Passo a passo para Windows/Mac
+- **🐧 [GUIA DE INSTALAÇÃO NO UBUNTU](UBUNTU-INSTALL.md)** - Guia completo para Ubuntu/Linux
+- **🔧 [SOLUÇÃO DE PROBLEMAS](TROUBLESHOOTING.md)** - Resolver problemas comuns
+- **📋 [RESUMO](SUMMARY.md)** - Visão geral e trilha de aprendizado
+- **🎯 [FOLHA DE CONSULTA RÁPIDA](CHEAT-SHEET.md)** - Referência rápida (imprima isto!)
+- **📘 Documentação Completa** - Você está lendo agora!
+
+---
+
+## 🎯 O Que Está Incluído
+
+| Serviço | Finalidade | Porta | URL |
 |---------|---------|------|-----|
-| **n8n** | Workflow automation engine (the conductor) | 5678 | http://localhost:5678 |
-| **Agent Zero** | AI agent runtime & planning UI | 50080 | http://localhost:50080 |
-| **ComfyUI** | AI image/video generation | 8188 | http://localhost:8188 |
+| **n8n** | Motor de automação de workflows (o maestro) | 5678 | http://localhost:5678 |
+| **Agent Zero** | Runtime de agente de IA e UI de planejamento | 50080 | http://localhost:50080 |
+| **ComfyUI** | Geração de imagens/vídeos com IA | 8188 | http://localhost:8188 |
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Início Rápido
 
-### Prerequisites
+### Pré-requisitos
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop) installed and running
-- (Optional) NVIDIA GPU with [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) for GPU acceleration
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) instalado e em execução
+- (Opcional) GPU NVIDIA com o [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html) para aceleração por GPU
 
-### One-Command Launch
+### Inicialização com Um Comando
 
 **Windows (PowerShell):**
 ```powershell
@@ -50,115 +50,115 @@ chmod +x start.sh
 ./start.sh
 ```
 
-That's it! The script will:
-1. ✅ Check Docker is installed and running
-2. ✅ Detect GPU availability
-3. ✅ Create all necessary directories
-4. ✅ Pull the latest images
-5. ✅ Start all services
-6. ✅ Display access URLs
+É só isso! O script irá:
+1. ✅ Verificar se o Docker está instalado e em execução
+2. ✅ Detectar a disponibilidade de GPU
+3. ✅ Criar todos os diretórios necessários
+4. ✅ Baixar as imagens mais recentes
+5. ✅ Iniciar todos os serviços
+6. ✅ Exibir as URLs de acesso
 
 ---
 
-## 📁 Directory Structure
+## 📁 Estrutura de Diretórios
 
 ```
 ai-stack/
-├── docker-compose.yml      # Main stack configuration
-├── .env                    # Environment variables
-├── start.ps1               # Windows startup script
-├── start.sh                # Linux/macOS startup script
-├── README.md               # This file
+├── docker-compose.yml      # Configuração principal da stack
+├── .env                    # Variáveis de ambiente
+├── start.ps1               # Script de inicialização do Windows
+├── start.sh                # Script de inicialização do Linux/macOS
+├── README.md               # Este arquivo
 │
-├── data/                   # Persistent data (auto-created)
-│   ├── n8n/                # n8n workflows & credentials
-│   └── agent-zero/         # Agent Zero data
+├── data/                   # Dados persistentes (criados automaticamente)
+│   ├── n8n/                # Workflows e credenciais do n8n
+│   └── agent-zero/         # Dados do Agent Zero
 │
-├── shared/                 # Shared between all services
+├── shared/                 # Compartilhado entre todos os serviços
 │   ├── comfyui/
-│   │   ├── models/         # AI models (checkpoints, LoRAs, etc.)
+│   │   ├── models/         # Modelos de IA (checkpoints, LoRAs, etc.)
 │   │   │   ├── checkpoints/
 │   │   │   ├── loras/
 │   │   │   ├── vae/
 │   │   │   ├── controlnet/
 │   │   │   └── embeddings/
-│   │   ├── output/         # Generated images
-│   │   ├── input/          # Input images
-│   │   └── custom_nodes/   # ComfyUI extensions
-│   └── workflows/          # Shared workflow files
+│   │   ├── output/         # Imagens geradas
+│   │   ├── input/          # Imagens de entrada
+│   │   └── custom_nodes/   # Extensões do ComfyUI
+│   └── workflows/          # Arquivos de workflow compartilhados
 │
-└── workflows/              # Pre-built n8n workflows
+└── workflows/              # Workflows do n8n prontos para uso
     ├── comfyui-image-generation.json
     └── comfyui-simple-test.json
 ```
 
 ---
 
-## 🔧 Commands
+## 🔧 Comandos
 
 ### Windows (PowerShell)
 
 ```powershell
-.\start.ps1              # Start the stack
-.\start.ps1 -Stop        # Stop the stack
-.\start.ps1 -Logs        # View logs
-.\start.ps1 -Status      # Check status
-.\start.ps1 -NoPull      # Start without pulling images
-.\start.ps1 -CPU         # Force CPU mode (no GPU)
+.\start.ps1              # Iniciar a stack
+.\start.ps1 -Stop        # Parar a stack
+.\start.ps1 -Logs        # Ver os logs
+.\start.ps1 -Status      # Verificar o status
+.\start.ps1 -NoPull      # Iniciar sem baixar imagens
+.\start.ps1 -CPU         # Forçar modo CPU (sem GPU)
 ```
 
 ### Linux/macOS
 
 ```bash
-./start.sh               # Start the stack
-./start.sh --stop        # Stop the stack
-./start.sh --logs        # View logs
-./start.sh --status      # Check status
-./start.sh --no-pull     # Start without pulling images
-./start.sh --cpu         # Force CPU mode (no GPU)
+./start.sh               # Iniciar a stack
+./start.sh --stop        # Parar a stack
+./start.sh --logs        # Ver os logs
+./start.sh --status      # Verificar o status
+./start.sh --no-pull     # Iniciar sem baixar imagens
+./start.sh --cpu         # Forçar modo CPU (sem GPU)
 ```
 
-### Docker Compose (Direct)
+### Docker Compose (Direto)
 
 ```bash
-docker compose up -d     # Start
-docker compose down      # Stop
-docker compose logs -f   # View logs
+docker compose up -d     # Iniciar
+docker compose down      # Parar
+docker compose logs -f   # Ver os logs
 docker compose ps        # Status
 ```
 
 ---
 
-## 🎨 Adding Models to ComfyUI
+## 🎨 Adicionando Modelos ao ComfyUI
 
-Place your models in the appropriate directories:
+Coloque seus modelos nos diretórios apropriados:
 
-| Model Type | Directory |
+| Tipo de Modelo | Diretório |
 |------------|-----------|
-| Stable Diffusion checkpoints | `shared/comfyui/models/checkpoints/` |
-| LoRA models | `shared/comfyui/models/loras/` |
-| VAE models | `shared/comfyui/models/vae/` |
-| ControlNet models | `shared/comfyui/models/controlnet/` |
-| Upscale models | `shared/comfyui/models/upscale_models/` |
+| Checkpoints do Stable Diffusion | `shared/comfyui/models/checkpoints/` |
+| Modelos LoRA | `shared/comfyui/models/loras/` |
+| Modelos VAE | `shared/comfyui/models/vae/` |
+| Modelos ControlNet | `shared/comfyui/models/controlnet/` |
+| Modelos de Upscale | `shared/comfyui/models/upscale_models/` |
 | Embeddings | `shared/comfyui/models/embeddings/` |
 
-### Recommended Starter Model
+### Modelo Inicial Recomendado
 
-Download [SD 1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5/blob/main/v1-5-pruned-emaonly.safetensors) and place it in `shared/comfyui/models/checkpoints/`.
+Baixe o [SD 1.5](https://huggingface.co/runwayml/stable-diffusion-v1-5/blob/main/v1-5-pruned-emaonly.safetensors) e coloque-o em `shared/comfyui/models/checkpoints/`.
 
 ---
 
-## 📊 Pre-built Workflows
+## 📊 Workflows Prontos para Uso
 
-### 1. ComfyUI Image Generation Pipeline
+### 1. Pipeline de Geração de Imagens do ComfyUI
 
-**File:** `workflows/comfyui-image-generation.json`
+**Arquivo:** `workflows/comfyui-image-generation.json`
 
-A complete webhook-triggered image generation pipeline:
+Um pipeline completo de geração de imagens acionado por webhook:
 
-1. Import the workflow into n8n
-2. Activate the workflow
-3. Send a POST request:
+1. Importe o workflow no n8n (menu de três pontos ⋮ → "Import from File...")
+2. Ative o workflow
+3. Envie uma requisição POST:
 
 ```bash
 curl -X POST http://localhost:5678/webhook/generate-image \
@@ -173,19 +173,19 @@ curl -X POST http://localhost:5678/webhook/generate-image \
   }'
 ```
 
-### 2. ComfyUI Simple Test
+### 2. Teste Simples do ComfyUI
 
-**File:** `workflows/comfyui-simple-test.json`
+**Arquivo:** `workflows/comfyui-simple-test.json`
 
-A simple connectivity test:
+Um teste simples de conectividade:
 
-1. Import and activate in n8n
-2. Visit: http://localhost:5678/webhook/comfyui-status
-3. Should return ComfyUI system stats
+1. Importe e ative no n8n
+2. Acesse: http://localhost:5678/webhook/comfyui-status
+3. Deve retornar as estatísticas do sistema do ComfyUI
 
 ---
 
-## 🔗 Integration Architecture
+## 🔗 Arquitetura de Integração
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -215,19 +215,19 @@ A simple connectivity test:
                     └─────────────────────────┘
 ```
 
-### Typical Workflow Loop
+### Loop Típico de Workflow
 
-1. **Trigger**: n8n receives webhook/schedule/event
-2. **Plan** (optional): n8n calls Agent Zero for decision-making
-3. **Generate**: n8n submits workflow to ComfyUI `POST /prompt`
-4. **Poll**: n8n checks `GET /history/{prompt_id}` until complete
-5. **Deliver**: n8n retrieves output and sends to destination
+1. **Gatilho**: o n8n recebe um webhook/agendamento/evento
+2. **Planejar** (opcional): o n8n chama o Agent Zero para a tomada de decisão
+3. **Gerar**: o n8n envia o workflow ao ComfyUI via `POST /prompt`
+4. **Consultar**: o n8n verifica `GET /history/{prompt_id}` até concluir
+5. **Entregar**: o n8n recupera a saída e a envia ao destino
 
 ---
 
-## 🌐 ComfyUI API Reference
+## 🌐 Referência da API do ComfyUI
 
-### Queue a Generation
+### Enfileirar uma Geração
 
 ```bash
 POST http://comfyui:8188/prompt
@@ -238,32 +238,32 @@ Content-Type: application/json
 }
 ```
 
-**Response:**
+**Resposta:**
 ```json
 {
   "prompt_id": "abc123-def456-..."
 }
 ```
 
-### Check Status
+### Verificar Status
 
 ```bash
 GET http://comfyui:8188/history/{prompt_id}
 ```
 
-### Get Queue Status
+### Obter Status da Fila
 
 ```bash
 GET http://comfyui:8188/queue
 ```
 
-### Retrieve Generated Image
+### Recuperar Imagem Gerada
 
 ```bash
 GET http://comfyui:8188/view?filename={name}&subfolder=&type=output
 ```
 
-### System Stats
+### Estatísticas do Sistema
 
 ```bash
 GET http://comfyui:8188/system_stats
@@ -271,27 +271,27 @@ GET http://comfyui:8188/system_stats
 
 ---
 
-## ⚙️ Configuration
+## ⚙️ Configuração
 
-### Environment Variables (.env)
+### Variáveis de Ambiente (.env)
 
 ```bash
-# Timezone
+# Fuso horário
 TZ=America/Los_Angeles
 
-# n8n Basic Auth (optional)
+# Autenticação básica do n8n (opcional)
 N8N_BASIC_AUTH_ACTIVE=false
 N8N_BASIC_AUTH_USER=admin
 N8N_BASIC_AUTH_PASSWORD=changeme
 
-# API Keys for Agent Zero (optional)
+# Chaves de API para o Agent Zero (opcional)
 OPENAI_API_KEY=sk-your-key-here
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 ```
 
-### Custom Webhook URL
+### URL de Webhook Personalizada
 
-If running behind a reverse proxy:
+Se estiver rodando por trás de um proxy reverso:
 
 ```bash
 WEBHOOK_URL=https://your-domain.com
@@ -299,46 +299,46 @@ WEBHOOK_URL=https://your-domain.com
 
 ---
 
-## 🔒 Security Notes
+## 🔒 Notas de Segurança
 
-- By default, all services are only accessible on localhost
-- For production deployment, add a reverse proxy (Traefik/Caddy/nginx)
-- Enable n8n basic auth for any non-local deployment
-- Keep API keys in `.env` file (not committed to git)
+- Por padrão, todos os serviços são acessíveis apenas em localhost
+- Para implantação em produção, adicione um proxy reverso (Traefik/Caddy/nginx)
+- Habilite a autenticação básica do n8n para qualquer implantação não local
+- Mantenha as chaves de API no arquivo `.env` (não faça commit para o git)
 
 ---
 
-## 🐛 Troubleshooting
+## 🐛 Solução de Problemas
 
-### ComfyUI can't see GPU
+### O ComfyUI não enxerga a GPU
 
-1. Ensure NVIDIA drivers are installed
-2. Install [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
-3. Restart Docker Desktop
-4. Run `docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` to test
+1. Certifique-se de que os drivers NVIDIA estão instalados
+2. Instale o [NVIDIA Container Toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html)
+3. Reinicie o Docker Desktop
+4. Execute `docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi` para testar
 
-### Services won't start
+### Os serviços não iniciam
 
 ```bash
-# Check logs
+# Verifica os logs
 docker compose logs -f
 
-# Restart specific service
+# Reinicia um serviço específico
 docker compose restart n8n
 
-# Full reset
+# Reset completo
 docker compose down -v
 docker compose up -d
 ```
 
-### n8n can't connect to ComfyUI
+### O n8n não consegue conectar ao ComfyUI
 
-- Use `http://comfyui:8188` (Docker internal network), not `localhost`
-- Ensure ComfyUI container is healthy: `docker compose ps`
+- Use `http://comfyui:8188` (rede interna do Docker), não `localhost`
+- Certifique-se de que o container do ComfyUI está saudável: `docker compose ps`
 
-### Port conflicts
+### Conflitos de porta
 
-Edit `docker-compose.yml` to change port mappings:
+Edite o `docker-compose.yml` para alterar os mapeamentos de porta:
 ```yaml
 ports:
   - "NEW_PORT:INTERNAL_PORT"
@@ -346,15 +346,15 @@ ports:
 
 ---
 
-## 📚 Resources
+## 📚 Recursos
 
-- [n8n Documentation](https://docs.n8n.io/)
-- [Agent Zero GitHub](https://github.com/frdel/agent-zero)
-- [ComfyUI GitHub](https://github.com/comfyanonymous/ComfyUI)
-- [ComfyUI API Examples](https://github.com/comfyanonymous/ComfyUI/blob/master/script_examples/basic_api_example.py)
+- [Documentação do n8n](https://docs.n8n.io/)
+- [GitHub do Agent Zero](https://github.com/frdel/agent-zero)
+- [GitHub do ComfyUI](https://github.com/comfyanonymous/ComfyUI)
+- [Exemplos de API do ComfyUI](https://github.com/comfyanonymous/ComfyUI/blob/master/script_examples/basic_api_example.py)
 
 ---
 
-## 📄 License
+## 📄 Licença
 
-MIT License - Use freely for personal and commercial projects.
+Licença MIT - Use livremente para projetos pessoais e comerciais.

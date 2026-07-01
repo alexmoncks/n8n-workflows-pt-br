@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N8N Workflow Collection - Search & Browse 4300+ Workflows</title>
-    <meta name="description" content="Browse and search through 4300+ n8n workflow automations. Find workflows for Telegram, Discord, Gmail, AI, and hundreds of other integrations.">
+    <title>Coleção de Workflows N8N - Busque e Navegue por 4300+ Workflows</title>
+    <meta name="description" content="Navegue e busque em mais de 4300 automações de workflow do n8n. Encontre workflows para Telegram, Discord, Gmail, IA e centenas de outras integrações.">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
     <meta name="last-updated" content="2025-11-03T11:28:31.626239">
@@ -162,23 +162,23 @@
     <div class="trusera-banner">
         <div class="trusera-banner-content">
             <div class="trusera-banner-left">
-                <img src="images/trusera-mascot.png" alt="Trusera Mascot" class="trusera-mascot">
-                <img src="images/trusera-logo.png" alt="Trusera Logo" class="trusera-logo">
+                <img src="images/trusera-mascot.png" alt="Mascote da Trusera" class="trusera-mascot">
+                <img src="images/trusera-logo.png" alt="Logo da Trusera" class="trusera-logo">
             </div>
             <div class="trusera-banner-text">
                 <h2 class="trusera-banner-title">
-                    Scan Your n8n Workflows for AI Components
-                    <span class="trusera-badge">Open Source</span>
+                    Escaneie seus Workflows n8n em Busca de Componentes de IA
+                    <span class="trusera-badge">Código Aberto</span>
                 </h2>
                 <p class="trusera-banner-subtitle">
-                    🔒 First AI Bill of Materials (AI-BOM) scanner for n8n • Discover Shadow AI • Free CLI Tool
+                    🔒 Primeiro scanner de Inventário de IA (AI-BOM) para n8n • Descubra IA Oculta (Shadow AI) • Ferramenta CLI Gratuita
                 </p>
             </div>
             <a href="https://github.com/Trusera/ai-bom" target="_blank" rel="noopener" class="trusera-banner-cta">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor">
                     <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path>
                 </svg>
-                Try AI-BOM Free →
+                Experimente o AI-BOM Grátis →
             </a>
         </div>
     </div>
@@ -187,9 +187,9 @@
         <div class="container">
             <h1 class="logo">
                 <span class="logo-emoji">⚡</span>
-                N8N Workflow Collection
+                Coleção de Workflows N8N
             </h1>
-            <p class="tagline">Search & Browse <span id="total-count">4343</span> Professional Automation Workflows</p>
+            <p class="tagline">Busque e Navegue por <span id="total-count">4343</span> Workflows Profissionais de Automação</p>
         </div>
     </header>
 
@@ -201,7 +201,7 @@
                     <input
                         type="text"
                         id="search-input"
-                        placeholder="Search workflows... (e.g., telegram, calculation, gmail)"
+                        placeholder="Buscar workflows... (ex.: telegram, cálculo, gmail)"
                         autocomplete="off"
                     >
                     <button id="search-btn" class="search-btn">
@@ -211,22 +211,22 @@
 
                 <div class="filters">
                     <select id="category-filter">
-                        <option value="">All Categories</option>
+                        <option value="">Todas as Categorias</option>
                     </select>
 
                     <select id="complexity-filter">
-                        <option value="">All Complexity</option>
-                        <option value="low">Low (≤5 nodes)</option>
-                        <option value="medium">Medium (6-15 nodes)</option>
-                        <option value="high">High (16+ nodes)</option>
+                        <option value="">Toda a Complexidade</option>
+                        <option value="low">Baixa (≤5 nós)</option>
+                        <option value="medium">Média (6-15 nós)</option>
+                        <option value="high">Alta (16+ nós)</option>
                     </select>
 
                     <select id="trigger-filter">
-                        <option value="">All Triggers</option>
+                        <option value="">Todos os Gatilhos</option>
                         <option value="Manual">Manual</option>
                         <option value="Webhook">Webhook</option>
-                        <option value="Scheduled">Scheduled</option>
-                        <option value="Complex">Complex</option>
+                        <option value="Scheduled">Agendado</option>
+                        <option value="Complex">Complexo</option>
                     </select>
                 </div>
             </div>
@@ -237,19 +237,19 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number" id="workflows-count">-</div>
-                    <div class="stat-label">Total Workflows</div>
+                    <div class="stat-label">Total de Workflows</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="active-count">-</div>
-                    <div class="stat-label">Active Workflows</div>
+                    <div class="stat-label">Workflows Ativos</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="integrations-count">-</div>
-                    <div class="stat-label">Integrations</div>
+                    <div class="stat-label">Integrações</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-number" id="categories-count">-</div>
-                    <div class="stat-label">Categories</div>
+                    <div class="stat-label">Categorias</div>
                 </div>
             </div>
         </section>
@@ -257,13 +257,13 @@
         <!-- Results Section -->
         <section class="results-section">
             <div class="results-header">
-                <h2 id="results-title">Featured Workflows</h2>
+                <h2 id="results-title">Workflows em Destaque</h2>
                 <div class="results-count" id="results-count"></div>
             </div>
 
             <div id="loading" class="loading hidden">
                 <div class="spinner"></div>
-                <span>Loading workflows...</span>
+                <span>Carregando workflows...</span>
             </div>
 
             <div id="results-grid" class="results-grid">
@@ -272,29 +272,29 @@
 
             <div id="no-results" class="no-results hidden">
                 <div class="no-results-icon">🔍</div>
-                <h3>No workflows found</h3>
-                <p>Try adjusting your search terms or filters</p>
+                <h3>Nenhum workflow encontrado</h3>
+                <p>Tente ajustar seus termos de busca ou filtros</p>
             </div>
 
-            <button id="load-more" class="load-more hidden">Load More Workflows</button>
+            <button id="load-more" class="load-more hidden">Carregar Mais Workflows</button>
         </section>
     </main>
 
     <footer class="footer">
         <div class="container">
             <p>
-                🚀 Powered by the
-                <a href="https://github.com/Zie619/n8n-workflows" target="_blank">N8N Workflow Collection</a>
-                | Built with ❤️ for the n8n community
-                | 🔒 <a href="https://github.com/Trusera/ai-bom" target="_blank">Scan with AI-BOM</a>
+                🚀 Desenvolvido com a
+                <a href="https://github.com/Zie619/n8n-workflows" target="_blank">Coleção de Workflows N8N</a>
+                | Feito com ❤️ para a comunidade n8n
+                | 🔒 <a href="https://github.com/Trusera/ai-bom" target="_blank">Escaneie com o AI-BOM</a>
             </p>
             <p class="footer-links">
                 <a href="https://n8n.io" target="_blank">n8n.io</a> |
-                <a href="https://community.n8n.io" target="_blank">Community</a> |
-                <a href="https://docs.n8n.io" target="_blank">Documentation</a> |
+                <a href="https://community.n8n.io" target="_blank">Comunidade</a> |
+                <a href="https://docs.n8n.io" target="_blank">Documentação</a> |
                 <a href="https://trusera.dev" target="_blank">Trusera</a>
             </p>
-            <p class="footer-meta">Last updated: November 2025 • Secured by Trusera AI-BOM</p>
+            <p class="footer-meta">Última atualização: Novembro de 2025 • Protegido pelo Trusera AI-BOM</p>
         </div>
     </footer>
 

@@ -1,82 +1,82 @@
-# 🔧 Troubleshooting Guide
+# 🔧 Guia de Solução de Problemas
 
-## Common Problems and How to Fix Them
+## Problemas Comuns e Como Resolvê-los
 
 ---
 
-## Problem 1: "Docker is not installed"
+## Problema 1: "Docker is not installed"
 
-### What you see:
+### O que você vê:
 ```
 ✗ Docker is not installed or not in PATH
 ```
 
-### How to fix:
-1. **Install Docker Desktop**
+### Como resolver:
+1. **Instale o Docker Desktop**
    - Windows: https://www.docker.com/products/docker-desktop
    - Mac: https://www.docker.com/products/docker-desktop
-2. **Restart your computer**
-3. **Try again**
+2. **Reinicie o computador**
+3. **Tente novamente**
 
 ---
 
-## Problem 2: "Docker daemon is not running"
+## Problema 2: "Docker daemon is not running"
 
-### What you see:
+### O que você vê:
 ```
 ✗ Docker daemon is not running
 ```
 
-### How to fix:
-1. **Look for the Docker whale icon** 🐳
-   - Windows: Bottom right corner (system tray)
-   - Mac: Top right corner (menu bar)
-2. **If you don't see it:**
-   - Open "Docker Desktop" from your applications
-   - Wait 30 seconds for it to start
-3. **When you see the whale icon, try again**
+### Como resolver:
+1. **Procure o ícone da baleia do Docker** 🐳
+   - Windows: Canto inferior direito (bandeja do sistema)
+   - Mac: Canto superior direito (barra de menu)
+2. **Se você não vir o ícone:**
+   - Abra o "Docker Desktop" a partir dos seus aplicativos
+   - Aguarde 30 segundos para ele iniciar
+3. **Quando você vir o ícone da baleia, tente novamente**
 
 ---
 
-## Problem 3: "Permission denied" (Mac only)
+## Problema 3: "Permission denied" (somente Mac)
 
-### What you see:
+### O que você vê:
 ```
 Permission denied
 ```
 
-### How to fix:
-1. **Open Terminal**
-2. **Type these commands one at a time:**
+### Como resolver:
+1. **Abra o Terminal**
+2. **Digite estes comandos, um de cada vez:**
    ```bash
    cd ~/Downloads/n8n-workflows-main/ai-stack
    chmod +x start.sh
    ./start.sh
    ```
-3. **Press Enter after each line**
+3. **Pressione Enter após cada linha**
 
 ---
 
-## Problem 4: "Port already in use"
+## Problema 4: "Port already in use"
 
-### What you see:
+### O que você vê:
 ```
 Error: Port 5678 is already in use
 ```
 
-### How to fix:
+### Como resolver:
 
-**Option 1 - Stop other programs:**
-1. Close all web browsers
-2. Close any other programs
-3. Try again
+**Opção 1 - Feche outros programas:**
+1. Feche todos os navegadores
+2. Feche quaisquer outros programas
+3. Tente novamente
 
-**Option 2 - Restart computer:**
-1. Restart your computer
-2. Open Docker Desktop
-3. Try again
+**Opção 2 - Reinicie o computador:**
+1. Reinicie o computador
+2. Abra o Docker Desktop
+3. Tente novamente
 
-**Option 3 - Stop the old stack:**
+**Opção 3 - Pare a stack antiga:**
 
 Windows:
 ```powershell
@@ -88,46 +88,46 @@ Mac:
 ./start.sh --stop
 ```
 
-Then start again.
+Depois inicie novamente.
 
 ---
 
-## Problem 5: Script window closes immediately (Windows)
+## Problema 5: A janela do script fecha imediatamente (Windows)
 
-### What you see:
-- PowerShell window opens and closes in 1 second
-- You can't read any messages
+### O que você vê:
+- A janela do PowerShell abre e fecha em 1 segundo
+- Você não consegue ler nenhuma mensagem
 
-### How to fix:
-1. **Open PowerShell as Administrator:**
-   - Click Windows Start button
-   - Type "PowerShell"
-   - Right-click "Windows PowerShell"
-   - Click "Run as administrator"
-   - Click "Yes" when asked
+### Como resolver:
+1. **Abra o PowerShell como Administrador:**
+   - Clique no botão Iniciar do Windows
+   - Digite "PowerShell"
+   - Clique com o botão direito em "Windows PowerShell"
+   - Clique em "Executar como administrador"
+   - Clique em "Sim" quando perguntado
 
-2. **Type this command:**
+2. **Digite este comando:**
    ```powershell
    Set-ExecutionPolicy RemoteSigned
    ```
-   Press Enter
+   Pressione Enter
 
-3. **Type "Y" and press Enter**
+3. **Digite "Y" e pressione Enter**
 
-4. **Now try running start.ps1 again**
+4. **Agora tente executar o start.ps1 novamente**
 
 ---
 
-## Problem 6: "Cannot connect to localhost:5678"
+## Problema 6: "Cannot connect to localhost:5678"
 
-### What you see:
-- Browser says "This site can't be reached"
-- Or "Connection refused"
+### O que você vê:
+- O navegador diz "This site can't be reached"
+- Ou "Connection refused"
 
-### How to fix:
-1. **Wait 2 minutes** - services need time to start
-2. **Check if Docker is running** (look for whale icon 🐳)
-3. **Check if the stack is running:**
+### Como resolver:
+1. **Aguarde 2 minutos** - os serviços precisam de tempo para iniciar
+2. **Verifique se o Docker está em execução** (procure o ícone da baleia 🐳)
+3. **Verifique se a stack está em execução:**
    
    Windows:
    ```powershell
@@ -139,51 +139,51 @@ Then start again.
    ./start.sh --status
    ```
 
-4. **Look for these services:**
-   - ai-stack-n8n (should say "Up")
-   - ai-stack-agent-zero (should say "Up")
-   - ai-stack-comfyui (should say "Up")
+4. **Procure por estes serviços:**
+   - ai-stack-n8n (deve dizer "Up")
+   - ai-stack-agent-zero (deve dizer "Up")
+   - ai-stack-comfyui (deve dizer "Up")
 
-5. **If any say "Exited" or "Error":**
-   - Stop everything: `.\start.ps1 -Stop` or `./start.sh --stop`
-   - Start again: `.\start.ps1` or `./start.sh`
+5. **Se algum disser "Exited" ou "Error":**
+   - Pare tudo: `.\start.ps1 -Stop` ou `./start.sh --stop`
+   - Inicie novamente: `.\start.ps1` ou `./start.sh`
 
 ---
 
-## Problem 7: "No space left on device"
+## Problema 7: "No space left on device"
 
-### What you see:
+### O que você vê:
 ```
 Error: No space left on device
 ```
 
-### How to fix:
-1. **Free up disk space:**
-   - Delete old files you don't need
-   - Empty your Recycle Bin / Trash
-   - You need at least 10 GB free
+### Como resolver:
+1. **Libere espaço em disco:**
+   - Apague arquivos antigos de que você não precisa
+   - Esvazie a Lixeira
+   - Você precisa de pelo menos 10 GB livres
 
-2. **Clean Docker:**
+2. **Limpe o Docker:**
    ```bash
    docker system prune -a
    ```
-   Type "y" and press Enter when asked
+   Digite "y" e pressione Enter quando perguntado
 
-3. **Try again**
+3. **Tente novamente**
 
 ---
 
-## Problem 8: Downloads are very slow
+## Problema 8: Os downloads estão muito lentos
 
-### What you see:
-- "Pulling images..." takes more than 30 minutes
+### O que você vê:
+- "Pulling images..." leva mais de 30 minutos
 
-### How to fix:
-1. **Check your internet connection**
-2. **Be patient** - first download is 5-10 GB
-3. **Next time will be faster** (it remembers what it downloaded)
+### Como resolver:
+1. **Verifique sua conexão com a internet**
+2. **Tenha paciência** - o primeiro download é de 5 a 10 GB
+3. **Da próxima vez será mais rápido** (ele lembra o que já baixou)
 
-### Skip the download if you already have it:
+### Pule o download se você já o tiver:
 Windows:
 ```powershell
 .\start.ps1 -NoPull
@@ -196,28 +196,28 @@ Mac:
 
 ---
 
-## Problem 9: "GPU not detected" but I have a GPU
+## Problema 9: "GPU not detected", mas eu tenho uma GPU
 
-### What you see:
+### O que você vê:
 ```
 ℹ No NVIDIA GPU detected
 ```
 
-### How to fix (NVIDIA GPUs only):
+### Como resolver (somente GPUs NVIDIA):
 
 **Windows:**
-1. Install NVIDIA drivers from: https://www.nvidia.com/download/index.aspx
-2. Install NVIDIA Container Toolkit
-3. Restart Docker Desktop
-4. Try again
+1. Instale os drivers NVIDIA em: https://www.nvidia.com/download/index.aspx
+2. Instale o NVIDIA Container Toolkit
+3. Reinicie o Docker Desktop
+4. Tente novamente
 
 **Mac:**
-- Mac doesn't support NVIDIA GPUs in Docker
-- The stack will use CPU mode automatically
-- It will be slower but still work
+- O Mac não suporta GPUs NVIDIA no Docker
+- A stack usará o modo CPU automaticamente
+- Será mais lento, mas ainda funcionará
 
-**Don't have NVIDIA GPU?**
-- That's okay! Use CPU mode:
+**Não tem uma GPU NVIDIA?**
+- Tudo bem! Use o modo CPU:
   
   Windows: `.\start.ps1 -CPU`
   
@@ -225,50 +225,50 @@ Mac:
 
 ---
 
-## Problem 10: Everything looks fine but nothing works
+## Problema 10: Tudo parece bem, mas nada funciona
 
-### Try this "nuclear option":
+### Tente esta "opção nuclear":
 
 **Windows:**
 ```powershell
-# Stop everything
+# Para tudo
 .\start.ps1 -Stop
 
-# Remove all containers and data
+# Remove todos os containers e dados
 docker compose down -v
 
-# Start fresh
+# Começa do zero
 .\start.ps1
 ```
 
 **Mac:**
 ```bash
-# Stop everything
+# Para tudo
 ./start.sh --stop
 
-# Remove all containers and data
+# Remove todos os containers e dados
 docker compose down -v
 
-# Start fresh
+# Começa do zero
 ./start.sh
 ```
 
-**⚠️ Warning:** This deletes all your data! You'll start completely fresh.
+**⚠️ Aviso:** Isto apaga todos os seus dados! Você começará completamente do zero.
 
 ---
 
-## Still Not Working?
+## Ainda Não Funciona?
 
-### Check these basics:
+### Verifique estes pontos básicos:
 
-- [ ] Is Docker Desktop installed?
-- [ ] Is Docker Desktop running? (see whale icon 🐳)
-- [ ] Do you have internet connection?
-- [ ] Do you have at least 10 GB free disk space?
-- [ ] Did you restart your computer after installing Docker?
-- [ ] Are you in the correct folder (ai-stack)?
+- [ ] O Docker Desktop está instalado?
+- [ ] O Docker Desktop está em execução? (veja o ícone da baleia 🐳)
+- [ ] Você tem conexão com a internet?
+- [ ] Você tem pelo menos 10 GB de espaço livre em disco?
+- [ ] Você reiniciou o computador depois de instalar o Docker?
+- [ ] Você está na pasta correta (ai-stack)?
 
-### Get the logs:
+### Obtenha os logs:
 
 Windows:
 ```powershell
@@ -280,30 +280,30 @@ Mac:
 ./start.sh --logs
 ```
 
-**Take a screenshot of any red error messages and ask for help!**
+**Tire uma captura de tela de quaisquer mensagens de erro em vermelho e peça ajuda!**
 
 ---
 
-## Quick Command Reference
+## Referência Rápida de Comandos
 
-| What you want | Windows | Mac |
+| O que você quer | Windows | Mac |
 |---------------|---------|-----|
-| Start | `.\start.ps1` | `./start.sh` |
-| Stop | `.\start.ps1 -Stop` | `./start.sh --stop` |
-| Check status | `.\start.ps1 -Status` | `./start.sh --status` |
-| View logs | `.\start.ps1 -Logs` | `./start.sh --logs` |
-| CPU mode | `.\start.ps1 -CPU` | `./start.sh --cpu` |
-| Skip download | `.\start.ps1 -NoPull` | `./start.sh --no-pull` |
+| Iniciar | `.\start.ps1` | `./start.sh` |
+| Parar | `.\start.ps1 -Stop` | `./start.sh --stop` |
+| Verificar status | `.\start.ps1 -Status` | `./start.sh --status` |
+| Ver logs | `.\start.ps1 -Logs` | `./start.sh --logs` |
+| Modo CPU | `.\start.ps1 -CPU` | `./start.sh --cpu` |
+| Pular download | `.\start.ps1 -NoPull` | `./start.sh --no-pull` |
 
 ---
 
-## 📞 Getting Help
+## 📞 Obtendo Ajuda
 
-When asking for help, provide:
+Ao pedir ajuda, forneça:
 
-1. **Your operating system** (Windows 10, Windows 11, Mac, etc.)
-2. **What you were trying to do**
-3. **The exact error message** (take a screenshot)
-4. **What you already tried**
+1. **Seu sistema operacional** (Windows 10, Windows 11, Mac, etc.)
+2. **O que você estava tentando fazer**
+3. **A mensagem de erro exata** (tire uma captura de tela)
+4. **O que você já tentou**
 
-This helps people help you faster! 🚀
+Isso ajuda as pessoas a te ajudarem mais rápido! 🚀

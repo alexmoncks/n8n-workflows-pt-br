@@ -1,356 +1,356 @@
 
 
-# 🎯 N8N Workflow Templates
+# 🎯 Templates de Workflow N8N
 
 #
 
-# Overview
-This directory contains reusable workflow templates that demonstrate common automation patterns found in the n8n workflows collection. These templates are designed to be easily customizable and deployable.
+# Visão Geral
+Este diretório contém templates de workflow reutilizáveis que demonstram padrões comuns de automação encontrados na coleção de workflows do n8n. Estes templates foram projetados para serem facilmente personalizáveis e implantáveis.
 
 #
 
-# Template Categories
+# Categorias de Templates
 
 #
 
-## 📧 Communication & Messaging Templates
+## 📧 Templates de Comunicação e Mensagens
 
 - **Telegram AI Bot*
 
 * 
 
-- Complete AI chatbot with image generation
+- Chatbot de IA completo com geração de imagens
 
 - **Slack Automation*
 
 * 
 
-- Advanced Slack integration patterns
+- Padrões avançados de integração com o Slack
 
 - **Email Processing*
 
 * 
 
-- Automated email handling and responses
+- Tratamento e respostas automatizadas de e-mail
 
 - **WhatsApp Integration*
 
 * 
 
-- Business messaging automation
+- Automação de mensagens para empresas
 
 #
 
-## 🔄 Data Processing Templates
+## 🔄 Templates de Processamento de Dados
 
 - **Google Sheets Automation*
 
 * 
 
-- Advanced spreadsheet operations
+- Operações avançadas de planilhas
 
 - **Database Sync*
 
 * 
 
-- Multi-database synchronization patterns
+- Padrões de sincronização entre múltiplos bancos de dados
 
 - **Data Transformation*
 
 * 
 
-- Complex data processing workflows
+- Workflows complexos de processamento de dados
 
 - **File Processing*
 
 * 
 
-- Automated file handling and conversion
+- Tratamento e conversão automatizada de arquivos
 
 #
 
-## 🛒 E-commerce Templates
+## 🛒 Templates de E-commerce
 
 - **Shopify Integration*
 
 * 
 
-- Complete e-commerce automation
+- Automação completa de e-commerce
 
 - **WooCommerce Automation*
 
 * 
 
-- WordPress e-commerce workflows
+- Workflows de e-commerce no WordPress
 
 - **Inventory Management*
 
 * 
 
-- Stock tracking and alerts
+- Controle de estoque e alertas
 
 - **Order Processing*
 
 * 
 
-- Automated order fulfillment
+- Fulfillment automatizado de pedidos
 
 #
 
-## 📊 Business Process Templates
+## 📊 Templates de Processos de Negócio
 
 - **CRM Automation*
 
 * 
 
-- Customer relationship management
+- Gestão de relacionamento com o cliente
 
 - **Lead Generation*
 
 * 
 
-- Automated lead capture and processing
+- Captura e processamento automatizado de leads
 
 - **Project Management*
 
 * 
 
-- Task and project automation
+- Automação de tarefas e projetos
 
 - **Reporting*
 
 * 
 
-- Automated report generation
+- Geração automatizada de relatórios
 
 #
 
-## 🤖 AI & Automation Templates
+## 🤖 Templates de IA e Automação
 
 - **OpenAI Integration*
 
 * 
 
-- Advanced AI workflows
+- Workflows avançados de IA
 
 - **Content Generation*
 
 * 
 
-- Automated content creation
+- Criação automatizada de conteúdo
 
 - **Language Processing*
 
 * 
 
-- Text analysis and translation
+- Análise e tradução de texto
 
 - **Image Processing*
 
 * 
 
-- Automated image manipulation
+- Manipulação automatizada de imagens
 
 #
 
-# Template Structure
+# Estrutura do Template
 
-Each template includes:
+Cada template inclui:
 
-- **Template File*
-
-* 
-
-- The n8n workflow JSON
-
-- **Documentation*
+- **Arquivo do Template*
 
 * 
 
-- Setup instructions and customization guide
+- O JSON do workflow do n8n
 
-- **Configuration*
-
-* 
-
-- Environment variables and credentials needed
-
-- **Examples*
+- **Documentação*
 
 * 
 
-- Real-world usage scenarios
+- Instruções de configuração e guia de personalização
 
-- **Customization Guide*
+- **Configuração*
 
 * 
 
-- How to modify for specific needs
+- Variáveis de ambiente e credenciais necessárias
+
+- **Exemplos*
+
+* 
+
+- Cenários de uso no mundo real
+
+- **Guia de Personalização*
+
+* 
+
+- Como modificar para necessidades específicas
 
 #
 
-# Usage Instructions
+# Instruções de Uso
 
-1. **Choose a Template*
-
-* 
-
-- Browse the categories above
-
-2. **Read Documentation*
+1. **Escolha um Template*
 
 * 
 
-- Review setup requirements
+- Navegue pelas categorias acima
 
-3. **Configure Credentials*
-
-* 
-
-- Set up required API keys
-
-4. **Import to n8n*
+2. **Leia a Documentação*
 
 * 
 
-- Load the template into your n8n instance
+- Revise os requisitos de configuração
 
-5. **Customize*
-
-* 
-
-- Modify according to your specific needs
-
-6. **Activate*
+3. **Configure as Credenciais*
 
 * 
 
-- Test and activate the workflow
+- Configure as chaves de API necessárias
+
+4. **Importe para o n8n*
+
+* 
+
+- Carregue o template na sua instância do n8n (menu de três pontos → Import from File)
+
+5. **Personalize*
+
+* 
+
+- Modifique de acordo com suas necessidades específicas
+
+6. **Ative*
+
+* 
+
+- Teste e ative o workflow
 
 #
 
-# Best Practices
+# Boas Práticas
 
 #
 
-## Before Using Templates
+## Antes de Usar os Templates
 
-- ✅ Review all credential requirements
+- ✅ Revise todos os requisitos de credenciais
 
-- ✅ Test in development environment first
+- ✅ Teste primeiro em ambiente de desenvolvimento
 
-- ✅ Understand the workflow logic
+- ✅ Entenda a lógica do workflow
 
-- ✅ Customize for your specific use case
+- ✅ Personalize para o seu caso de uso específico
 
-- ✅ Set up proper error handling
-
-#
-
-## Security Considerations
-
-- 🔒 Never commit API keys to version control
-
-- 🔒 Use environment variables for sensitive data
-
-- 🔒 Test workflows with limited permissions first
-
-- 🔒 Monitor for unusual activity
-
-- 🔒 Regular security audits
+- ✅ Configure o tratamento de erros adequado
 
 #
 
-# Contributing Templates
+## Considerações de Segurança
 
-We welcome contributions of new templates! Please follow these guidelines:
+- 🔒 Nunca faça commit de chaves de API no controle de versão
 
-1. **Use Clear Naming*
+- 🔒 Use variáveis de ambiente para dados sensíveis
 
-* 
+- 🔒 Teste os workflows primeiro com permissões limitadas
 
-- Descriptive, searchable names
+- 🔒 Monitore atividades incomuns
 
-2. **Include Documentation*
-
-* 
-
-- Comprehensive setup guides
-
-3. **Test Thoroughly*
-
-* 
-
-- Ensure templates work correctly
-
-4. **Follow Standards*
-
-* 
-
-- Use consistent structure and formatting
-
-5. **Provide Examples*
-
-* 
-
-- Include real-world use cases
+- 🔒 Auditorias de segurança regulares
 
 #
 
-# Template Development Status
+# Contribuindo com Templates
 
-- ✅ **Communication Templates*
+Aceitamos contribuições de novos templates! Por favor, siga estas diretrizes:
 
-* 
-
-- 12 templates ready
-
-- ✅ **Data Processing Templates*
+1. **Use Nomenclatura Clara*
 
 * 
 
-- 8 templates ready
+- Nomes descritivos e pesquisáveis
 
-- ✅ **E-commerce Templates*
-
-* 
-
-- 6 templates ready
-
-- ✅ **Business Process Templates*
+2. **Inclua Documentação*
 
 * 
 
-- 10 templates ready
+- Guias de configuração abrangentes
 
-- ✅ **AI & Automation Templates*
+3. **Teste Minuciosamente*
 
 * 
 
-- 7 templates ready
+- Garanta que os templates funcionem corretamente
 
-**Total Templates Available: 43*
+4. **Siga os Padrões*
+
+* 
+
+- Use estrutura e formatação consistentes
+
+5. **Forneça Exemplos*
+
+* 
+
+- Inclua casos de uso do mundo real
+
+#
+
+# Status de Desenvolvimento dos Templates
+
+- ✅ **Templates de Comunicação*
+
+* 
+
+- 12 templates prontos
+
+- ✅ **Templates de Processamento de Dados*
+
+* 
+
+- 8 templates prontos
+
+- ✅ **Templates de E-commerce*
+
+* 
+
+- 6 templates prontos
+
+- ✅ **Templates de Processos de Negócio*
+
+* 
+
+- 10 templates prontos
+
+- ✅ **Templates de IA e Automação*
+
+* 
+
+- 7 templates prontos
+
+**Total de Templates Disponíveis: 43*
 
 *
 
 #
 
-# Support
+# Suporte
 
-For template support and questions:
+Para suporte e dúvidas sobre templates:
 
-- 📖 Check the documentation in each template folder
+- 📖 Consulte a documentação em cada pasta de template
 
-- 🔍 Search existing issues and discussions
+- 🔍 Pesquise nas issues e discussões existentes
 
-- 💬 Join the community discussions
+- 💬 Participe das discussões da comunidade
 
-- 🐛 Report issues with specific templates
+- 🐛 Reporte problemas com templates específicos
 
 --
 
 -
 
-*Templates are continuously updated and improved based on community feedback and new automation patterns.
+*Os templates são continuamente atualizados e aprimorados com base no feedback da comunidade e em novos padrões de automação.
 
 *

@@ -1,45 +1,45 @@
-# 🎯 AI Stack Cheat Sheet
-**Print this page and keep it handy!**
+# 🎯 Folha de Consulta Rápida da AI Stack
+**Imprima esta página e mantenha à mão!**
 
 ---
 
-## 🚀 Starting & Stopping
+## 🚀 Iniciar e Parar
 
 ### Windows
 ```powershell
-# Start
+# Iniciar
 .\start.ps1
 
-# Stop
+# Parar
 .\start.ps1 -Stop
 
-# Check Status
+# Verificar Status
 .\start.ps1 -Status
 
-# View Logs
+# Ver Logs
 .\start.ps1 -Logs
 ```
 
 ### Mac/Linux
 ```bash
-# Start
+# Iniciar
 ./start.sh
 
-# Stop
+# Parar
 ./start.sh --stop
 
-# Check Status
+# Verificar Status
 ./start.sh --status
 
-# View Logs
+# Ver Logs
 ./start.sh --logs
 ```
 
 ---
 
-## 🌐 Service URLs
+## 🌐 URLs dos Serviços
 
-Copy these into your browser:
+Copie estes endereços no seu navegador:
 
 ```
 n8n:         http://localhost:5678
@@ -49,58 +49,58 @@ ComfyUI:     http://localhost:8188
 
 ---
 
-## 📂 Important Folders
+## 📂 Pastas Importantes
 
 ```
 ai-stack/
-├── data/n8n/              ← Your n8n workflows
-├── data/agent-zero/       ← Agent Zero data
+├── data/n8n/              ← Seus workflows do n8n
+├── data/agent-zero/       ← Dados do Agent Zero
 └── shared/
     └── comfyui/
-        ├── models/        ← Put AI models here
-        ├── output/        ← Generated images here
-        └── input/         ← Input images here
+        ├── models/        ← Coloque os modelos de IA aqui
+        ├── output/        ← Imagens geradas aqui
+        └── input/         ← Imagens de entrada aqui
 ```
 
 ---
 
-## 🎨 ComfyUI API Quick Reference
+## 🎨 Referência Rápida da API do ComfyUI
 
-### Queue an Image
+### Enfileirar uma Imagem
 ```bash
 POST http://localhost:8188/prompt
 ```
 
-### Check Status
+### Verificar Status
 ```bash
 GET http://localhost:8188/history/{prompt_id}
 ```
 
-### Get Image
+### Obter Imagem
 ```bash
 GET http://localhost:8188/view?filename={name}&type=output
 ```
 
 ---
 
-## ⚡ Quick Commands
+## ⚡ Comandos Rápidos
 
-### Docker Commands
+### Comandos do Docker
 ```bash
-# See all running containers
+# Ver todos os containers em execução
 docker ps
 
-# Stop all containers
+# Parar todos os containers
 docker stop $(docker ps -q)
 
-# Remove all containers
+# Remover todos os containers
 docker rm $(docker ps -aq)
 
-# Clean up Docker
+# Limpar o Docker
 docker system prune -a
 ```
 
-### Check if Services are Running
+### Verificar se os Serviços Estão em Execução
 ```bash
 # Windows
 curl http://localhost:5678/healthz
@@ -113,48 +113,51 @@ curl http://localhost:8188/system_stats
 
 ---
 
-## 🔧 Common Fixes
+## 🔧 Correções Comuns
 
-| Problem | Solution |
+| Problema | Solução |
 |---------|----------|
-| **Docker not running** | Open Docker Desktop, wait for whale icon 🐳 |
-| **Port in use** | Run stop command, then start again |
-| **Permission denied** | Windows: Run as Admin<br>Mac: `chmod +x start.sh` |
-| **Can't connect** | Wait 2 minutes, check Docker is running |
-| **Out of space** | Delete old files, run `docker system prune -a` |
+| **Docker não está em execução** | Abra o Docker Desktop, aguarde o ícone da baleia 🐳 |
+| **Porta em uso** | Execute o comando de parar e inicie novamente |
+| **Permissão negada** | Windows: Executar como Admin<br>Mac: `chmod +x start.sh` |
+| **Não consegue conectar** | Aguarde 2 minutos, verifique se o Docker está em execução |
+| **Sem espaço** | Apague arquivos antigos, execute `docker system prune -a` |
 
 ---
 
-## 📝 n8n Workflow Import
+## 📝 Importação de Workflow no n8n
 
-1. Open http://localhost:5678
-2. Click **"Workflows"** in sidebar
-3. Click **"Import from File"**
-4. Select workflow JSON file
-5. Click **"Save"**
-6. Click **"Active"** toggle to enable
+1. Abra http://localhost:5678
+2. Abra o workflow (ou crie um novo)
+3. Clique no menu de três pontos (⋮) no canto superior direito
+4. Clique em **"Import from File..."**
+5. Selecione o arquivo JSON do workflow
+6. Clique em **"Save"**
+7. Clique no botão **"Active"** para habilitar
+
+> 💡 Como alternativa, via linha de comando: `n8n import:workflow --input=arquivo.json`
 
 ---
 
-## 🎨 Adding Models to ComfyUI
+## 🎨 Adicionando Modelos ao ComfyUI
 
-1. Download model file (`.safetensors` or `.ckpt`)
-2. Put in correct folder:
+1. Baixe o arquivo do modelo (`.safetensors` ou `.ckpt`)
+2. Coloque na pasta correta:
    - **Checkpoints:** `shared/comfyui/models/checkpoints/`
    - **LoRAs:** `shared/comfyui/models/loras/`
    - **VAE:** `shared/comfyui/models/vae/`
-3. Restart ComfyUI (or refresh browser)
+3. Reinicie o ComfyUI (ou atualize o navegador)
 
-### Popular Model Sources
+### Fontes Populares de Modelos
 - Hugging Face: https://huggingface.co/models
 - Civitai: https://civitai.com
 - Stable Diffusion: https://huggingface.co/runwayml/stable-diffusion-v1-5
 
 ---
 
-## 🆘 Emergency Reset
+## 🆘 Reset de Emergência
 
-**⚠️ This deletes everything and starts fresh!**
+**⚠️ Isto apaga tudo e começa do zero!**
 
 ### Windows
 ```powershell
@@ -172,24 +175,24 @@ docker compose down -v
 
 ---
 
-## 📊 System Check
+## 📊 Verificação do Sistema
 
-Before starting, verify:
+Antes de iniciar, confirme:
 
-- [ ] Docker Desktop installed
-- [ ] Docker Desktop running (whale icon visible)
-- [ ] At least 10 GB free disk space
-- [ ] Internet connection working
-- [ ] In the `ai-stack` folder
+- [ ] Docker Desktop instalado
+- [ ] Docker Desktop em execução (ícone da baleia visível)
+- [ ] Pelo menos 10 GB de espaço livre em disco
+- [ ] Conexão com a internet funcionando
+- [ ] Você está na pasta `ai-stack`
 
 ---
 
-## 🎓 Learning Resources
+## 🎓 Recursos de Aprendizado
 
 ### n8n
 - Docs: https://docs.n8n.io
-- Community: https://community.n8n.io
-- YouTube: Search "n8n tutorial"
+- Comunidade: https://community.n8n.io
+- YouTube: Pesquise "n8n tutorial"
 
 ### ComfyUI
 - GitHub: https://github.com/comfyanonymous/ComfyUI
@@ -198,20 +201,20 @@ Before starting, verify:
 
 ### Agent Zero
 - GitHub: https://github.com/frdel/agent-zero
-- Docs: Check GitHub README
+- Docs: Consulte o README no GitHub
 
 ---
 
-## 💾 Backup Your Work
+## 💾 Faça Backup do Seu Trabalho
 
-### Important Files to Backup
+### Arquivos Importantes para Backup
 ```
-data/n8n/           ← Your workflows
-shared/workflows/   ← Shared workflow files
-.env                ← Your settings
+data/n8n/           ← Seus workflows
+shared/workflows/   ← Arquivos de workflow compartilhados
+.env                ← Suas configurações
 ```
 
-### Quick Backup (Copy these folders)
+### Backup Rápido (Copie estas pastas)
 ```bash
 # Windows
 xcopy /E /I data backup\data
@@ -224,41 +227,41 @@ cp -r shared backup/shared
 
 ---
 
-## 🔐 Security Reminders
+## 🔐 Lembretes de Segurança
 
-- ✅ Safe for local use (localhost only)
-- ❌ Don't expose to internet without security
-- ✅ Keep Docker Desktop updated
-- ❌ Don't share your .env file
-- ✅ Use strong passwords if enabling auth
-
----
-
-## 📞 Help Resources
-
-1. **QUICK-START.md** - 3 simple steps
-2. **EASY-INSTALL.md** - Detailed guide
-3. **TROUBLESHOOTING.md** - Fix problems
-4. **README.md** - Full documentation
-5. **SUMMARY.md** - Overview & learning path
+- ✅ Seguro para uso local (somente localhost)
+- ❌ Não exponha à internet sem segurança
+- ✅ Mantenha o Docker Desktop atualizado
+- ❌ Não compartilhe seu arquivo .env
+- ✅ Use senhas fortes se habilitar autenticação
 
 ---
 
-## ✅ Success Indicators
+## 📞 Recursos de Ajuda
 
-You know it's working when:
-
-- ✅ Whale icon 🐳 visible in taskbar/menu
-- ✅ Terminal shows "🎉 AI Stack is running!"
-- ✅ All three URLs open in browser
-- ✅ n8n shows welcome screen
-- ✅ ComfyUI shows node interface
-- ✅ Agent Zero shows chat interface
+1. **QUICK-START.md** - 3 passos simples
+2. **EASY-INSTALL.md** - Guia detalhado
+3. **TROUBLESHOOTING.md** - Resolver problemas
+4. **README.md** - Documentação completa
+5. **SUMMARY.md** - Visão geral e trilha de aprendizado
 
 ---
 
-**🎉 You're all set! Happy automating!**
+## ✅ Indicadores de Sucesso
+
+Você sabe que está funcionando quando:
+
+- ✅ Ícone da baleia 🐳 visível na barra de tarefas/menu
+- ✅ O terminal exibe "🎉 AI Stack is running!"
+- ✅ Todas as três URLs abrem no navegador
+- ✅ O n8n exibe a tela de boas-vindas
+- ✅ O ComfyUI exibe a interface de nós
+- ✅ O Agent Zero exibe a interface de chat
 
 ---
 
-*Print this page and keep it near your computer for quick reference!*
+**🎉 Tudo pronto! Boas automações!**
+
+---
+
+*Imprima esta página e mantenha perto do seu computador para consulta rápida!*

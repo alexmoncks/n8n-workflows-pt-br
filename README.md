@@ -1,4 +1,4 @@
-# n8n Workflow Collection
+# Coleção de Workflows n8n
 
 <div align="center">
 
@@ -8,56 +8,56 @@
 ![License](https://img.shields.io/badge/License-MIT-purple?style=for-the-badge)
 [![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://www.buymeacoffee.com/zie619)
 
-### The Ultimate Collection of n8n Automation Workflows
+### A Coleção Definitiva de Workflows de Automação do n8n
 
-**[Browse Online](https://zie619.github.io/n8n-workflows)** · **[Documentation](#documentation)** · **[Contributing](#contributing)** · **[License](#license)**
+**[Ver Online](https://zie619.github.io/n8n-workflows)** · **[Documentação](#documentação)** · **[Como Contribuir](#como-contribuir)** · **[Licença](#licença)**
 
 </div>
 
-## What's New
+## Novidades
 
-### Latest Updates (November 2025)
-- **Enhanced Security**: Full security audit completed, all CVEs resolved
-- **Docker Support**: Multi-platform builds for linux/amd64 and linux/arm64
-- **GitHub Pages**: Live searchable interface at [zie619.github.io/n8n-workflows](https://zie619.github.io/n8n-workflows)
-- **Performance**: 100x faster search with SQLite FTS5 integration
-- **Modern UI**: Completely redesigned interface with dark/light mode
-
----
-
-## Quick Access
-
-### Use Online (No Installation)
-Visit **[zie619.github.io/n8n-workflows](https://zie619.github.io/n8n-workflows)** for instant access to:
-- **Smart Search** — Find workflows instantly
-- **15+ Categories** — Browse by use case
-- **Mobile Ready** — Works on any device
-- **Direct Downloads** — Get workflow JSONs instantly
+### Últimas Atualizações (novembro de 2025)
+- **Segurança Reforçada**: Auditoria de segurança completa concluída, todas as CVEs resolvidas
+- **Suporte a Docker**: Builds multiplataforma para linux/amd64 e linux/arm64
+- **GitHub Pages**: Interface de busca ao vivo em [zie619.github.io/n8n-workflows](https://zie619.github.io/n8n-workflows)
+- **Desempenho**: Busca 100x mais rápida com integração SQLite FTS5
+- **Interface Moderna**: Interface totalmente redesenhada com modo claro/escuro
 
 ---
 
-## Features
+## Acesso Rápido
+
+### Use Online (Sem Instalação)
+Acesse **[zie619.github.io/n8n-workflows](https://zie619.github.io/n8n-workflows)** para uso instantâneo de:
+- **Busca Inteligente** — Encontre workflows instantaneamente
+- **Mais de 15 Categorias** — Navegue por caso de uso
+- **Pronto para Mobile** — Funciona em qualquer dispositivo
+- **Downloads Diretos** — Baixe os JSONs dos workflows instantaneamente
+
+---
+
+## Recursos
 
 <table>
 <tr>
 <td width="50%">
 
-### By The Numbers
-- **4,343** Production-Ready Workflows
-- **365** Unique Integrations
-- **29,445** Total Nodes
-- **15** Organized Categories
-- **100%** Import Success Rate
+### Em Números
+- **4.343** Workflows Prontos para Produção
+- **365** Integrações Únicas
+- **29.445** Nós no Total
+- **15** Categorias Organizadas
+- **100%** de Taxa de Sucesso na Importação
 
 </td>
 <td width="50%">
 
-### Performance
-- **< 100ms** Search Response
-- **< 50MB** Memory Usage
-- **700x** Smaller Than v1
-- **10x** Faster Load Times
-- **40x** Less RAM Usage
+### Desempenho
+- **< 100ms** de Resposta na Busca
+- **< 50MB** de Uso de Memória
+- **700x** Menor Que a v1
+- **10x** Mais Rápido no Carregamento
+- **40x** Menos Uso de RAM
 
 </td>
 </tr>
@@ -65,158 +65,208 @@ Visit **[zie619.github.io/n8n-workflows](https://zie619.github.io/n8n-workflows)
 
 ---
 
-## Local Installation
+## Instalação do n8n (Community Edition) e Importação dos Workflows
 
-### Prerequisites
-- Python 3.9+
-- pip (Python package manager)
-- 100MB free disk space
+Estes workflows são feitos para rodar no **n8n**, a plataforma de automação open source. A seguir estão as instruções da versão **community (self-hosted)** atual, além de como importar os arquivos JSON deste repositório.
 
-### Quick Start
+### Pré-requisitos
+- Docker (recomendado) **ou** Node.js 18+ (para instalação via npm)
+- Cerca de 500MB de espaço livre em disco
+
+### Opção 1 — Docker (recomendado)
 ```bash
-# Clone the repository
+# Crie um volume para persistir seus dados
+docker volume create n8n_data
+
+# Inicie o n8n community
+docker run -it --rm \
+  --name n8n \
+  -p 5678:5678 \
+  -e GENERIC_TIMEZONE="America/Sao_Paulo" \
+  -e TZ="America/Sao_Paulo" \
+  -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true \
+  -e N8N_RUNNERS_ENABLED=true \
+  -v n8n_data:/home/node/.n8n \
+  docker.n8n.io/n8nio/n8n
+
+# Abra o editor no navegador
+# http://localhost:5678
+```
+
+### Opção 2 — npm / npx
+```bash
+# Executar sem instalar (ideal para testar)
+npx n8n
+
+# Ou instalar globalmente
+npm install n8n -g
+n8n
+
+# Abra o editor no navegador
+# http://localhost:5678
+```
+
+Na primeira execução, o n8n pede para você criar a conta de proprietário (owner) local. Depois disso, o editor fica disponível em `http://localhost:5678`.
+
+### Importar um workflow deste repositório
+
+**Pela interface (Import from File):**
+1. Abra o n8n em `http://localhost:5678`.
+2. Na barra superior do editor, clique no menu de **três pontos** (canto superior direito).
+3. Selecione **Import from File...** e escolha o arquivo `.json` do workflow (da pasta `workflows/`).
+4. O workflow é carregado no editor. Clique em **Save** para mantê-lo na sua instância.
+
+**Pela interface (Import from URL):**
+1. No mesmo menu de três pontos, selecione **Import from URL...**.
+2. Cole a URL do JSON bruto (raw) do workflow no GitHub.
+3. O n8n baixa e carrega o workflow automaticamente. Clique em **Save**.
+
+**Pela linha de comando (CLI):**
+```bash
+# Importar um único workflow
+n8n import:workflow --input=arquivo-do-workflow.json
+
+# Importar todos os workflows de uma pasta
+n8n import:workflow --separate --input=./workflows
+```
+
+> **Importante:** após importar, configure as **credenciais** (chaves de API, tokens, etc.) em cada nó. Por segurança, as credenciais nunca ficam salvas nos arquivos JSON — elas são armazenadas separadamente na sua instância do n8n.
+
+### Opcional — Interface de busca local
+O repositório também inclui uma interface de busca (FastAPI) para explorar a coleção localmente:
+```bash
+# Clone o repositório
 git clone https://github.com/Zie619/n8n-workflows.git
 cd n8n-workflows
 
-# Install dependencies
+# Instale as dependências (Python 3.9+)
 pip install -r requirements.txt
 
-# Start the server
+# Inicie o servidor
 python run.py
 
-# Open in browser
-# http://localhost:8000
-```
-
-### Docker Installation
-```bash
-# Using Docker Hub
-docker run -p 8000:8000 zie619/n8n-workflows:latest
-
-# Or build locally
-docker build -t n8n-workflows .
-docker run -p 8000:8000 n8n-workflows
+# Abra no navegador: http://localhost:8000
 ```
 
 ---
 
-## Documentation
+## Documentação
 
-### API Endpoints
+### Endpoints da API
 
-| Endpoint | Method | Description |
+| Endpoint | Método | Descrição |
 |----------|--------|-------------|
-| `/` | GET | Web interface |
-| `/api/search` | GET | Search workflows |
-| `/api/stats` | GET | Repository statistics |
-| `/api/workflow/{id}` | GET | Get workflow JSON |
-| `/api/categories` | GET | List all categories |
-| `/api/export` | GET | Export workflows |
+| `/` | GET | Interface web |
+| `/api/search` | GET | Buscar workflows |
+| `/api/stats` | GET | Estatísticas do repositório |
+| `/api/workflow/{id}` | GET | Obter o JSON de um workflow |
+| `/api/categories` | GET | Listar todas as categorias |
+| `/api/export` | GET | Exportar workflows |
 
-### Search Features
-- **Full-text search** across names, descriptions, and nodes
-- **Category filtering** (Marketing, Sales, DevOps, etc.)
-- **Complexity filtering** (Low, Medium, High)
-- **Trigger type filtering** (Webhook, Schedule, Manual, etc.)
-- **Service filtering** (365+ integrations)
+### Recursos de Busca
+- **Busca em texto completo** por nomes, descrições e nós
+- **Filtro por categoria** (Marketing, Vendas, DevOps, etc.)
+- **Filtro por complexidade** (Baixa, Média, Alta)
+- **Filtro por tipo de gatilho** (Webhook, Agendamento, Manual, etc.)
+- **Filtro por serviço** (mais de 365 integrações)
 
 ---
 
-## Architecture
+## Arquitetura
 
 ```mermaid
 graph LR
-    A[User] --> B[Web Interface]
-    B --> C[FastAPI Server]
+    A[Usuário] --> B[Interface Web]
+    B --> C[Servidor FastAPI]
     C --> D[SQLite FTS5]
-    D --> E[Workflow Database]
-    C --> F[Static Files]
-    F --> G[Workflow JSONs]
+    D --> E[Banco de Workflows]
+    C --> F[Arquivos Estáticos]
+    F --> G[JSONs dos Workflows]
 ```
 
-### Tech Stack
-- **Backend**: Python, FastAPI, SQLite with FTS5
-- **Frontend**: Vanilla JS, Tailwind CSS
-- **Database**: SQLite with Full-Text Search
-- **Deployment**: Docker, GitHub Actions, GitHub Pages
-- **Security**: Trivy scanning, CORS protection, Input validation
+### Stack Tecnológica
+- **Backend**: Python, FastAPI, SQLite com FTS5
+- **Frontend**: JavaScript puro, Tailwind CSS
+- **Banco de Dados**: SQLite com Busca em Texto Completo (Full-Text Search)
+- **Deploy**: Docker, GitHub Actions, GitHub Pages
+- **Segurança**: Varredura com Trivy, proteção CORS, validação de entrada
 
 ---
 
-## Repository Structure
+## Estrutura do Repositório
 
 ```
 n8n-workflows/
-├── workflows/           # 4,343 workflow JSON files
-│   └── [category]/     # Organized by integration
-├── docs/               # GitHub Pages site
-├── src/                # Python source code
-├── scripts/            # Utility scripts
-├── api_server.py       # FastAPI application
-├── run.py              # Server launcher
-├── workflow_db.py      # Database manager
-└── requirements.txt    # Python dependencies
+├── workflows/           # 4.343 arquivos JSON de workflows
+│   └── [categoria]/     # Organizados por integração
+├── docs/               # Site do GitHub Pages
+├── src/                # Código-fonte Python
+├── scripts/            # Scripts utilitários
+├── api_server.py       # Aplicação FastAPI
+├── run.py              # Inicializador do servidor
+├── workflow_db.py      # Gerenciador do banco de dados
+└── requirements.txt    # Dependências Python
 ```
 
 ---
 
-## Contributing
+## Como Contribuir
 
-We love contributions! Here's how you can help:
+Adoramos contribuições! Veja como você pode ajudar:
 
-### Ways to Contribute
-- **Report bugs** via [Issues](https://github.com/Zie619/n8n-workflows/issues)
-- **Suggest features** in [Discussions](https://github.com/Zie619/n8n-workflows/discussions)
-- **Improve documentation**
-- **Submit workflow fixes**
-- **Star the repository**
+### Formas de Contribuir
+- **Reporte bugs** pelas [Issues](https://github.com/Zie619/n8n-workflows/issues)
+- **Sugira recursos** nas [Discussions](https://github.com/Zie619/n8n-workflows/discussions)
+- **Melhore a documentação**
+- **Envie correções de workflows**
+- **Dê uma estrela no repositório**
 
-### Development Setup
+### Ambiente de Desenvolvimento
 ```bash
-# Fork and clone
-git clone https://github.com/YOUR_USERNAME/n8n-workflows.git
+# Faça o fork e clone
+git clone https://github.com/SEU_USUARIO/n8n-workflows.git
 
-# Create branch
-git checkout -b feature/amazing-feature
+# Crie uma branch
+git checkout -b feature/recurso-incrivel
 
-# Make changes and test
+# Faça as alterações e teste
 python run.py --debug
 
-# Commit and push
+# Faça o commit e o push
 git add .
-git commit -m "feat: add amazing feature"
-git push origin feature/amazing-feature
+git commit -m "feat: adiciona recurso incrível"
+git push origin feature/recurso-incrivel
 
-# Open PR
+# Abra um PR
 ```
 
 ---
 
-## Security
+## Segurança
 
-### Security Features
-- Path traversal protection
-- Input validation & sanitization
-- CORS protection
-- Rate limiting
-- Docker security hardening
-- Non-root container user
-- Regular security scanning
+### Recursos de Segurança
+- Proteção contra path traversal
+- Validação e sanitização de entrada
+- Proteção CORS
+- Limitação de taxa (rate limiting)
+- Reforço de segurança no Docker
+- Usuário não-root no contêiner
+- Varreduras de segurança regulares
 
-### Reporting Security Issues
-Please report security vulnerabilities to the maintainers via [Security Advisory](https://github.com/Zie619/n8n-workflows/security/advisories/new).
-
----
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### Reportando Problemas de Segurança
+Por favor, reporte vulnerabilidades de segurança aos mantenedores via [Security Advisory](https://github.com/Zie619/n8n-workflows/security/advisories/new).
 
 ---
 
-## Support
+## Licença
 
-If you find this project helpful, please consider:
+Este projeto é licenciado sob a Licença MIT — consulte o arquivo [LICENSE](LICENSE) para detalhes.
+
+---
+
+## Apoie o Projeto
+
+Se este projeto foi útil para você, considere:
 
 <div align="center">
 
@@ -241,9 +291,9 @@ If you find this project helpful, please consider:
 
 <div align="center">
 
-**Star us on GitHub — it motivates us a lot!**
+**Dê uma estrela no GitHub — isso nos motiva muito!**
 
-Made with care by [Zie619](https://github.com/Zie619) and [contributors](https://github.com/Zie619/n8n-workflows/graphs/contributors)
+Feito com cuidado por [Zie619](https://github.com/Zie619) e [colaboradores](https://github.com/Zie619/n8n-workflows/graphs/contributors)
 
 <br />
 
@@ -251,8 +301,8 @@ Made with care by [Zie619](https://github.com/Zie619) and [contributors](https:/
   <img src="https://raw.githubusercontent.com/Trusera/ai-bom/main/assets/logo.png" alt="AI-BOM" width="50" />
 </a>
 
-**[AI-BOM](https://github.com/Trusera/ai-bom)** — Discover every AI agent, model, and API hiding in your infrastructure.
+**[AI-BOM](https://github.com/Trusera/ai-bom)** — Descubra todos os agentes de IA, modelos e APIs escondidos na sua infraestrutura.
 <br />
-Open source by **[Trusera](https://trusera.dev)** — Securing the Agentic Service Mesh.
+Open source pela **[Trusera](https://trusera.dev)** — Protegendo a Agentic Service Mesh.
 
 </div>

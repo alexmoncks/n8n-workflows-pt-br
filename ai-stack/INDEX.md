@@ -1,234 +1,234 @@
-# 📚 AI Stack Documentation Index
+# 📚 Índice da Documentação da AI Stack
 
-## 👋 Welcome!
+## 👋 Bem-vindo!
 
-This is your complete guide to the AI Automation Stack. Choose the guide that matches your experience level:
-
----
-
-## 🎯 Start Here
-
-### For Complete Beginners
-**Never used Docker or command line before?**
-
-1. 📖 **[EASY-INSTALL.md](EASY-INSTALL.md)** - Start here! (Windows/Mac)
-   - Step-by-step instructions with pictures
-   - Explains everything in simple terms
-   - Includes "what you see" examples
-   - Perfect for first-timers
-
-2. 🐧 **[UBUNTU-INSTALL.md](UBUNTU-INSTALL.md)** - Ubuntu/Linux users start here!
-   - Complete Ubuntu installation guide
-   - Docker setup for Linux
-   - GPU configuration for NVIDIA
-   - Ubuntu-specific troubleshooting
-
-### For Quick Setup
-**Just want to get it running fast?**
-
-2. 🚀 **[QUICK-START.md](QUICK-START.md)** - 3 simple steps
-   - Minimal instructions
-   - Get running in 5 minutes
-   - Perfect for experienced users
+Este é o seu guia completo para a AI Automation Stack. Escolha o guia que corresponde ao seu nível de experiência:
 
 ---
 
-## 📖 Reference Guides
+## 🎯 Comece Aqui
 
-### When You Need Help
-**Something not working?**
+### Para Iniciantes Completos
+**Nunca usou Docker ou linha de comando antes?**
+
+1. 📖 **[EASY-INSTALL.md](EASY-INSTALL.md)** - Comece aqui! (Windows/Mac)
+   - Instruções passo a passo com imagens
+   - Explica tudo em termos simples
+   - Inclui exemplos de "o que você vê"
+   - Perfeito para iniciantes
+
+2. 🐧 **[UBUNTU-INSTALL.md](UBUNTU-INSTALL.md)** - Usuários de Ubuntu/Linux comecem aqui!
+   - Guia completo de instalação no Ubuntu
+   - Configuração do Docker para Linux
+   - Configuração de GPU para NVIDIA
+   - Solução de problemas específica do Ubuntu
+
+### Para Configuração Rápida
+**Só quer colocar em funcionamento rápido?**
+
+2. 🚀 **[QUICK-START.md](QUICK-START.md)** - 3 passos simples
+   - Instruções mínimas
+   - Funcionando em 5 minutos
+   - Perfeito para usuários experientes
+
+---
+
+## 📖 Guias de Referência
+
+### Quando Você Precisar de Ajuda
+**Algo não está funcionando?**
 
 3. 🔧 **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)**
-   - Common problems and solutions
-   - Error message explanations
-   - Step-by-step fixes
-   - Emergency reset instructions
+   - Problemas comuns e soluções
+   - Explicações de mensagens de erro
+   - Correções passo a passo
+   - Instruções de reset de emergência
 
-### For Daily Use
-**Need quick commands?**
+### Para Uso Diário
+**Precisa de comandos rápidos?**
 
 4. 🎯 **[CHEAT-SHEET.md](CHEAT-SHEET.md)**
-   - All commands in one place
-   - Quick reference table
-   - Print this and keep it handy!
-   - Perfect for daily use
+   - Todos os comandos em um só lugar
+   - Tabela de referência rápida
+   - Imprima isto e mantenha à mão!
+   - Perfeito para uso diário
 
-### For Learning
-**Want to understand the system?**
+### Para Aprender
+**Quer entender o sistema?**
 
 5. 📋 **[SUMMARY.md](SUMMARY.md)**
-   - System overview
-   - Learning path
-   - Use cases and examples
-   - Success checklist
+   - Visão geral do sistema
+   - Trilha de aprendizado
+   - Casos de uso e exemplos
+   - Checklist de sucesso
 
-### For Advanced Users
-**Need technical details?**
+### Para Usuários Avançados
+**Precisa de detalhes técnicos?**
 
 6. 📘 **[README.md](README.md)**
-   - Complete documentation
-   - API reference
-   - Architecture details
-   - Integration guide
+   - Documentação completa
+   - Referência da API
+   - Detalhes de arquitetura
+   - Guia de integração
 
 ---
 
-## 🗺️ Suggested Reading Order
+## 🗺️ Ordem de Leitura Sugerida
 
-### Day 1: Installation
+### Dia 1: Instalação
 ```
-1. QUICK-START.md (or EASY-INSTALL.md if you're new)
-2. Get the stack running
-3. Open all three services in browser
-```
-
-### Day 2: First Steps
-```
-1. SUMMARY.md - Understand what you have
-2. Import test workflow
-3. Generate your first image
+1. QUICK-START.md (ou EASY-INSTALL.md se você for novato)
+2. Coloque a stack em funcionamento
+3. Abra os três serviços no navegador
 ```
 
-### Day 3: Learning
+### Dia 2: Primeiros Passos
 ```
-1. README.md - Learn the details
-2. Experiment with workflows
-3. Try different prompts
+1. SUMMARY.md - Entenda o que você tem
+2. Importe o workflow de teste
+3. Gere sua primeira imagem
 ```
 
-### Ongoing: Reference
+### Dia 3: Aprendizado
 ```
-1. CHEAT-SHEET.md - Keep this handy
-2. TROUBLESHOOTING.md - When things break
-3. README.md - When you need details
+1. README.md - Aprenda os detalhes
+2. Experimente com workflows
+3. Tente diferentes prompts
+```
+
+### Contínuo: Referência
+```
+1. CHEAT-SHEET.md - Mantenha à mão
+2. TROUBLESHOOTING.md - Quando algo quebrar
+3. README.md - Quando precisar de detalhes
 ```
 
 ---
 
-## 📊 Documentation Overview
+## 📊 Visão Geral da Documentação
 
-| Document | Length | Difficulty | Purpose |
+| Documento | Extensão | Dificuldade | Finalidade |
 |----------|--------|------------|---------|
-| **QUICK-START.md** | 1 page | ⭐ Easy | Get running fast |
-| **EASY-INSTALL.md** | 5 pages | ⭐ Easy | Detailed beginner guide |
-| **CHEAT-SHEET.md** | 3 pages | ⭐⭐ Medium | Quick reference |
-| **TROUBLESHOOTING.md** | 4 pages | ⭐⭐ Medium | Fix problems |
-| **SUMMARY.md** | 4 pages | ⭐⭐ Medium | Overview & learning |
-| **README.md** | 8 pages | ⭐⭐⭐ Advanced | Complete documentation |
+| **QUICK-START.md** | 1 página | ⭐ Fácil | Colocar em funcionamento rápido |
+| **EASY-INSTALL.md** | 5 páginas | ⭐ Fácil | Guia detalhado para iniciantes |
+| **CHEAT-SHEET.md** | 3 páginas | ⭐⭐ Médio | Referência rápida |
+| **TROUBLESHOOTING.md** | 4 páginas | ⭐⭐ Médio | Resolver problemas |
+| **SUMMARY.md** | 4 páginas | ⭐⭐ Médio | Visão geral e aprendizado |
+| **README.md** | 8 páginas | ⭐⭐⭐ Avançado | Documentação completa |
 
 ---
 
-## 🎓 By Experience Level
+## 🎓 Por Nível de Experiência
 
-### 🌱 Beginner (Never used Docker)
+### 🌱 Iniciante (Nunca usou Docker)
 ```
-1. EASY-INSTALL.md     ← Start here
-2. TROUBLESHOOTING.md  ← If problems
-3. CHEAT-SHEET.md      ← Print this
-4. SUMMARY.md          ← Learn more
-```
-
-### 🌿 Intermediate (Used Docker before)
-```
-1. QUICK-START.md      ← Get running
-2. SUMMARY.md          ← Understand system
-3. CHEAT-SHEET.md      ← Daily reference
-4. README.md           ← Deep dive
+1. EASY-INSTALL.md     ← Comece aqui
+2. TROUBLESHOOTING.md  ← Se tiver problemas
+3. CHEAT-SHEET.md      ← Imprima isto
+4. SUMMARY.md          ← Saiba mais
 ```
 
-### 🌳 Advanced (Know Docker well)
+### 🌿 Intermediário (Já usou Docker antes)
 ```
-1. README.md           ← Full docs
-2. docker-compose.yml  ← Customize
-3. CHEAT-SHEET.md      ← Quick ref
+1. QUICK-START.md      ← Coloque em funcionamento
+2. SUMMARY.md          ← Entenda o sistema
+3. CHEAT-SHEET.md      ← Referência diária
+4. README.md           ← Aprofunde-se
+```
+
+### 🌳 Avançado (Conhece bem o Docker)
+```
+1. README.md           ← Documentação completa
+2. docker-compose.yml  ← Personalize
+3. CHEAT-SHEET.md      ← Referência rápida
 ```
 
 ---
 
-## 🎯 By Goal
+## 🎯 Por Objetivo
 
-### "I just want it to work"
-→ **QUICK-START.md** or **EASY-INSTALL.md**
+### "Só quero que funcione"
+→ **QUICK-START.md** ou **EASY-INSTALL.md**
 
-### "Something's broken"
+### "Algo quebrou"
 → **TROUBLESHOOTING.md**
 
-### "How do I use this?"
+### "Como eu uso isto?"
 → **SUMMARY.md** → **README.md**
 
-### "What's the command for...?"
+### "Qual é o comando para...?"
 → **CHEAT-SHEET.md**
 
-### "I want to understand everything"
+### "Quero entender tudo"
 → **README.md** → **docker-compose.yml**
 
 ---
 
-## 📱 Quick Links
+## 📱 Links Rápidos
 
-### Services
+### Serviços
 - n8n: http://localhost:5678
 - Agent Zero: http://localhost:50080
 - ComfyUI: http://localhost:8188
 
 ### GitHub
 - Branch: https://github.com/insomniakin/n8n-workflows/tree/feature/ai-automation-stack
-- Create PR: https://github.com/insomniakin/n8n-workflows/pull/new/feature/ai-automation-stack
+- Criar PR: https://github.com/insomniakin/n8n-workflows/pull/new/feature/ai-automation-stack
 
-### External Resources
-- n8n Docs: https://docs.n8n.io
-- ComfyUI GitHub: https://github.com/comfyanonymous/ComfyUI
-- Agent Zero GitHub: https://github.com/frdel/agent-zero
+### Recursos Externos
+- Documentação do n8n: https://docs.n8n.io
+- GitHub do ComfyUI: https://github.com/comfyanonymous/ComfyUI
+- GitHub do Agent Zero: https://github.com/frdel/agent-zero
 - Docker Desktop: https://www.docker.com/products/docker-desktop
 
 ---
 
-## 🆘 Still Lost?
+## 🆘 Ainda Perdido?
 
-### If you're not sure where to start:
+### Se você não tem certeza por onde começar:
 
-**Complete Beginner?**
-→ Read **EASY-INSTALL.md** from start to finish
+**Iniciante Completo?**
+→ Leia o **EASY-INSTALL.md** do começo ao fim
 
-**Experienced User?**
-→ Run **QUICK-START.md** steps, then read **SUMMARY.md**
+**Usuário Experiente?**
+→ Execute os passos do **QUICK-START.md** e depois leia o **SUMMARY.md**
 
-**Something Broken?**
-→ Check **TROUBLESHOOTING.md** first
+**Algo Quebrado?**
+→ Verifique o **TROUBLESHOOTING.md** primeiro
 
-**Need a Command?**
-→ Look in **CHEAT-SHEET.md**
-
----
-
-## 💡 Pro Tips
-
-1. **Print CHEAT-SHEET.md** - Keep it by your computer
-2. **Bookmark this INDEX.md** - Quick navigation
-3. **Start with EASY-INSTALL.md** - Even if you're experienced
-4. **Read SUMMARY.md** - Understand the big picture
-5. **Keep TROUBLESHOOTING.md** handy - You'll need it eventually
+**Precisa de um Comando?**
+→ Procure no **CHEAT-SHEET.md**
 
 ---
 
-## ✅ Success Path
+## 💡 Dicas Profissionais
+
+1. **Imprima o CHEAT-SHEET.md** - Mantenha ao lado do computador
+2. **Marque este INDEX.md como favorito** - Navegação rápida
+3. **Comece com o EASY-INSTALL.md** - Mesmo que você seja experiente
+4. **Leia o SUMMARY.md** - Entenda o panorama geral
+5. **Mantenha o TROUBLESHOOTING.md** à mão - Você vai precisar dele em algum momento
+
+---
+
+## ✅ Caminho para o Sucesso
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  1. Read EASY-INSTALL.md or QUICK-START.md             │
-│  2. Install Docker Desktop                              │
-│  3. Run the start script                                │
-│  4. Open all three services                             │
-│  5. Import test workflow                                │
-│  6. Generate first image                                │
-│  7. Read SUMMARY.md to learn more                       │
-│  8. Build your own workflows                            │
-│  9. Share your creations!                               │
+│  1. Leia EASY-INSTALL.md ou QUICK-START.md             │
+│  2. Instale o Docker Desktop                            │
+│  3. Execute o script de inicialização                   │
+│  4. Abra os três serviços                               │
+│  5. Importe o workflow de teste                         │
+│  6. Gere a primeira imagem                              │
+│  7. Leia SUMMARY.md para saber mais                     │
+│  8. Construa seus próprios workflows                    │
+│  9. Compartilhe suas criações!                          │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-**🎉 You've got this! Pick a guide and get started!**
+**🎉 Você consegue! Escolha um guia e comece!**
 
-*Remember: Everyone starts as a beginner. Take your time, follow the steps, and don't be afraid to ask for help!*
+*Lembre-se: Todo mundo começa como iniciante. Vá no seu ritmo, siga os passos e não tenha medo de pedir ajuda!*

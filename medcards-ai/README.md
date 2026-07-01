@@ -1,85 +1,85 @@
 # MEDCARDS.AI 🏥
 
-> AI-powered medical residency exam preparation platform for Brazilian medical students
+> Plataforma de preparação para provas de residência médica com IA para estudantes de medicina brasileiros
 
-**MEDCARDS.AI** is not a traditional course platform. It's an intelligent study companion that adapts to each student's learning journey, delivering personalized clinical case training powered by Claude AI.
-
----
-
-## 🎯 Product Vision
-
-Students don't access modules or lessons. They engage with an AI coach that knows:
-- Exactly where they are in their preparation
-- What clinical patterns they need to master
-- How to get them to approval
-
-**Three core screens:**
-1. **Battle Dashboard** - Real-time clinical competency metrics
-2. **Training Arena** - Adaptive case presentations with AI feedback
-3. **War Room** - Personal AI tutor with complete memory
+O **MEDCARDS.AI** não é uma plataforma de cursos tradicional. É um companheiro de estudos inteligente que se adapta à jornada de aprendizagem de cada estudante, entregando treinamento personalizado com casos clínicos, impulsionado pela Claude AI.
 
 ---
 
-## 🏗️ Architecture
+## 🎯 Visão do Produto
 
-### Brutally Simple Stack
+Os estudantes não acessam módulos ou aulas. Eles interagem com um coach de IA que sabe:
+- Exatamente onde eles estão na preparação
+- Quais padrões clínicos precisam dominar
+- Como levá-los até a aprovação
+
+**Três telas principais:**
+1. **Battle Dashboard** - Métricas de competência clínica em tempo real
+2. **Training Arena** - Apresentações adaptativas de casos com feedback de IA
+3. **War Room** - Tutor de IA pessoal com memória completa
+
+---
+
+## 🏗️ Arquitetura
+
+### Stack Brutalmente Simples
 
 ```
 Frontend:  Next.js 14 (App Router) + Tailwind CSS + Shadcn UI
-Backend:   Next.js Server Actions (no separate backend)
-Database:  Supabase (PostgreSQL with RLS)
+Backend:   Next.js Server Actions (sem backend separado)
+Database:  Supabase (PostgreSQL com RLS)
 AI:        Anthropic Claude Sonnet 4 API
-Deploy:    Vercel (one-click deployment)
+Deploy:    Vercel (deploy com um clique)
 ```
 
-### Why This Stack?
+### Por Que Esta Stack?
 
-- **Next.js 14**: Server Components + Server Actions = full-stack in one codebase
-- **Supabase**: PostgreSQL with built-in auth, RLS, real-time subscriptions
-- **Shadcn UI**: Copy-paste beautiful components, customize instantly
-- **Claude AI**: State-of-the-art reasoning for medical education
-- **Vercel**: Push to deploy, automatic scaling, zero DevOps
+- **Next.js 14**: Server Components + Server Actions = full-stack em uma única base de código
+- **Supabase**: PostgreSQL com auth embutido, RLS, assinaturas em tempo real
+- **Shadcn UI**: Componentes bonitos de copiar e colar, personalizáveis instantaneamente
+- **Claude AI**: Raciocínio de ponta para educação médica
+- **Vercel**: Push para fazer deploy, escalonamento automático, zero DevOps
 
-**Deploy time**: 30 minutes from zero to production.
+**Tempo de deploy**: 30 minutos do zero à produção.
 
 ---
 
-## 📁 Project Structure
+## 📁 Estrutura do Projeto
 
 ```
 medcards-ai/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── (auth)/            # Authentication routes
+│   │   ├── (auth)/            # Rotas de autenticação
 │   │   ├── dashboard/         # Battle Dashboard
 │   │   ├── arena/             # Training Arena
-│   │   ├── war-room/          # AI Tutor Chat
-│   │   └── layout.tsx         # Root layout
-│   ├── components/            # React components
-│   │   ├── ui/               # Shadcn UI components
-│   │   ├── dashboard/        # Dashboard-specific
-│   │   ├── arena/            # Arena-specific
-│   │   └── shared/           # Shared components
-│   ├── lib/                   # Core business logic
-│   │   ├── ai/               # Claude AI integration
-│   │   │   └── claude.ts     # AI functions (coach, feedback, tutor)
-│   │   ├── supabase/         # Database utilities
-│   │   │   └── client.ts     # Supabase clients
-│   │   ├── adaptive/         # Adaptive engine logic
-│   │   ├── gamification/     # Badges & progression
+│   │   ├── war-room/          # Chat do Tutor de IA
+│   │   └── layout.tsx         # Layout raiz
+│   ├── components/            # Componentes React
+│   │   ├── ui/               # Componentes Shadcn UI
+│   │   ├── dashboard/        # Específicos do dashboard
+│   │   ├── arena/            # Específicos da arena
+│   │   └── shared/           # Componentes compartilhados
+│   ├── lib/                   # Lógica de negócio principal
+│   │   ├── ai/               # Integração com Claude AI
+│   │   │   └── claude.ts     # Funções de IA (coach, feedback, tutor)
+│   │   ├── supabase/         # Utilitários de banco de dados
+│   │   │   └── client.ts     # Clientes Supabase
+│   │   ├── adaptive/         # Lógica do motor adaptativo
+│   │   ├── gamification/     # Badges & progressão
 │   │   └── utils/            # Helpers
-│   └── types/                # TypeScript types
-│       └── database.ts       # Database schema types
+│   └── types/                # Tipos TypeScript
+│       └── database.ts       # Tipos do schema do banco de dados
 ├── supabase/
-│   ├── schema.sql            # Database schema
-│   ├── seed-cases.sql        # Initial clinical cases
-│   └── migrations/           # Database migrations
+│   ├── schema.sql            # Schema do banco de dados
+│   ├── seed-cases.sql        # Casos clínicos iniciais
+│   └── migrations/           # Migrações do banco de dados
 ├── prompts/
-│   ├── coach-prompt.md       # AI Coach instructions
-│   ├── feedback-prompt.md    # AI Feedback generator
-│   └── tutor-prompt.md       # AI Tutor (chat)
-├── public/                   # Static assets
-├── .env.example              # Environment template
+│   ├── coach-prompt.md       # Instruções do Coach de IA
+│   ├── feedback-prompt.md    # Gerador de Feedback de IA
+│   └── tutor-prompt.md       # Tutor de IA (chat)
+├── public/                   # Assets estáticos
+├── .env.example              # Template de ambiente
 ├── package.json
 ├── tsconfig.json
 ├── tailwind.config.ts
@@ -88,16 +88,16 @@ medcards-ai/
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Início Rápido
 
-### Prerequisites
+### Pré-requisitos
 
 - Node.js 18+
-- npm or yarn
-- Supabase account (free tier works)
-- Anthropic API key (Claude access)
+- npm ou yarn
+- Conta Supabase (o plano gratuito funciona)
+- Chave de API da Anthropic (acesso ao Claude)
 
-### 1. Clone and Install
+### 1. Clonar e Instalar
 
 ```bash
 git clone <repository-url>
@@ -105,27 +105,27 @@ cd medcards-ai
 npm install
 ```
 
-### 2. Set Up Supabase
+### 2. Configurar o Supabase
 
-1. Create project at [supabase.com](https://supabase.com)
-2. Run the schema:
+1. Crie um projeto em [supabase.com](https://supabase.com)
+2. Execute o schema:
    ```bash
-   # Copy schema to Supabase SQL Editor and run
+   # Copie o schema para o SQL Editor do Supabase e execute
    cat supabase/schema.sql
    ```
-3. (Optional) Seed initial cases:
+3. (Opcional) Faça o seed dos casos iniciais:
    ```bash
    cat supabase/seed-cases.sql
    ```
-4. Get your credentials from Project Settings → API
+4. Obtenha suas credenciais em Project Settings → API
 
-### 3. Configure Environment
+### 3. Configurar o Ambiente
 
 ```bash
 cp .env.example .env.local
 ```
 
-Edit `.env.local`:
+Edite o `.env.local`:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=your-project-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
@@ -133,284 +133,284 @@ SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
 ANTHROPIC_API_KEY=sk-ant-your-api-key
 ```
 
-### 4. Run Development Server
+### 4. Rodar o Servidor de Desenvolvimento
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Abra [http://localhost:3000](http://localhost:3000)
 
-### 5. Deploy to Production
+### 5. Fazer Deploy para Produção
 
 ```bash
-# Connect to Vercel
+# Conectar ao Vercel
 npx vercel
 
 # Deploy
 npx vercel --prod
 ```
 
-Add environment variables in Vercel dashboard.
+Adicione as variáveis de ambiente no dashboard do Vercel.
 
-**Done.** Your platform is live.
+**Pronto.** Sua plataforma está no ar.
 
 ---
 
-## 🧠 Core Systems
+## 🧠 Sistemas Principais
 
-### 1. Adaptive Engine
+### 1. Motor Adaptativo
 
-**Purpose**: Select next optimal case for each student
+**Objetivo**: Selecionar o próximo caso ideal para cada estudante
 
-**Algorithm**:
+**Algoritmo**:
 ```
-1. Calculate competency by specialty (weighted by recency)
-2. Identify gaps (success_rate < 65%)
-3. Select next case:
-   - 60%: Address critical gaps
-   - 30%: Reinforce strengths
-   - 10%: Explore new areas
-4. Claude AI validates selection and prepares coaching
+1. Calcular competência por especialidade (ponderada pela recência)
+2. Identificar lacunas (success_rate < 65%)
+3. Selecionar o próximo caso:
+   - 60%: Abordar lacunas críticas
+   - 30%: Reforçar pontos fortes
+   - 10%: Explorar novas áreas
+4. Claude AI valida a seleção e prepara o coaching
 ```
 
-**Location**: `src/lib/adaptive/engine.ts`
+**Localização**: `src/lib/adaptive/engine.ts`
 
-### 2. AI Coach System
+### 2. Sistema de Coach de IA
 
-**Three Specialized Prompts**:
+**Três Prompts Especializados**:
 
 1. **Coach Prompt** (`prompts/coach-prompt.md`)
-   - Analyzes student history
-   - Selects optimal next case
-   - Prepares graduated hints
-   - Returns structured JSON
+   - Analisa o histórico do estudante
+   - Seleciona o próximo caso ideal
+   - Prepara dicas graduadas
+   - Retorna JSON estruturado
 
 2. **Feedback Prompt** (`prompts/feedback-prompt.md`)
-   - Analyzes student's answer
-   - Identifies reasoning gaps
-   - Provides detailed clinical explanation
-   - Suggests next practice steps
+   - Analisa a resposta do estudante
+   - Identifica lacunas de raciocínio
+   - Fornece explicação clínica detalhada
+   - Sugere próximos passos de prática
 
 3. **Tutor Prompt** (`prompts/tutor-prompt.md`)
-   - Conversational coaching
-   - Complete memory of student journey
-   - Specific, data-driven advice
-   - Motivational support
+   - Coaching conversacional
+   - Memória completa da jornada do estudante
+   - Conselhos específicos e orientados por dados
+   - Apoio motivacional
 
-**Integration**: `src/lib/ai/claude.ts`
+**Integração**: `src/lib/ai/claude.ts`
 
-### 3. Gamification System
+### 3. Sistema de Gamificação
 
 **Badges**:
-- First Win, Streaks, Speed, Specialty Mastery
-- Auto-unlock via Supabase triggers
-- Animated celebrations (Framer Motion)
+- Primeira Vitória, Sequências, Velocidade, Domínio de Especialidade
+- Desbloqueio automático via triggers do Supabase
+- Comemorações animadas (Framer Motion)
 
-**Progression**:
-- Experience points per case
-- Level-up system
-- Unlock advanced cases at higher levels
+**Progressão**:
+- Pontos de experiência por caso
+- Sistema de subida de nível
+- Desbloqueio de casos avançados em níveis mais altos
 
-**Location**: `src/lib/gamification/`
+**Localização**: `src/lib/gamification/`
 
 ---
 
-## 📊 Database Schema
+## 📊 Schema do Banco de Dados
 
-### Core Tables
+### Tabelas Principais
 
 **users**
-- Profile, progress (JSONB), preferences, subscription
+- Perfil, progresso (JSONB), preferências, assinatura
 
 **clinical_cases**
-- Case content, options, explanations
-- Difficulty, specialty, tags
-- Global statistics (success rate, avg time)
+- Conteúdo do caso, opções, explicações
+- Dificuldade, especialidade, tags
+- Estatísticas globais (taxa de acerto, tempo médio)
 
 **interactions**
-- Every student answer recorded
-- AI feedback stored as JSONB
-- Used for adaptive algorithm
+- Cada resposta do estudante é registrada
+- Feedback de IA armazenado como JSONB
+- Usado pelo algoritmo adaptativo
 
 **chat_history**
-- AI Tutor conversations
-- Full context maintained
+- Conversas do Tutor de IA
+- Contexto completo mantido
 
 **badges** + **user_badges**
-- Gamification achievements
+- Conquistas de gamificação
 
-### Key Features
+### Recursos-Chave
 
-- **Row Level Security (RLS)**: Users only see their own data
-- **Automatic triggers**: Update case statistics on interaction
-- **JSONB fields**: Flexible progress tracking without schema changes
-- **Indexes**: Optimized for common queries
+- **Row Level Security (RLS)**: Usuários só veem seus próprios dados
+- **Triggers automáticos**: Atualizam as estatísticas dos casos a cada interação
+- **Campos JSONB**: Rastreamento flexível de progresso sem alterações de schema
+- **Índices**: Otimizados para consultas comuns
 
-**Full schema**: `supabase/schema.sql`
+**Schema completo**: `supabase/schema.sql`
 
 ---
 
 ## 🎨 Design System
 
-### Colors
+### Cores
 
-- **Primary Blue** (`#0A2463`): Medical trust, main actions
-- **Surgical Green** (`#06D6A0`): Success, correct answers
-- **Alert Red** (`#EF4444`): Errors, critical alerts
-- **Gray Scale**: Interface neutrals
+- **Azul Primário** (`#0A2463`): Confiança médica, ações principais
+- **Verde Cirúrgico** (`#06D6A0`): Sucesso, respostas corretas
+- **Vermelho de Alerta** (`#EF4444`): Erros, alertas críticos
+- **Escala de Cinza**: Neutros da interface
 
-### Typography
+### Tipografia
 
-- **Interface**: Inter (excellent legibility)
-- **Clinical Content**: Crimson Pro (serious medical feel)
+- **Interface**: Inter (excelente legibilidade)
+- **Conteúdo Clínico**: Crimson Pro (sensação médica séria)
 
-### Spacing
+### Espaçamento
 
-Mathematical scale (8px base): 8, 16, 24, 32, 48, 64
-Creates subconscious visual consistency.
+Escala matemática (base de 8px): 8, 16, 24, 32, 48, 64
+Cria uma consistência visual subconsciente.
 
-### Animations
+### Animações
 
-- Fade in: Content loading
-- Slide up: New cases
-- Pulse success: Correct answer feedback
-- Confetti: Badge unlocked
+- Fade in: Carregamento de conteúdo
+- Slide up: Novos casos
+- Pulse success: Feedback de resposta correta
+- Confetti: Badge desbloqueada
 
 **Config**: `tailwind.config.ts`
 
 ---
 
-## 🛠️ Development Workflow
+## 🛠️ Fluxo de Desenvolvimento
 
-### Sprint-Based Implementation
+### Implementação Baseada em Sprints
 
-**8 weeks to MVP** (following spec in `CLAUDE.md`):
+**8 semanas até o MVP** (seguindo a spec em `CLAUDE.md`):
 
-1. **Week 1**: Foundation (schema, auth, deploy)
-2. **Week 2**: Battle Dashboard
-3. **Week 3**: Training Arena (basic)
-4. **Week 4**: AI Integration (Claude feedback)
-5. **Week 5**: War Room (chat)
-6. **Week 6**: Adaptive Engine
-7. **Week 7**: Gamification
-8. **Week 8**: Polish & Analytics
+1. **Semana 1**: Fundação (schema, auth, deploy)
+2. **Semana 2**: Battle Dashboard
+3. **Semana 3**: Training Arena (básica)
+4. **Semana 4**: Integração de IA (feedback do Claude)
+5. **Semana 5**: War Room (chat)
+6. **Semana 6**: Motor Adaptativo
+7. **Semana 7**: Gamificação
+8. **Semana 8**: Polimento & Analytics
 
-### Key Commands
+### Comandos-Chave
 
 ```bash
-# Development
-npm run dev              # Start dev server
-npm run build            # Production build
-npm run type-check       # TypeScript validation
+# Desenvolvimento
+npm run dev              # Iniciar servidor de dev
+npm run build            # Build de produção
+npm run type-check       # Validação de TypeScript
 npm run lint             # ESLint
 
-# Database
-npm run db:migrate       # Run migrations (if using Supabase CLI)
-npm run db:seed          # Seed initial cases
+# Banco de Dados
+npm run db:migrate       # Rodar migrações (se usar o Supabase CLI)
+npm run db:seed          # Fazer seed dos casos iniciais
 
-# Deployment
-npx vercel --prod        # Deploy to production
+# Deploy
+npx vercel --prod        # Deploy para produção
 ```
 
 ---
 
-## 📈 Metrics That Matter
+## 📈 Métricas Que Importam
 
-Track **only these four** weekly:
+Acompanhe **apenas estas quatro** semanalmente:
 
-1. **Retention Day 7**: % users returning after 1 week
-   - Target: 40% (initial) → 60% (post-PMF)
+1. **Retenção Dia 7**: % de usuários que retornam após 1 semana
+   - Meta: 40% (inicial) → 60% (pós-PMF)
 
-2. **Cases per Session**: How many cases per study session
-   - Target: 8-12 cases
+2. **Casos por Sessão**: Quantos casos por sessão de estudo
+   - Meta: 8-12 casos
 
-3. **Time to First Win**: Minutes until first 3-case streak
-   - Target: < 15 minutes
+3. **Tempo até a Primeira Vitória**: Minutos até a primeira sequência de 3 casos
+   - Meta: < 15 minutos
 
-4. **Conversion Free→Paid**: % paying after 50 cases
-   - Target: 10% (initial) → 25% (optimized)
+4. **Conversão Free→Paid**: % que paga após 50 casos
+   - Meta: 10% (inicial) → 25% (otimizado)
 
-**Ignore**: Total users, page views, time on app (vanity metrics)
-
----
-
-## 🔐 Security & Privacy
-
-- **Authentication**: Supabase Auth (email/password, social login)
-- **Authorization**: Row Level Security (RLS) on all tables
-- **API Keys**: Server-side only (never exposed to client)
-- **Data Privacy**: Student data never shared, LGPD compliant
+**Ignore**: Total de usuários, page views, tempo no app (métricas de vaidade)
 
 ---
 
-## 🧪 Testing Strategy
+## 🔐 Segurança & Privacidade
 
-### Current State
-Manual testing during development (indie hacker MVP approach)
-
-### Future (Post-PMF)
-- Unit tests: Critical business logic (adaptive engine)
-- Integration tests: AI response parsing
-- E2E tests: Critical user flows (Playwright)
-
-**Philosophy**: Ship fast, test what breaks in production, then add tests.
+- **Autenticação**: Supabase Auth (email/senha, login social)
+- **Autorização**: Row Level Security (RLS) em todas as tabelas
+- **Chaves de API**: Apenas no lado do servidor (nunca expostas ao cliente)
+- **Privacidade de Dados**: Dados dos estudantes nunca compartilhados, em conformidade com a LGPD
 
 ---
 
-## 📚 Key Files Reference
+## 🧪 Estratégia de Testes
 
-| File | Purpose |
+### Estado Atual
+Testes manuais durante o desenvolvimento (abordagem de MVP indie hacker)
+
+### Futuro (Pós-PMF)
+- Testes unitários: Lógica de negócio crítica (motor adaptativo)
+- Testes de integração: Parsing das respostas da IA
+- Testes E2E: Fluxos críticos de usuário (Playwright)
+
+**Filosofia**: Lançar rápido, testar o que quebra em produção e depois adicionar testes.
+
+---
+
+## 📚 Referência de Arquivos-Chave
+
+| Arquivo | Objetivo |
 |------|---------|
-| `supabase/schema.sql` | Complete database schema |
-| `prompts/coach-prompt.md` | AI case selection instructions |
-| `prompts/feedback-prompt.md` | AI answer analysis instructions |
-| `prompts/tutor-prompt.md` | AI chat conversation instructions |
-| `src/lib/ai/claude.ts` | Claude API integration |
-| `src/lib/supabase/client.ts` | Database utilities |
-| `src/types/database.ts` | TypeScript type definitions |
-| `tailwind.config.ts` | Design system configuration |
+| `supabase/schema.sql` | Schema completo do banco de dados |
+| `prompts/coach-prompt.md` | Instruções de seleção de casos da IA |
+| `prompts/feedback-prompt.md` | Instruções de análise de resposta da IA |
+| `prompts/tutor-prompt.md` | Instruções de conversa do chat de IA |
+| `src/lib/ai/claude.ts` | Integração com a API do Claude |
+| `src/lib/supabase/client.ts` | Utilitários de banco de dados |
+| `src/types/database.ts` | Definições de tipo TypeScript |
+| `tailwind.config.ts` | Configuração do design system |
 
 ---
 
-## 🤝 Contributing
+## 🤝 Contribuindo
 
-This is an indie hacker project optimized for solo development. Contributions welcome but keep these principles:
+Este é um projeto indie hacker otimizado para desenvolvimento solo. Contribuições são bem-vindas, mas mantenha estes princípios:
 
-1. **Simplicity over features**: No unnecessary complexity
-2. **Ship fast**: Working code > perfect code
-3. **Data-driven**: Every feature must move core metrics
-4. **User-first**: If students don't need it, don't build it
-
----
-
-## 📄 License
-
-[Add your license here]
+1. **Simplicidade acima de recursos**: Sem complexidade desnecessária
+2. **Lançar rápido**: Código que funciona > código perfeito
+3. **Orientado por dados**: Todo recurso deve mover as métricas principais
+4. **Usuário em primeiro lugar**: Se os estudantes não precisam, não construa
 
 ---
 
-## 🙋 Support
+## 📄 Licença
+
+[Adicione sua licença aqui]
+
+---
+
+## 🙋 Suporte
 
 - **Issues**: GitHub Issues
-- **Discussions**: GitHub Discussions
-- **Email**: [your-email]
+- **Discussões**: GitHub Discussions
+- **Email**: [seu-email]
 
 ---
 
-## 🎓 For Medical Students
+## 🎓 Para Estudantes de Medicina
 
-**MEDCARDS.AI** is built by developers who understand:
-- The stress of residency exams
-- The need for personalized, adaptive learning
-- That your time is precious
+O **MEDCARDS.AI** é feito por desenvolvedores que entendem:
+- O estresse das provas de residência
+- A necessidade de aprendizagem personalizada e adaptativa
+- Que o seu tempo é precioso
 
-Our mission: **Get you approved with minimum study time and maximum confidence.**
+Nossa missão: **Aprovar você com o mínimo de tempo de estudo e o máximo de confiança.**
 
-Start training: [Deploy your instance or visit medcards.ai]
+Comece a treinar: [Faça o deploy da sua instância ou visite medcards.ai]
 
 ---
 
-**Built with ❤️ for Brazilian medical residents**
+**Feito com ❤️ para residentes médicos brasileiros**
 
 *Stack: Next.js 14 • Supabase • Claude AI • Vercel*

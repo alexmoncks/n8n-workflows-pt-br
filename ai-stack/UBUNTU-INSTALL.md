@@ -1,237 +1,237 @@
-# 🐧 Ubuntu Installation Guide
-## AI Automation Stack for Ubuntu/Linux
+# 🐧 Guia de Instalação no Ubuntu
+## AI Automation Stack para Ubuntu/Linux
 
 ---
 
-## ✅ Step 1: Install Docker on Ubuntu
+## ✅ Passo 1: Instale o Docker no Ubuntu
 
-### Open Terminal
-Press `Ctrl + Alt + T` to open Terminal
+### Abra o Terminal
+Pressione `Ctrl + Alt + T` para abrir o Terminal
 
-### Check if Docker is Already Installed
+### Verifique se o Docker Já Está Instalado
 ```bash
 docker --version
 ```
 
-If you see a version number, skip to Step 2. Otherwise, continue:
+Se você vir um número de versão, pule para o Passo 2. Caso contrário, continue:
 
-### Install Docker
-Copy and paste these commands one at a time:
+### Instale o Docker
+Copie e cole estes comandos, um de cada vez:
 
 ```bash
-# Update package list
+# Atualiza a lista de pacotes
 sudo apt update
 
-# Install required packages
+# Instala os pacotes necessários
 sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 
-# Add Docker's official GPG key
+# Adiciona a chave GPG oficial do Docker
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 
-# Add Docker repository
+# Adiciona o repositório do Docker
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-# Update package list again
+# Atualiza a lista de pacotes novamente
 sudo apt update
 
-# Install Docker
+# Instala o Docker
 sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-# Add your user to docker group (so you don't need sudo)
+# Adiciona seu usuário ao grupo docker (para não precisar de sudo)
 sudo usermod -aG docker $USER
 
-# Apply the new group membership
+# Aplica a nova associação de grupo
 newgrp docker
 ```
 
-### Verify Docker Installation
+### Verifique a Instalação do Docker
 ```bash
 docker --version
 docker compose version
 ```
 
-You should see version numbers for both.
+Você deverá ver números de versão para ambos.
 
 ---
 
-## 📥 Step 2: Download the AI Stack
+## 📥 Passo 2: Baixe a AI Stack
 
-### Option A: Using Git (Recommended)
+### Opção A: Usando Git (Recomendado)
 ```bash
-# Install git if you don't have it
+# Instala o git caso não o tenha
 sudo apt install -y git
 
-# Clone the repository
+# Clona o repositório
 git clone https://github.com/insomniakin/n8n-workflows.git
 
-# Go to the ai-stack folder
+# Entra na pasta ai-stack
 cd n8n-workflows/ai-stack
 ```
 
-### Option B: Download ZIP
+### Opção B: Baixar o ZIP
 ```bash
-# Install wget and unzip if you don't have them
+# Instala o wget e o unzip caso não os tenha
 sudo apt install -y wget unzip
 
-# Download the repository
+# Baixa o repositório
 wget https://github.com/insomniakin/n8n-workflows/archive/refs/heads/feature/ai-automation-stack.zip
 
-# Unzip it
+# Descompacta
 unzip feature/ai-automation-stack.zip
 
-# Go to the ai-stack folder
+# Entra na pasta ai-stack
 cd n8n-workflows-feature-ai-automation-stack/ai-stack
 ```
 
 ---
 
-## 🚀 Step 3: Start the AI Stack
+## 🚀 Passo 3: Inicie a AI Stack
 
-### Make the Script Executable
+### Torne o Script Executável
 ```bash
 chmod +x start.sh
 ```
 
-### Run the Stack
+### Execute a Stack
 ```bash
 ./start.sh
 ```
 
-### What You'll See
-The script will:
-1. ✓ Check Docker is installed
-2. ✓ Check Docker is running
-3. ✓ Detect your GPU (if you have NVIDIA)
-4. ✓ Create necessary folders
-5. ✓ Pull Docker images (this takes 5-10 minutes first time)
-6. ✓ Start all services
+### O Que Você Verá
+O script irá:
+1. ✓ Verificar se o Docker está instalado
+2. ✓ Verificar se o Docker está em execução
+3. ✓ Detectar sua GPU (se você tiver uma NVIDIA)
+4. ✓ Criar as pastas necessárias
+5. ✓ Baixar as imagens do Docker (isto leva de 5 a 10 minutos na primeira vez)
+6. ✓ Iniciar todos os serviços
 
-### Wait for Success Message
+### Aguarde a Mensagem de Sucesso
 ```
 🎉 AI Stack is running!
 ```
 
 ---
 
-## 🌐 Step 4: Open the Services
+## 🌐 Passo 4: Abra os Serviços
 
-Open your web browser (Firefox, Chrome, etc.) and go to:
+Abra seu navegador (Firefox, Chrome, etc.) e acesse:
 
-### n8n (Workflow Automation)
+### n8n (Automação de Workflows)
 ```
 http://localhost:5678
 ```
 
-### Agent Zero (AI Assistant)
+### Agent Zero (Assistente de IA)
 ```
 http://localhost:50080
 ```
 
-### ComfyUI (Image Generation)
+### ComfyUI (Geração de Imagens)
 ```
 http://localhost:8188
 ```
 
 ---
 
-## 🎮 Quick Commands
+## 🎮 Comandos Rápidos
 
-### Start the Stack
+### Iniciar a Stack
 ```bash
 ./start.sh
 ```
 
-### Stop the Stack
+### Parar a Stack
 ```bash
 ./start.sh --stop
 ```
 
-### Check Status
+### Verificar Status
 ```bash
 ./start.sh --status
 ```
 
-### View Logs
+### Ver Logs
 ```bash
 ./start.sh --logs
 ```
 
-### Force CPU Mode (No GPU)
+### Forçar Modo CPU (Sem GPU)
 ```bash
 ./start.sh --cpu
 ```
 
 ---
 
-## 🔧 Ubuntu-Specific Troubleshooting
+## 🔧 Solução de Problemas Específica do Ubuntu
 
-### Problem: "Permission denied" when running docker
+### Problema: "Permission denied" ao executar o docker
 
-**Solution:**
+**Solução:**
 ```bash
-# Add yourself to docker group
+# Adiciona você ao grupo docker
 sudo usermod -aG docker $USER
 
-# Log out and log back in, or run:
+# Faça logout e login novamente, ou execute:
 newgrp docker
 
-# Try again
+# Tente novamente
 ./start.sh
 ```
 
-### Problem: "Cannot connect to Docker daemon"
+### Problema: "Cannot connect to Docker daemon"
 
-**Solution:**
+**Solução:**
 ```bash
-# Start Docker service
+# Inicia o serviço do Docker
 sudo systemctl start docker
 
-# Enable Docker to start on boot
+# Habilita o Docker para iniciar no boot
 sudo systemctl enable docker
 
-# Check status
+# Verifica o status
 sudo systemctl status docker
 ```
 
-### Problem: Port already in use
+### Problema: Porta já em uso
 
-**Solution:**
+**Solução:**
 ```bash
-# Find what's using the port
+# Descobre o que está usando a porta
 sudo lsof -i :5678
 sudo lsof -i :8188
 sudo lsof -i :50080
 
-# Kill the process (replace PID with actual number)
+# Encerra o processo (substitua PID pelo número real)
 sudo kill -9 PID
 
-# Or just restart
+# Ou simplesmente reinicie
 sudo reboot
 ```
 
-### Problem: Not enough disk space
+### Problema: Espaço em disco insuficiente
 
-**Solution:**
+**Solução:**
 ```bash
-# Check disk space
+# Verifica o espaço em disco
 df -h
 
-# Clean up Docker
+# Limpa o Docker
 docker system prune -a
 
-# Clean up apt cache
+# Limpa o cache do apt
 sudo apt clean
 sudo apt autoremove
 ```
 
-### Problem: NVIDIA GPU not detected
+### Problema: GPU NVIDIA não detectada
 
-**Solution:**
+**Solução:**
 ```bash
-# Install NVIDIA drivers
+# Instala os drivers NVIDIA
 sudo ubuntu-drivers autoinstall
 
-# Install NVIDIA Container Toolkit
+# Instala o NVIDIA Container Toolkit
 distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
 curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
@@ -239,76 +239,76 @@ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.li
 sudo apt update
 sudo apt install -y nvidia-container-toolkit
 
-# Restart Docker
+# Reinicia o Docker
 sudo systemctl restart docker
 
-# Test GPU
+# Testa a GPU
 docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
 ```
 
 ---
 
-## 🔥 Firewall Configuration (Optional)
+## 🔥 Configuração de Firewall (Opcional)
 
-If you want to access from other computers on your network:
+Se você quiser acessar a partir de outros computadores na sua rede:
 
 ```bash
-# Allow ports through firewall
+# Libera as portas no firewall
 sudo ufw allow 5678/tcp
 sudo ufw allow 8188/tcp
 sudo ufw allow 50080/tcp
 
-# Enable firewall if not already enabled
+# Habilita o firewall caso ainda não esteja habilitado
 sudo ufw enable
 
-# Check status
+# Verifica o status
 sudo ufw status
 ```
 
 ---
 
-## 📊 System Requirements
+## 📊 Requisitos de Sistema
 
-### Minimum (CPU Mode)
-- Ubuntu 20.04 or newer
-- 8 GB RAM
-- 20 GB free disk space
-- Any modern CPU
+### Mínimo (Modo CPU)
+- Ubuntu 20.04 ou mais recente
+- 8 GB de RAM
+- 20 GB de espaço livre em disco
+- Qualquer CPU moderna
 
-### Recommended (GPU Mode)
-- Ubuntu 20.04 or newer
-- 16 GB RAM
-- 50 GB free disk space
-- NVIDIA GPU with 6+ GB VRAM
-- NVIDIA drivers installed
+### Recomendado (Modo GPU)
+- Ubuntu 20.04 ou mais recente
+- 16 GB de RAM
+- 50 GB de espaço livre em disco
+- GPU NVIDIA com 6+ GB de VRAM
+- Drivers NVIDIA instalados
 
 ---
 
-## 🆘 Quick Help Commands
+## 🆘 Comandos de Ajuda Rápida
 
-### Check Docker Status
+### Verificar o Status do Docker
 ```bash
 sudo systemctl status docker
 ```
 
-### Check Running Containers
+### Verificar os Containers em Execução
 ```bash
 docker ps
 ```
 
-### Check Docker Logs
+### Verificar os Logs do Docker
 ```bash
 docker compose logs -f
 ```
 
-### Restart Everything
+### Reiniciar Tudo
 ```bash
 ./start.sh --stop
 docker system prune -f
 ./start.sh
 ```
 
-### Complete Reset (Deletes All Data!)
+### Reset Completo (Apaga Todos os Dados!)
 ```bash
 ./start.sh --stop
 docker compose down -v
@@ -318,11 +318,11 @@ rm -rf data/ shared/
 
 ---
 
-## 💡 Ubuntu Pro Tips
+## 💡 Dicas Profissionais para Ubuntu
 
-### 1. Create Desktop Shortcuts
+### 1. Criar Atalhos na Área de Trabalho
 
-Create a file `~/Desktop/ai-stack.desktop`:
+Crie um arquivo `~/Desktop/ai-stack.desktop`:
 ```bash
 cat > ~/Desktop/ai-stack.desktop << 'EOF'
 [Desktop Entry]
@@ -337,14 +337,14 @@ EOF
 chmod +x ~/Desktop/ai-stack.desktop
 ```
 
-### 2. Auto-Start on Boot
+### 2. Iniciar Automaticamente no Boot
 
 ```bash
-# Create systemd service
+# Cria o serviço systemd
 sudo nano /etc/systemd/system/ai-stack.service
 ```
 
-Paste this:
+Cole isto:
 ```ini
 [Unit]
 Description=AI Automation Stack
@@ -363,54 +363,54 @@ User=YOUR_USERNAME
 WantedBy=multi-user.target
 ```
 
-Replace `YOUR_USERNAME` with your actual username, then:
+Substitua `YOUR_USERNAME` pelo seu nome de usuário real e, em seguida:
 ```bash
 sudo systemctl enable ai-stack
 sudo systemctl start ai-stack
 ```
 
-### 3. Monitor Resources
+### 3. Monitorar Recursos
 
 ```bash
-# Install htop for better monitoring
+# Instala o htop para melhor monitoramento
 sudo apt install -y htop
 
-# Watch Docker stats
+# Acompanha as estatísticas do Docker
 docker stats
 
-# Watch GPU usage (if NVIDIA)
+# Acompanha o uso da GPU (se NVIDIA)
 watch -n 1 nvidia-smi
 ```
 
 ---
 
-## ✅ Success Checklist
+## ✅ Checklist de Sucesso
 
-- [ ] Docker installed and running
-- [ ] Repository downloaded
-- [ ] In the ai-stack folder
-- [ ] start.sh is executable
-- [ ] Script ran successfully
-- [ ] All three URLs open in browser
-- [ ] n8n shows welcome screen
-- [ ] ComfyUI shows interface
-- [ ] Agent Zero shows chat
+- [ ] Docker instalado e em execução
+- [ ] Repositório baixado
+- [ ] Você está na pasta ai-stack
+- [ ] start.sh é executável
+- [ ] Script executado com sucesso
+- [ ] Todas as três URLs abrem no navegador
+- [ ] n8n exibe a tela de boas-vindas
+- [ ] ComfyUI exibe a interface
+- [ ] Agent Zero exibe o chat
 
 ---
 
-## 🎉 You're All Set!
+## 🎉 Tudo Pronto!
 
-Your AI Automation Stack is now running on Ubuntu!
+Sua AI Automation Stack agora está em execução no Ubuntu!
 
-### Next Steps:
-1. Import the test workflow: `workflows/comfyui-simple-test.json`
-2. Try generating your first image
-3. Read SUMMARY.md to learn more
-4. Build your own workflows!
+### Próximos Passos:
+1. Importe o workflow de teste: `workflows/comfyui-simple-test.json`
+2. Tente gerar sua primeira imagem
+3. Leia o SUMMARY.md para saber mais
+4. Construa seus próprios workflows!
 
-### Need More Help?
-- **General Guide:** README.md
-- **Troubleshooting:** TROUBLESHOOTING.md
-- **Quick Reference:** CHEAT-SHEET.md
+### Precisa de Mais Ajuda?
+- **Guia Geral:** README.md
+- **Solução de Problemas:** TROUBLESHOOTING.md
+- **Referência Rápida:** CHEAT-SHEET.md
 
-**Happy automating! 🚀**
+**Boas automações! 🚀**

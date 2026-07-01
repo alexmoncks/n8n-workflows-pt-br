@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N8N Workflows - Mobile App</title>
+    <title>N8N Workflows - App Mobile</title>
     <style>
         * {
             margin: 0;
@@ -237,41 +237,41 @@
     <div class="app-container">
         <div class="header">
             <h1>🚀 N8N Workflows</h1>
-            <p>Mobile Automation Platform</p>
+            <p>Plataforma de Automação Mobile</p>
         </div>
         
         <div class="search-container">
-            <input type="text" class="search-box" placeholder="Search workflows..." id="searchInput">
+            <input type="text" class="search-box" placeholder="Buscar workflows..." id="searchInput">
             <div class="filters">
-                <button class="filter-btn active" data-trigger="all">All</button>
+                <button class="filter-btn active" data-trigger="all">Todos</button>
                 <button class="filter-btn" data-trigger="Webhook">Webhook</button>
-                <button class="filter-btn" data-trigger="Scheduled">Scheduled</button>
+                <button class="filter-btn" data-trigger="Scheduled">Agendado</button>
                 <button class="filter-btn" data-trigger="Manual">Manual</button>
-                <button class="filter-btn" data-trigger="Complex">Complex</button>
+                <button class="filter-btn" data-trigger="Complex">Complexo</button>
             </div>
         </div>
         
         <div class="stats-grid" id="statsGrid">
             <div class="stat-card">
                 <div class="stat-number" id="totalWorkflows">-</div>
-                <div class="stat-label">Total Workflows</div>
+                <div class="stat-label">Total de Workflows</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="activeWorkflows">-</div>
-                <div class="stat-label">Active</div>
+                <div class="stat-label">Ativos</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="integrations">-</div>
-                <div class="stat-label">Integrations</div>
+                <div class="stat-label">Integrações</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="nodes">-</div>
-                <div class="stat-label">Total Nodes</div>
+                <div class="stat-label">Total de Nós</div>
             </div>
         </div>
         
         <div class="workflows-list" id="workflowsList">
-            <div class="loading">Loading workflows...</div>
+            <div class="loading">Carregando workflows...</div>
         </div>
     </div>
     
@@ -317,7 +317,7 @@
             } catch (error) {
                 console.error('Error loading workflows:', error);
                 document.getElementById('workflowsList').innerHTML = 
-                    '<div class="error">Failed to load workflows. Please try again.</div>';
+                    '<div class="error">Não foi possível carregar os workflows. Tente novamente.</div>';
             }
         }
         
@@ -325,7 +325,7 @@
             const container = document.getElementById('workflowsList');
             
             if (workflows.length === 0) {
-                container.innerHTML = '<div class="loading">No workflows found</div>';
+                container.innerHTML = '<div class="loading">Nenhum workflow encontrado</div>';
                 return;
             }
             
@@ -336,12 +336,12 @@
                     <div class="workflow-meta">
                         <span class="meta-tag">${workflow.trigger_type}</span>
                         <span class="meta-tag">${workflow.complexity}</span>
-                        <span class="meta-tag">${workflow.node_count} nodes</span>
-                        ${workflow.active ? '<span class="meta-tag" style="background: #d4edda; color: #155724;">Active</span>' : ''}
+                        <span class="meta-tag">${workflow.node_count} nós</span>
+                        ${workflow.active ? '<span class="meta-tag" style="background: #d4edda; color: #155724;">Ativo</span>' : ''}
                     </div>
                     <div class="workflow-actions">
-                        <button class="action-btn btn-primary" onclick="viewWorkflow('${workflow.filename}')">View</button>
-                        <button class="action-btn btn-secondary" onclick="downloadWorkflow('${workflow.filename}')">Download</button>
+                        <button class="action-btn btn-primary" onclick="viewWorkflow('${workflow.filename}')">Ver</button>
+                        <button class="action-btn btn-secondary" onclick="downloadWorkflow('${workflow.filename}')">Baixar</button>
                     </div>
                 </div>
             `).join('');

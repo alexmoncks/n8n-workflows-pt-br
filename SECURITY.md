@@ -1,99 +1,99 @@
-# Security Policy
+# Política de Segurança
 
-## Reporting Security Vulnerabilities
+## Reportando Vulnerabilidades de Segurança
 
-If you discover a security vulnerability in this project, please report it responsibly by emailing the maintainers directly. Do not create public issues for security vulnerabilities.
+Se você descobrir uma vulnerabilidade de segurança neste projeto, por favor reporte-a de forma responsável enviando um e-mail diretamente aos mantenedores. Não crie issues públicas para vulnerabilidades de segurança.
 
-## Security Fixes Applied (November 2025)
+## Correções de Segurança Aplicadas (Novembro de 2025)
 
-### 1. Path Traversal Vulnerability (Fixed)
-**Issue #48**: Previously, the API server was vulnerable to path traversal attacks on Windows systems.
+### 1. Vulnerabilidade de Path Traversal (Corrigida)
+**Issue #48**: Anteriormente, o servidor da API era vulnerável a ataques de path traversal em sistemas Windows.
 
-**Fix Applied**:
-- Added comprehensive filename validation with `validate_filename()` function
-- Blocks all path traversal patterns including:
-  - Parent directory references (`..`, `../`, `..\\`)
-  - URL-encoded traversal attempts (`..%5c`, `..%2f`)
-  - Absolute paths and drive letters
-  - Shell special characters and wildcards
-- Uses `Path.resolve()` and `relative_to()` for defense in depth
-- Applied to all file-access endpoints:
+**Correção Aplicada**:
+- Adicionada validação abrangente de nome de arquivo com a função `validate_filename()`
+- Bloqueia todos os padrões de path traversal, incluindo:
+  - Referências a diretório pai (`..`, `../`, `..\\`)
+  - Tentativas de traversal codificadas em URL (`..%5c`, `..%2f`)
+  - Caminhos absolutos e letras de drive
+  - Caracteres especiais de shell e wildcards
+- Usa `Path.resolve()` e `relative_to()` para defesa em profundidade
+- Aplicada a todos os endpoints de acesso a arquivos:
   - `/api/workflows/{filename}`
   - `/api/workflows/{filename}/download`
   - `/api/workflows/{filename}/diagram`
 
-### 2. CORS Misconfiguration (Fixed)
-**Previously**: CORS was configured with `allow_origins=["*"]`, allowing any website to access the API.
+### 2. Configuração Incorreta de CORS (Corrigida)
+**Anteriormente**: O CORS estava configurado com `allow_origins=["*"]`, permitindo que qualquer site acessasse a API.
 
-**Fix Applied**:
-- Restricted CORS origins to specific allowed domains:
-  - Local development ports (3000, 8000, 8080)
+**Correção Aplicada**:
+- Restringiu as origens CORS a domínios permitidos específicos:
+  - Portas de desenvolvimento local (3000, 8000, 8080)
   - GitHub Pages (`https://zie619.github.io`)
-  - Community deployment (`https://n8n-workflows-1-xxgm.onrender.com`)
-- Restricted allowed methods to only `GET` and `POST`
-- Restricted allowed headers to `Content-Type` and `Authorization`
+  - Implantação da comunidade (`https://n8n-workflows-1-xxgm.onrender.com`)
+- Restringiu os métodos permitidos apenas a `GET` e `POST`
+- Restringiu os cabeçalhos permitidos a `Content-Type` e `Authorization`
 
-### 3. Unauthenticated Reindex Endpoint (Fixed)
-**Previously**: The `/api/reindex` endpoint could be called by anyone, potentially causing DoS.
+### 3. Endpoint de Reindexação Não Autenticado (Corrigido)
+**Anteriormente**: O endpoint `/api/reindex` podia ser chamado por qualquer pessoa, potencialmente causando DoS.
 
-**Fix Applied**:
-- Added authentication requirement via `admin_token` query parameter
-- Token must match `ADMIN_TOKEN` environment variable
-- If no token is configured, the endpoint is disabled
-- Added rate limiting to prevent abuse
-- Logs all reindex attempts with client IP
+**Correção Aplicada**:
+- Adicionado requisito de autenticação por meio do parâmetro de query `admin_token`
+- O token deve corresponder à variável de ambiente `ADMIN_TOKEN`
+- Se nenhum token for configurado, o endpoint fica desabilitado
+- Adicionado rate limiting para prevenir abuso
+- Registra em log todas as tentativas de reindexação com o IP do cliente
 
-### 4. Rate Limiting (Added)
-**New Security Feature**:
-- Implemented rate limiting (60 requests per minute per IP)
-- Applied to all sensitive endpoints
-- Prevents brute force and DoS attacks
-- Returns HTTP 429 when limit exceeded
+### 4. Rate Limiting (Adicionado)
+**Novo Recurso de Segurança**:
+- Implementado rate limiting (60 requisições por minuto por IP)
+- Aplicado a todos os endpoints sensíveis
+- Previne ataques de força bruta e DoS
+- Retorna HTTP 429 quando o limite é excedido
 
-## Security Configuration
+## Configuração de Segurança
 
-### Environment Variables
+### Variáveis de Ambiente
 ```bash
-# Required for reindex endpoint
+# Necessário para o endpoint de reindexação
 export ADMIN_TOKEN="your-secure-random-token"
 
-# Optional: Configure rate limiting (default: 60)
+# Opcional: configurar o rate limiting (padrão: 60)
 # MAX_REQUESTS_PER_MINUTE=60
 ```
 
-### CORS Configuration
-To add additional allowed origins, modify the `ALLOWED_ORIGINS` list in `api_server.py`:
+### Configuração de CORS
+Para adicionar origens permitidas adicionais, modifique a lista `ALLOWED_ORIGINS` em `api_server.py`:
 
 ```python
 ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8000",
-    "https://your-domain.com",  # Add your production domain
+    "https://your-domain.com",  # Adicione seu domínio de produção
 ]
 ```
 
-## Security Best Practices
+## Boas Práticas de Segurança
 
-1. **Environment Variables**: Never commit sensitive tokens or credentials to the repository
-2. **HTTPS Only**: Always use HTTPS in production (HTTP is only for local development)
-3. **Regular Updates**: Keep all dependencies updated to patch known vulnerabilities
-4. **Monitoring**: Monitor logs for suspicious activity patterns
-5. **Backup**: Regular backups of the workflows database
+1. **Variáveis de Ambiente**: Nunca faça commit de tokens ou credenciais sensíveis no repositório
+2. **Somente HTTPS**: Sempre use HTTPS em produção (HTTP é apenas para desenvolvimento local)
+3. **Atualizações Regulares**: Mantenha todas as dependências atualizadas para corrigir vulnerabilidades conhecidas
+4. **Monitoramento**: Monitore os logs em busca de padrões de atividade suspeita
+5. **Backup**: Backups regulares do banco de dados de workflows
 
-## Security Checklist for Deployment
+## Checklist de Segurança para Implantação
 
-- [ ] Set strong `ADMIN_TOKEN` environment variable
-- [ ] Configure CORS origins for your specific domain
-- [ ] Use HTTPS with valid SSL certificate
-- [ ] Enable firewall rules to restrict access
-- [ ] Set up monitoring and alerting
-- [ ] Review and rotate admin tokens regularly
-- [ ] Keep Python and all dependencies updated
-- [ ] Use a reverse proxy (nginx/Apache) with additional security headers
+- [ ] Definir uma variável de ambiente `ADMIN_TOKEN` forte
+- [ ] Configurar as origens CORS para o seu domínio específico
+- [ ] Usar HTTPS com certificado SSL válido
+- [ ] Habilitar regras de firewall para restringir o acesso
+- [ ] Configurar monitoramento e alertas
+- [ ] Revisar e rotacionar os tokens de admin regularmente
+- [ ] Manter o Python e todas as dependências atualizados
+- [ ] Usar um reverse proxy (nginx/Apache) com cabeçalhos de segurança adicionais
 
-## Additional Security Headers (Recommended)
+## Cabeçalhos de Segurança Adicionais (Recomendado)
 
-When deploying behind a reverse proxy, add these headers:
+Ao implantar por trás de um reverse proxy, adicione estes cabeçalhos:
 
 ```nginx
 add_header X-Frame-Options "SAMEORIGIN";
@@ -103,19 +103,19 @@ add_header Content-Security-Policy "default-src 'self'";
 add_header Strict-Transport-Security "max-age=31536000; includeSubDomains";
 ```
 
-## Vulnerability Disclosure Timeline
+## Cronograma de Divulgação de Vulnerabilidades
 
-| Date | Issue | Status | Fixed Version |
+| Data | Issue | Status | Versão Corrigida |
 |------|-------|--------|---------------|
-| Oct 2025 | Path Traversal (#48) | Fixed | 2.0.1 |
-| Nov 2025 | CORS Misconfiguration | Fixed | 2.0.1 |
-| Nov 2025 | Unauthenticated Reindex | Fixed | 2.0.1 |
+| Out 2025 | Path Traversal (#48) | Corrigida | 2.0.1 |
+| Nov 2025 | Configuração Incorreta de CORS | Corrigida | 2.0.1 |
+| Nov 2025 | Reindexação Não Autenticada | Corrigida | 2.0.1 |
 
-## Credits
+## Créditos
 
-Security issues reported by:
-- Path Traversal: Community contributor via Issue #48
+Problemas de segurança reportados por:
+- Path Traversal: Contribuidor da comunidade via Issue #48
 
-## Contact
+## Contato
 
-For security concerns, please contact the maintainers privately.
+Para questões de segurança, entre em contato com os mantenedores de forma privada.

@@ -1,32 +1,32 @@
-# MEDCARDS.AI - Product Strategy & Network Effects Architecture
+# MEDCARDS.AI - Estratégia de Produto & Arquitetura de Efeitos de Rede
 
-## 🎯 Product Vision: From Tool to Platform
+## 🎯 Visão do Produto: De Ferramenta a Plataforma
 
-**Current State**: Individual study tool (MVP)
-**Future State**: Network-powered medical education platform with defensible moats
+**Estado Atual**: Ferramenta de estudo individual (MVP)
+**Estado Futuro**: Plataforma de educação médica potencializada por rede, com fossos defensáveis
 
 ---
 
-## 🔄 Network Effects Strategy
+## 🔄 Estratégia de Efeitos de Rede
 
-### 1. **Data Network Effect** (Primary Moat)
+### 1. **Efeito de Rede de Dados** (Fosso Principal)
 
-#### The Flywheel
+#### O Flywheel
 ```
-More Students → More Interactions → Better AI Predictions →
-Better Learning Outcomes → More Students → ...
+Mais Estudantes → Mais Interações → Melhores Previsões da IA →
+Melhores Resultados de Aprendizagem → Mais Estudantes → ...
 ```
 
-**Implementation:**
+**Implementação:**
 
-Every interaction improves the system for ALL users:
+Toda interação melhora o sistema para TODOS os usuários:
 
 ```typescript
-// Database additions to existing schema
+// Adições ao schema existente do banco de dados
 CREATE TABLE case_difficulty_calibration (
   case_id UUID REFERENCES clinical_cases(id),
-  actual_difficulty_score NUMERIC, -- Calculated from real user performance
-  expected_vs_actual_delta NUMERIC, -- How off were we?
+  actual_difficulty_score NUMERIC, -- Calculado a partir do desempenho real dos usuários
+  expected_vs_actual_delta NUMERIC, -- O quanto erramos?
   sample_size INTEGER,
   confidence_level NUMERIC,
   updated_at TIMESTAMP
@@ -42,25 +42,25 @@ CREATE TABLE prediction_model_versions (
 );
 ```
 
-**Value Proposition:**
-- First 1,000 users: AI accuracy ~70%
-- At 10,000 users: AI accuracy ~85%
-- At 100,000 users: AI accuracy ~95%
+**Proposta de Valor:**
+- Primeiros 1.000 usuários: precisão da IA ~70%
+- Em 10.000 usuários: precisão da IA ~85%
+- Em 100.000 usuários: precisão da IA ~95%
 
-**→ Late entrants can never match prediction quality without the data**
+**→ Entrantes tardios nunca conseguirão igualar a qualidade das previsões sem os dados**
 
 ---
 
-### 2. **Content Network Effect** (Secondary Moat)
+### 2. **Efeito de Rede de Conteúdo** (Fosso Secundário)
 
-#### Community-Contributed Cases
+#### Casos Contribuídos pela Comunidade
 
-**Phase 1: Curated Contributions**
+**Fase 1: Contribuições Curadas**
 ```typescript
 CREATE TABLE community_cases (
   id UUID PRIMARY KEY,
   created_by_user_id UUID REFERENCES users(id),
-  case_content JSONB, -- Same structure as clinical_cases
+  case_content JSONB, -- Mesma estrutura de clinical_cases
   status TEXT CHECK (status IN ('draft', 'submitted', 'under_review', 'approved', 'rejected')),
   community_rating NUMERIC,
   times_used INTEGER DEFAULT 0,
@@ -68,7 +68,7 @@ CREATE TABLE community_cases (
   curator_notes TEXT,
   approved_by_user_id UUID REFERENCES users(id),
   approved_at TIMESTAMP,
-  earnings_generated NUMERIC DEFAULT 0 -- For revenue sharing
+  earnings_generated NUMERIC DEFAULT 0 -- Para compartilhamento de receita
 );
 
 CREATE TABLE case_reviews (
@@ -78,28 +78,28 @@ CREATE TABLE case_reviews (
   clinical_accuracy_score INTEGER CHECK (1 <= score <= 5),
   educational_value_score INTEGER CHECK (1 <= score <= 5),
   review_text TEXT,
-  is_expert_review BOOLEAN DEFAULT false -- Verified doctors/professors
+  is_expert_review BOOLEAN DEFAULT false -- Médicos/professores verificados
 );
 ```
 
-**Incentive Mechanics:**
-- Users who create approved cases earn credits
-- Credits = access to premium features OR cash payout
-- Top contributors get "Verified Educator" badge
-- Cases that perform well (high success in teaching) earn more
+**Mecânica de Incentivos:**
+- Usuários que criam casos aprovados ganham créditos
+- Créditos = acesso a recursos premium OU pagamento em dinheiro
+- Os maiores contribuidores recebem o badge "Educador Verificado"
+- Casos com bom desempenho (alto sucesso no ensino) ganham mais
 
-**Network Effect:**
-- 1,000 users → ~50 quality cases/month
-- 10,000 users → ~500 quality cases/month
-- 100,000 users → ~5,000 quality cases/month
+**Efeito de Rede:**
+- 1.000 usuários → ~50 casos de qualidade/mês
+- 10.000 usuários → ~500 casos de qualidade/mês
+- 100.000 usuários → ~5.000 casos de qualidade/mês
 
-**→ Library becomes impossible to replicate**
+**→ A biblioteca torna-se impossível de replicar**
 
 ---
 
-### 3. **Social Learning Network Effect**
+### 3. **Efeito de Rede de Aprendizagem Social**
 
-#### Study Groups & Peer Competition
+#### Grupos de Estudo & Competição entre Pares
 
 ```typescript
 CREATE TABLE study_groups (
@@ -111,12 +111,12 @@ CREATE TABLE study_groups (
   member_limit INTEGER,
   created_at TIMESTAMP,
 
-  -- Group configuration
+  -- Configuração do grupo
   focus_specialties TEXT[],
   target_exam TEXT, -- "REVALIDA 2025", "USP Clínica Médica", etc.
-  study_schedule JSONB, -- When they study together
+  study_schedule JSONB, -- Quando eles estudam juntos
 
-  -- Group stats
+  -- Estatísticas do grupo
   total_cases_solved INTEGER DEFAULT 0,
   avg_group_success_rate NUMERIC,
   active_members_count INTEGER
@@ -127,7 +127,7 @@ CREATE TABLE study_group_members (
   user_id UUID REFERENCES users(id),
   joined_at TIMESTAMP,
   role TEXT CHECK (role IN ('owner', 'admin', 'member')),
-  contribution_score INTEGER DEFAULT 0, -- Based on activity
+  contribution_score INTEGER DEFAULT 0, -- Baseado na atividade
   PRIMARY KEY (group_id, user_id)
 );
 
@@ -137,7 +137,7 @@ CREATE TABLE group_challenges (
   created_by_user_id UUID REFERENCES users(id),
   challenge_type TEXT, -- "speed_run", "accuracy_battle", "specialty_mastery"
 
-  case_pool UUID[], -- Array of case IDs for this challenge
+  case_pool UUID[], -- Array de IDs de casos para este desafio
   start_time TIMESTAMP,
   end_time TIMESTAMP,
 
@@ -164,37 +164,37 @@ CREATE TABLE peer_interactions (
 );
 ```
 
-**Social Features:**
+**Recursos Sociais:**
 
-1. **Study Groups**
-   - Create private/public groups
-   - Compete on group leaderboards
-   - Shared progress tracking
-   - Group study sessions (everyone does same cases simultaneously)
+1. **Grupos de Estudo**
+   - Criar grupos privados/públicos
+   - Competir em rankings de grupo
+   - Acompanhamento de progresso compartilhado
+   - Sessões de estudo em grupo (todos fazem os mesmos casos simultaneamente)
 
-2. **Peer Challenges**
-   - "Beat my time on this cardiology case!"
-   - Weekly group tournaments
-   - Specialty mastery races
+2. **Desafios entre Pares**
+   - "Bata meu tempo neste caso de cardiologia!"
+   - Torneios semanais em grupo
+   - Corridas de domínio de especialidade
 
-3. **Collaborative Learning**
-   - Ask peer who scored high: "How did you approach this?"
-   - Share case explanations
-   - Study buddy matching algorithm
+3. **Aprendizagem Colaborativa**
+   - Pergunte ao colega que teve nota alta: "Como você abordou isso?"
+   - Compartilhar explicações de casos
+   - Algoritmo de pareamento de parceiros de estudo
 
-**Network Effect:**
-- Student invites 3 friends to their study group
-- Friends see their progress and want to compete
-- Group creates challenges → more engagement
-- Students stay because their friends are here
+**Efeito de Rede:**
+- O estudante convida 3 amigos para seu grupo de estudo
+- Os amigos veem o progresso dele e querem competir
+- O grupo cria desafios → mais engajamento
+- Os estudantes ficam porque seus amigos estão aqui
 
-**→ Social lock-in (WhatsApp effect)**
+**→ Retenção social (efeito WhatsApp)**
 
 ---
 
-### 4. **Marketplace Network Effect**
+### 4. **Efeito de Rede de Marketplace**
 
-#### Two-Sided Market: Students ↔ Educators
+#### Mercado de Dois Lados: Estudantes ↔ Educadores
 
 ```typescript
 CREATE TABLE premium_content (
@@ -205,7 +205,7 @@ CREATE TABLE premium_content (
   title TEXT NOT NULL,
   description TEXT,
   price_credits INTEGER,
-  price_reais NUMERIC, -- For direct purchase
+  price_reais NUMERIC, -- Para compra direta
 
   content_metadata JSONB,
   /*
@@ -218,13 +218,13 @@ CREATE TABLE premium_content (
   }
   */
 
-  -- Performance metrics
+  -- Métricas de desempenho
   purchases_count INTEGER DEFAULT 0,
   avg_rating NUMERIC,
   review_count INTEGER,
   revenue_generated NUMERIC,
 
-  is_verified BOOLEAN DEFAULT false, -- Verified quality
+  is_verified BOOLEAN DEFAULT false, -- Qualidade verificada
   created_at TIMESTAMP
 );
 
@@ -243,13 +243,13 @@ CREATE TABLE creator_profiles (
   credentials TEXT, -- "Médico residente R3 Cardiologia USP"
   bio TEXT,
 
-  -- Creator stats
+  -- Estatísticas do criador
   total_content_created INTEGER DEFAULT 0,
   total_revenue_earned NUMERIC DEFAULT 0,
   follower_count INTEGER DEFAULT 0,
   avg_content_rating NUMERIC,
 
-  -- Payout info
+  -- Informações de pagamento
   payout_method TEXT,
   payout_details JSONB
 );
@@ -262,248 +262,248 @@ CREATE TABLE creator_followers (
 );
 ```
 
-**Marketplace Mechanics:**
+**Mecânica do Marketplace:**
 
-**For Students:**
-- Buy specialized case packs from top educators
-- Subscribe to favorite creators
-- Access expert-made content
-- Get 1-on-1 AI tutoring sessions (premium)
+**Para Estudantes:**
+- Comprar pacotes de casos especializados dos melhores educadores
+- Assinar criadores favoritos
+- Acessar conteúdo feito por especialistas
+- Obter sessões de tutoria de IA 1-a-1 (premium)
 
-**For Educators:**
-- Create and sell content
-- Earn 70% of sales (platform keeps 30%)
-- Build following and reputation
-- Verified badges for credentials
+**Para Educadores:**
+- Criar e vender conteúdo
+- Ganhar 70% das vendas (a plataforma fica com 30%)
+- Construir seguidores e reputação
+- Badges verificados para credenciais
 
-**Network Effect:**
-- More students → attract more educators (bigger market)
-- More educators → more quality content → attract more students
-- Best educators make real money → more educators join
-- Platform becomes THE marketplace for medical ed content
+**Efeito de Rede:**
+- Mais estudantes → atraem mais educadores (mercado maior)
+- Mais educadores → mais conteúdo de qualidade → atraem mais estudantes
+- Os melhores educadores ganham dinheiro de verdade → mais educadores entram
+- A plataforma torna-se O marketplace de conteúdo de educação médica
 
-**→ Two-sided marketplace moat**
-
----
-
-## 🏰 Defensible Moats Summary
-
-### 1. **Data Moat** (Strongest)
-- Millions of student-case interactions
-- Proprietary adaptive algorithm trained on real performance
-- Prediction accuracy improves with scale
-- **Time to replicate**: 3-5 years minimum
-
-### 2. **Network Effects Moat**
-- Social graph (study groups, peer learning)
-- Content library (community cases)
-- Marketplace (two-sided)
-- **Switching cost**: Lose all friends, content, progress
-
-### 3. **Brand & Community Moat**
-- "The platform where serious residents study"
-- Community trust and identity
-- User-generated content and culture
-- **Intangible but powerful**
-
-### 4. **Regulatory/Trust Moat** (Future)
-- Official partnerships with medical schools
-- Endorsements from medical councils
-- Verified by actual residency programs
-- **Exclusive relationships**
-
-### 5. **Technology Moat**
-- Proprietary AI architecture
-- Medical-specific NLP models
-- Clinical reasoning engine
-- **Patent-pending algorithms**
+**→ Fosso de marketplace de dois lados**
 
 ---
 
-## 💰 SaaS Business Model Evolution
+## 🏰 Resumo dos Fossos Defensáveis
 
-### Phase 1: Freemium (Launch - 12 months)
+### 1. **Fosso de Dados** (O Mais Forte)
+- Milhões de interações estudante-caso
+- Algoritmo adaptativo proprietário treinado em desempenho real
+- Precisão de previsão melhora com a escala
+- **Tempo para replicar**: 3-5 anos no mínimo
 
-**Free Tier:**
-- 10 cases/day
-- Basic AI feedback
-- Solo study only
-- Generic study plan
+### 2. **Fosso de Efeitos de Rede**
+- Grafo social (grupos de estudo, aprendizagem entre pares)
+- Biblioteca de conteúdo (casos da comunidade)
+- Marketplace (dois lados)
+- **Custo de troca**: Perder todos os amigos, conteúdo, progresso
 
-**Premium ($29/month or R$149/month):**
-- Unlimited cases
-- Advanced AI tutor (chat)
-- Study groups & challenges
-- Personalized adaptive learning
-- Performance analytics
-- Badge system
-- 100 credits/month for marketplace
+### 3. **Fosso de Marca & Comunidade**
+- "A plataforma onde residentes sérios estudam"
+- Confiança e identidade da comunidade
+- Conteúdo e cultura gerados pelo usuário
+- **Intangível, mas poderoso**
 
-**Conversion Strategy:**
-- Free tier proves value
-- Hit daily limit → upgrade friction point
-- Study group invites from premium users
-- "Your friends are Premium, join them"
+### 4. **Fosso Regulatório/de Confiança** (Futuro)
+- Parcerias oficiais com escolas de medicina
+- Endossos de conselhos médicos
+- Verificado por programas de residência reais
+- **Relacionamentos exclusivos**
 
-**Target**: 10% conversion (industry standard)
-
----
-
-### Phase 2: Tiered SaaS (12-24 months)
-
-**Free:** 5 cases/day
-**Basic ($19/month):** 20 cases/day + groups
-**Pro ($39/month):** Unlimited + AI tutor + analytics
-**Elite ($79/month):** Everything + marketplace credits + priority support + verified mentor matching
-
-**New Revenue Stream: Credits**
-- Buy credits for marketplace
-- $10 = 100 credits
-- Spend on premium cases, tutoring, etc.
+### 5. **Fosso de Tecnologia**
+- Arquitetura de IA proprietária
+- Modelos de NLP específicos para medicina
+- Motor de raciocínio clínico
+- **Algoritmos com patente pendente**
 
 ---
 
-### Phase 3: B2B SaaS (18+ months)
+## 💰 Evolução do Modelo de Negócio SaaS
 
-**Target**: Medical Schools & Prep Courses
+### Fase 1: Freemium (Lançamento - 12 meses)
 
-**School Plans:**
-- $999/month for 100 students
-- $4,999/month for unlimited students
-- White-label option
-- Admin dashboard with class analytics
-- Custom case library management
-- Integration with school LMS
+**Plano Gratuito:**
+- 10 casos/dia
+- Feedback básico de IA
+- Apenas estudo solo
+- Plano de estudo genérico
 
-**Value Prop for Schools:**
-- Track student progress
-- Identify struggling students early
-- Improve board exam pass rates
-- Data-driven curriculum decisions
+**Premium (US$ 29/mês ou R$ 149/mês):**
+- Casos ilimitados
+- Tutor de IA avançado (chat)
+- Grupos de estudo & desafios
+- Aprendizagem adaptativa personalizada
+- Analytics de desempenho
+- Sistema de badges
+- 100 créditos/mês para o marketplace
 
-**Moat**: Once a school adopts, students use it → network effect when they graduate and tell others
+**Estratégia de Conversão:**
+- O plano gratuito prova o valor
+- Atingir o limite diário → ponto de fricção para upgrade
+- Convites de grupo de estudo vindos de usuários premium
+- "Seus amigos são Premium, junte-se a eles"
 
----
-
-### Phase 4: Enterprise & API (24+ months)
-
-**API Access:**
-- Other edtech companies license our AI
-- Healthcare systems for resident training
-- $0.10 per AI inference
-
-**Enterprise Partnerships:**
-- Hospitals for resident education
-- Medical associations for CME
-- Insurance companies (better trained doctors = better outcomes)
+**Meta**: 10% de conversão (padrão do setor)
 
 ---
 
-## 📈 Scalability Architecture
+### Fase 2: SaaS por Camadas (12-24 meses)
 
-### Current Architecture (Good for 0-10k users)
+**Free:** 5 casos/dia
+**Basic (US$ 19/mês):** 20 casos/dia + grupos
+**Pro (US$ 39/mês):** Ilimitado + tutor de IA + analytics
+**Elite (US$ 79/mês):** Tudo + créditos de marketplace + suporte prioritário + pareamento com mentor verificado
+
+**Nova Fonte de Receita: Créditos**
+- Comprar créditos para o marketplace
+- US$ 10 = 100 créditos
+- Gastar em casos premium, tutoria, etc.
+
+---
+
+### Fase 3: SaaS B2B (18+ meses)
+
+**Público-alvo**: Escolas de Medicina & Cursos Preparatórios
+
+**Planos para Escolas:**
+- US$ 999/mês para 100 estudantes
+- US$ 4.999/mês para estudantes ilimitados
+- Opção white-label
+- Dashboard de administração com analytics de turma
+- Gerenciamento de biblioteca de casos customizada
+- Integração com o LMS da escola
+
+**Proposta de Valor para Escolas:**
+- Acompanhar o progresso dos estudantes
+- Identificar estudantes com dificuldade cedo
+- Melhorar as taxas de aprovação em provas de residência
+- Decisões de currículo orientadas por dados
+
+**Fosso**: Uma vez que uma escola adota, os estudantes usam → efeito de rede quando se formam e contam para outros
+
+---
+
+### Fase 4: Enterprise & API (24+ meses)
+
+**Acesso à API:**
+- Outras empresas de edtech licenciam nossa IA
+- Sistemas de saúde para treinamento de residentes
+- US$ 0,10 por inferência de IA
+
+**Parcerias Enterprise:**
+- Hospitais para educação de residentes
+- Associações médicas para EMC (Educação Médica Continuada)
+- Seguradoras (médicos melhor treinados = melhores resultados)
+
+---
+
+## 📈 Arquitetura de Escalabilidade
+
+### Arquitetura Atual (Boa para 0-10 mil usuários)
 ```
 Vercel Edge Functions → Supabase PostgreSQL → Claude API
 ```
 
-### Growth Architecture (10k-100k users)
+### Arquitetura de Crescimento (10 mil-100 mil usuários)
 
 ```typescript
-// Add to schema
+// Adicionar ao schema
 CREATE TABLE cache_ai_responses (
   cache_key TEXT PRIMARY KEY,
   response_data JSONB,
   created_at TIMESTAMP,
   hit_count INTEGER DEFAULT 0,
-  ttl INTEGER DEFAULT 3600 -- seconds
+  ttl INTEGER DEFAULT 3600 -- segundos
 );
 
--- Index for faster lookups
+-- Índice para buscas mais rápidas
 CREATE INDEX idx_cache_ttl ON cache_ai_responses(created_at)
 WHERE (EXTRACT(EPOCH FROM (NOW() - created_at)) < ttl);
 ```
 
-**Caching Strategy:**
-- Common case feedback cached (80% hit rate)
-- AI responses for popular cases
-- User profiles in Redis
-- CDN for static assets
+**Estratégia de Cache:**
+- Feedback de casos comuns em cache (taxa de hit de 80%)
+- Respostas de IA para casos populares
+- Perfis de usuário no Redis
+- CDN para assets estáticos
 
-**Database Optimization:**
-- Read replicas for analytics queries
-- Partitioning interactions table by month
-- Materialized views for dashboards
+**Otimização do Banco de Dados:**
+- Read replicas para consultas de analytics
+- Particionamento da tabela interactions por mês
+- Views materializadas para dashboards
 
 ---
 
-### Scale Architecture (100k-1M+ users)
+### Arquitetura de Escala (100 mil-1 milhão+ de usuários)
 
-**Microservices Split:**
+**Divisão em Microsserviços:**
 ```
 ├── Case Service (Supabase)
-├── AI Service (Dedicated Claude inference server)
+├── AI Service (Servidor dedicado de inferência do Claude)
 ├── User Service (Supabase)
-├── Analytics Service (Separate read DB)
-└── Marketplace Service (Separate transaction DB)
+├── Analytics Service (DB de leitura separado)
+└── Marketplace Service (DB de transações separado)
 ```
 
-**Infrastructure:**
-- PostgreSQL: Supabase Pro → Dedicated instance with pgBouncer
-- Caching: Vercel Edge Cache → Redis (Upstash) → CloudFlare CDN
-- AI: Claude API → Anthropic batch API (cheaper for non-real-time)
-- Background Jobs: Inngest or Temporal for async processing
-- Monitoring: Datadog + Sentry
+**Infraestrutura:**
+- PostgreSQL: Supabase Pro → Instância dedicada com pgBouncer
+- Cache: Vercel Edge Cache → Redis (Upstash) → CloudFlare CDN
+- AI: Claude API → Anthropic batch API (mais barato para não-tempo-real)
+- Jobs em Background: Inngest ou Temporal para processamento assíncrono
+- Monitoramento: Datadog + Sentry
 
-**Cost at Scale:**
-- 100k active users
-- 1M cases/day
-- Estimated: $15k/month infrastructure
-- AI costs: $5k/month (with caching)
-- **Total**: ~$20k/month = $0.20/user/month
-- **Revenue** (10% paid at $29): $290k/month
-- **Gross Margin**: 93%
+**Custo em Escala:**
+- 100 mil usuários ativos
+- 1 milhão de casos/dia
+- Estimado: US$ 15 mil/mês de infraestrutura
+- Custos de IA: US$ 5 mil/mês (com cache)
+- **Total**: ~US$ 20 mil/mês = US$ 0,20/usuário/mês
+- **Receita** (10% pagantes a US$ 29): US$ 290 mil/mês
+- **Margem Bruta**: 93%
 
 ---
 
-## 🎮 Gamification & Engagement Design
+## 🎮 Design de Gamificação & Engajamento
 
-### Core Engagement Loop (Daily)
+### Loop de Engajamento Principal (Diário)
 
 ```
-1. Open App → See streak (don't break it!)
-2. Dashboard shows: "Your friend João just beat your cardiology score"
-3. Do 5 quick cases to regain #1 spot
-4. Unlock badge → Share on WhatsApp
-5. Friend sees → comes back to compete
+1. Abrir o App → Ver a sequência (não a quebre!)
+2. O dashboard mostra: "Seu amigo João acabou de superar sua nota em cardiologia"
+3. Fazer 5 casos rápidos para recuperar o 1º lugar
+4. Desbloquear badge → Compartilhar no WhatsApp
+5. O amigo vê → volta para competir
 ```
 
-### Retention Mechanics
+### Mecânica de Retenção
 
-**Daily:**
-- Streak counter (Duolingo-style)
-- Daily challenge case (bonus points)
-- Study group activity feed
+**Diária:**
+- Contador de sequência (estilo Duolingo)
+- Caso de desafio diário (pontos bônus)
+- Feed de atividade do grupo de estudo
 
-**Weekly:**
-- Group leaderboard reset
-- Weekly progress report email
-- "You vs Last Week" comparison
+**Semanal:**
+- Reset do ranking de grupo
+- Email semanal de relatório de progresso
+- Comparação "Você vs Semana Passada"
 
-**Monthly:**
-- Specialty mastery level-ups
-- Community case voting
-- Creator earnings payout
+**Mensal:**
+- Subidas de nível de domínio de especialidade
+- Votação de casos da comunidade
+- Pagamento de ganhos dos criadores
 
-**Quarterly:**
-- Nationwide leaderboards
-- Seasonal tournaments ($1000 prize)
-- Medical school rankings
+**Trimestral:**
+- Rankings nacionais
+- Torneios sazonais (prêmio de US$ 1000)
+- Rankings de escolas de medicina
 
 ---
 
-## 🌐 Community Features (Social Layer)
+## 🌐 Recursos de Comunidade (Camada Social)
 
-### Discussion Forum
+### Fórum de Discussão
 
 ```typescript
 CREATE TABLE forum_posts (
@@ -529,16 +529,16 @@ CREATE TABLE forum_comments (
 );
 ```
 
-**Use Cases:**
-- "Can someone explain this cardio case differently?"
-- "Study tips for neurologia?"
-- "Who else is taking REVALIDA March 2025?"
+**Casos de Uso:**
+- "Alguém pode explicar este caso de cardio de outro jeito?"
+- "Dicas de estudo para neurologia?"
+- "Quem mais vai fazer o REVALIDA de março de 2025?"
 
-**Network Effect**: More users → more discussions → more value → more users
+**Efeito de Rede**: Mais usuários → mais discussões → mais valor → mais usuários
 
 ---
 
-### Study Buddy Matching
+### Pareamento de Parceiros de Estudo
 
 ```typescript
 CREATE TABLE study_preferences (
@@ -551,166 +551,166 @@ CREATE TABLE study_preferences (
   looking_for_buddy BOOLEAN DEFAULT false
 );
 
--- ML-powered matching
+-- Pareamento potencializado por ML
 CREATE TABLE study_buddy_matches (
   id UUID PRIMARY KEY,
   user1_id UUID REFERENCES users(id),
   user2_id UUID REFERENCES users(id),
-  match_score NUMERIC, -- Compatibility score
+  match_score NUMERIC, -- Pontuação de compatibilidade
   match_reason JSONB,
   status TEXT CHECK (status IN ('suggested', 'accepted', 'active', 'ended')),
   created_at TIMESTAMP
 );
 ```
 
-**Algorithm:**
-- Match by: similar level, complementary weaknesses, same exam date, compatible schedules
-- "You're both weak in neuro → practice together"
-- "João is strong where you're weak → learn from him"
+**Algoritmo:**
+- Parear por: nível semelhante, fraquezas complementares, mesma data de prova, horários compatíveis
+- "Vocês dois são fracos em neuro → pratiquem juntos"
+- "João é forte onde você é fraco → aprenda com ele"
 
 ---
 
-## 🚀 Go-to-Market Strategy
+## 🚀 Estratégia de Go-to-Market
 
-### Phase 1: Seed Community (0-100 users)
-**Tactic**: Manual recruitment from specific medical school
-- Offer free premium for 6 months
-- Recruit 20 students from USP/UNIFESP
-- Ask them to invite friends
-- Dogfood the product hard
+### Fase 1: Semear a Comunidade (0-100 usuários)
+**Tática**: Recrutamento manual de uma escola de medicina específica
+- Oferecer premium gratuito por 6 meses
+- Recrutar 20 estudantes da USP/UNIFESP
+- Pedir que convidem amigos
+- Usar o produto intensamente (dogfooding)
 
-### Phase 2: Single University Dominance (100-1000 users)
-**Tactic**: Win one school completely
-- Become "the platform" at USP Medicina
-- 70%+ of students using it
-- Leverage social proof: "Everyone at USP uses this"
-- Case studies of students who passed
+### Fase 2: Domínio de uma Única Universidade (100-1000 usuários)
+**Tática**: Vencer uma escola completamente
+- Tornar-se "a plataforma" na Medicina da USP
+- 70%+ dos estudantes usando
+- Alavancar prova social: "Todo mundo na USP usa isso"
+- Estudos de caso de estudantes que passaram
 
-### Phase 3: University Expansion (1k-10k users)
-**Tactic**: Replicate to other top schools
+### Fase 3: Expansão Universitária (1 mil-10 mil usuários)
+**Tática**: Replicar para outras escolas de ponta
 - UNIFESP, UFRJ, UFMG, etc.
-- University ambassadors (pay in credits)
-- School leaderboards (create competition)
-- "USP vs UNIFESP" challenges
+- Embaixadores universitários (pagos em créditos)
+- Rankings de escolas (criar competição)
+- Desafios "USP vs UNIFESP"
 
-### Phase 4: National Scale (10k-100k users)
-**Tactic**: Paid acquisition + viral loops
-- Facebook/Instagram ads targeting "residência médica"
-- Referral program: "Invite 3 friends → 1 month free"
-- Content marketing (blog about exam strategies)
-- YouTube: "How I passed with 85% using MedCards"
+### Fase 4: Escala Nacional (10 mil-100 mil usuários)
+**Tática**: Aquisição paga + loops virais
+- Anúncios no Facebook/Instagram segmentando "residência médica"
+- Programa de indicação: "Convide 3 amigos → 1 mês grátis"
+- Marketing de conteúdo (blog sobre estratégias de prova)
+- YouTube: "Como passei com 85% usando o MedCards"
 
-### Phase 5: Platform Lock-in (100k+ users)
-**Tactic**: Become infrastructure
-- Partner with medical schools officially
-- Licensing to prep courses
-- Government partnerships (SUS resident training)
-
----
-
-## 📊 Success Metrics (North Star + Supporting)
-
-### North Star Metric
-**Weekly Active Cases Solved**
-- Measures: Engagement × Value delivered
-- Target Growth: 20% MoM
-
-### Supporting Metrics
-
-**Acquisition:**
-- Signups/week
-- Source attribution
-- Activation rate (completed 10 cases in first week)
-
-**Engagement:**
-- DAU/MAU ratio (target: >40%)
-- Cases per session
-- Streak retention
-
-**Monetization:**
-- Free → Paid conversion rate
-- MRR growth
-- LTV/CAC ratio
-
-**Network Effects:**
-- Study group creation rate
-- Avg group size
-- Community case submissions/week
-- Marketplace transactions/week
-
-**Retention:**
-- D7, D30, D90 retention
-- Churn rate
-- Win-back rate
+### Fase 5: Retenção de Plataforma (100 mil+ usuários)
+**Tática**: Tornar-se infraestrutura
+- Fazer parceria oficial com escolas de medicina
+- Licenciar para cursos preparatórios
+- Parcerias governamentais (treinamento de residentes do SUS)
 
 ---
 
-## 🎯 Product Roadmap
+## 📊 Métricas de Sucesso (North Star + Suporte)
 
-### Q1 2025: Foundation + MVP
-- Core case training
-- Basic AI feedback
-- Authentication
-- Solo study mode
+### Métrica North Star
+**Casos Resolvidos Ativos Semanalmente**
+- Mede: Engajamento × Valor entregue
+- Crescimento Alvo: 20% mês a mês
 
-### Q2 2025: Social Layer
-- Study groups
-- Peer challenges
-- Leaderboards
-- Basic community features
+### Métricas de Suporte
+
+**Aquisição:**
+- Cadastros/semana
+- Atribuição de origem
+- Taxa de ativação (completou 10 casos na primeira semana)
+
+**Engajamento:**
+- Razão DAU/MAU (meta: >40%)
+- Casos por sessão
+- Retenção da sequência (streak)
+
+**Monetização:**
+- Taxa de conversão Free → Paid
+- Crescimento do MRR
+- Razão LTV/CAC
+
+**Efeitos de Rede:**
+- Taxa de criação de grupos de estudo
+- Tamanho médio de grupo
+- Submissões de casos da comunidade/semana
+- Transações de marketplace/semana
+
+**Retenção:**
+- Retenção D7, D30, D90
+- Taxa de churn
+- Taxa de win-back
+
+---
+
+## 🎯 Roadmap do Produto
+
+### Q1 2025: Fundação + MVP
+- Treinamento de casos principal
+- Feedback básico de IA
+- Autenticação
+- Modo de estudo solo
+
+### Q2 2025: Camada Social
+- Grupos de estudo
+- Desafios entre pares
+- Rankings
+- Recursos básicos de comunidade
 
 ### Q3 2025: Marketplace
-- Community case submissions
-- Premium content
-- Creator tools
-- Credits system
+- Submissões de casos da comunidade
+- Conteúdo premium
+- Ferramentas para criadores
+- Sistema de créditos
 
-### Q4 2025: B2B Pilot
-- School admin dashboard
-- Class analytics
-- Custom case libraries
-- API access (beta)
+### Q4 2025: Piloto B2B
+- Dashboard de administração para escolas
+- Analytics de turma
+- Bibliotecas de casos customizadas
+- Acesso à API (beta)
 
-### 2026: Platform
-- Mobile app (React Native)
-- API productization
-- International expansion
-- Enterprise features
-
----
-
-## 💡 Moat Reinforcement Strategy
-
-**Continuous Improvement Loop:**
-
-1. **Data Moat**: Every case solved → better AI → better outcomes → more users
-2. **Content Moat**: Best community cases promoted → creators earn → more quality content
-3. **Network Moat**: Study group features → invite friends → social lock-in
-4. **Brand Moat**: Best students use it → aspirational brand → more sign-ups
-
-**Defensive Tactics:**
-- Long-term contracts with medical schools (lock-in)
-- Exclusive partnerships with exam boards
-- Patent AI methodology (if truly novel)
-- Build community identity ("MedCards Residents")
+### 2026: Plataforma
+- App mobile (React Native)
+- Produtização da API
+- Expansão internacional
+- Recursos enterprise
 
 ---
 
-## 🔮 10-Year Vision
+## 💡 Estratégia de Reforço de Fosso
 
-**Year 1-2**: Best residency exam prep in Brazil
-**Year 3-5**: Platform for all medical education in Brazil (undergrad → CME)
-**Year 5-7**: Expand to Latin America (same market dynamics)
-**Year 7-10**: Global platform for medical education
+**Loop de Melhoria Contínua:**
 
-**End State:**
-- 500k+ active learners
-- $50M+ ARR
-- Acquisition target for Duolingo, Coursera, or major medical publisher
-- OR: IPO as EdTech/HealthTech platform
+1. **Fosso de Dados**: Cada caso resolvido → melhor IA → melhores resultados → mais usuários
+2. **Fosso de Conteúdo**: Os melhores casos da comunidade são promovidos → criadores ganham → mais conteúdo de qualidade
+3. **Fosso de Rede**: Recursos de grupo de estudo → convidar amigos → retenção social
+4. **Fosso de Marca**: Os melhores estudantes usam → marca aspiracional → mais cadastros
+
+**Táticas Defensivas:**
+- Contratos de longo prazo com escolas de medicina (lock-in)
+- Parcerias exclusivas com bancas de prova
+- Patentear a metodologia de IA (se for realmente inovadora)
+- Construir identidade de comunidade ("MedCards Residents")
 
 ---
 
-**This is how you build an unassailable position in medical education.**
+## 🔮 Visão de 10 Anos
 
-Ready to implement the enhanced schema with network effects?
+**Ano 1-2**: Melhor preparação para provas de residência do Brasil
+**Ano 3-5**: Plataforma para toda a educação médica no Brasil (graduação → EMC)
+**Ano 5-7**: Expandir para a América Latina (mesma dinâmica de mercado)
+**Ano 7-10**: Plataforma global de educação médica
+
+**Estado Final:**
+- 500 mil+ estudantes ativos
+- US$ 50M+ de ARR
+- Alvo de aquisição para Duolingo, Coursera ou uma grande editora médica
+- OU: IPO como plataforma de EdTech/HealthTech
+
+---
+
+**É assim que você constrói uma posição inexpugnável na educação médica.**
+
+Pronto para implementar o schema aprimorado com efeitos de rede?

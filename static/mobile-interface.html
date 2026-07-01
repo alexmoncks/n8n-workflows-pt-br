@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>N8N Workflows - Mobile Interface</title>
+    <title>N8N Workflows - Interface Mobile</title>
     <style>
         /* Mobile-First CSS Reset */
         * {
@@ -363,17 +363,17 @@
 
     <!-- Search Container -->
     <div class="search-container" id="searchContainer">
-        <input type="text" class="search-input" placeholder="Search workflows..." id="searchInput">
+        <input type="text" class="search-input" placeholder="Buscar workflows..." id="searchInput">
     </div>
 
     <!-- Filters -->
     <div class="filters">
         <div class="filter-chips">
-            <div class="filter-chip active" data-filter="all">All</div>
-            <div class="filter-chip" data-filter="communication">Communication</div>
-            <div class="filter-chip" data-filter="data-processing">Data Processing</div>
-            <div class="filter-chip" data-filter="automation">Automation</div>
-            <div class="filter-chip" data-filter="ai">AI</div>
+            <div class="filter-chip active" data-filter="all">Todos</div>
+            <div class="filter-chip" data-filter="communication">Comunicação</div>
+            <div class="filter-chip" data-filter="data-processing">Processamento de Dados</div>
+            <div class="filter-chip" data-filter="automation">Automação</div>
+            <div class="filter-chip" data-filter="ai">IA</div>
             <div class="filter-chip" data-filter="ecommerce">E-commerce</div>
         </div>
     </div>
@@ -389,8 +389,8 @@
         </div>
         
         <div class="empty-state" id="emptyState">
-            <h3>No workflows found</h3>
-            <p>Try adjusting your search or filters</p>
+            <h3>Nenhum workflow encontrado</h3>
+            <p>Tente ajustar a busca ou os filtros</p>
         </div>
     </main>
 
@@ -398,19 +398,19 @@
     <nav class="bottom-nav">
         <a href="#" class="nav-item active">
             <div class="nav-icon">🏠</div>
-            <div class="nav-label">Home</div>
+            <div class="nav-label">Início</div>
         </a>
         <a href="#" class="nav-item">
             <div class="nav-icon">📊</div>
-            <div class="nav-label">Analytics</div>
+            <div class="nav-label">Análises</div>
         </a>
         <a href="#" class="nav-item">
             <div class="nav-icon">⭐</div>
-            <div class="nav-label">Favorites</div>
+            <div class="nav-label">Favoritos</div>
         </a>
         <a href="#" class="nav-item">
             <div class="nav-icon">👤</div>
-            <div class="nav-label">Profile</div>
+            <div class="nav-label">Perfil</div>
         </a>
     </nav>
 
@@ -472,7 +472,7 @@
                     this.filterWorkflows();
                 } catch (error) {
                     console.error('Error loading workflows:', error);
-                    this.showError('Failed to load workflows');
+                    this.showError('Não foi possível carregar os workflows');
                 } finally {
                     this.showLoading(false);
                 }
@@ -518,11 +518,11 @@
                         <div class="workflow-meta">
                             <span class="meta-tag">${workflow.trigger_type}</span>
                             <span class="meta-tag">${workflow.complexity}</span>
-                            <span class="meta-tag">${workflow.node_count} nodes</span>
+                            <span class="meta-tag">${workflow.node_count} nós</span>
                         </div>
                         
                         <div class="workflow-description">
-                            ${workflow.description || 'No description available'}
+                            ${workflow.description || 'Nenhuma descrição disponível'}
                         </div>
                         
                         <div class="workflow-footer">
@@ -536,7 +536,7 @@
                                     📥
                                 </button>
                                 <button class="action-btn" onclick="event.stopPropagation(); viewWorkflow('${workflow.filename}')">
-                                    View
+                                    Ver
                                 </button>
                             </div>
                         </div>

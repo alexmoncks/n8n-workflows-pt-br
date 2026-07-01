@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>⚡ N8N Workflow Documentation</title>
+  <title>⚡ Documentação de Workflows N8N</title>
   <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
   <style>
     /* Modern CSS Reset and Base */
@@ -649,8 +649,8 @@
     <!-- Header -->
     <header class="header">
       <div class="container">
-        <h1 class="title">⚡ N8N Workflow Documentation</h1>
-        <p class="subtitle">Lightning-fast workflow browser with instant search</p>
+        <h1 class="title">⚡ Documentação de Workflows N8N</h1>
+        <p class="subtitle">Navegador de workflows ultrarrápido com busca instantânea</p>
         <div class="stats">
           <div class="stat">
             <span class="stat-number" id="totalCount">0</span>
@@ -658,15 +658,15 @@
           </div>
           <div class="stat">
             <span class="stat-number" id="activeCount">0</span>
-            <span class="stat-label">Active</span>
+            <span class="stat-label">Ativos</span>
           </div>
           <div class="stat">
             <span class="stat-number" id="nodeCount">0</span>
-            <span class="stat-label">Total Nodes</span>
+            <span class="stat-label">Total de Nós</span>
           </div>
           <div class="stat">
             <span class="stat-number" id="integrationCount">0</span>
-            <span class="stat-label">Integrations</span>
+            <span class="stat-label">Integrações</span>
           </div>
         </div>
       </div>
@@ -677,35 +677,35 @@
       <div class="container">
         <div class="search-section">
           <input type="text" id="searchInput" class="search-input"
-            placeholder="Search workflows by name, description, or integration...">
+            placeholder="Buscar workflows por nome, descrição ou integração...">
         </div>
 
         <div class="filter-section">
           <div class="filter-group">
-            <label for="triggerFilter">Trigger:</label>
+            <label for="triggerFilter">Gatilho:</label>
             <select id="triggerFilter">
-              <option value="all">All Types</option>
+              <option value="all">Todos os tipos</option>
               <option value="Webhook">Webhook</option>
-              <option value="Scheduled">Scheduled</option>
+              <option value="Scheduled">Agendado</option>
               <option value="Manual">Manual</option>
-              <option value="Complex">Complex</option>
+              <option value="Complex">Complexo</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label for="complexityFilter">Complexity:</label>
+            <label for="complexityFilter">Complexidade:</label>
             <select id="complexityFilter">
-              <option value="all">All Levels</option>
-              <option value="low">Low (≤5 nodes)</option>
-              <option value="medium">Medium (6-15 nodes)</option>
-              <option value="high">High (16+ nodes)</option>
+              <option value="all">Todos os níveis</option>
+              <option value="low">Baixa (≤5 nós)</option>
+              <option value="medium">Média (6-15 nós)</option>
+              <option value="high">Alta (16+ nós)</option>
             </select>
           </div>
 
           <div class="filter-group">
-            <label for="categoryFilter">Category:</label>
+            <label for="categoryFilter">Categoria:</label>
             <select id="categoryFilter">
-              <option value="all">All Categories</option>
+              <option value="all">Todas as categorias</option>
               <!-- Categories will be populated dynamically -->
             </select>
           </div>
@@ -713,7 +713,7 @@
           <div class="filter-group">
             <label>
               <input type="checkbox" id="activeOnly">
-              Active only
+              Somente ativos
             </label>
           </div>
 
@@ -721,7 +721,7 @@
         </div>
 
         <div class="results-info">
-          <span id="resultsCount">Loading...</span>
+          <span id="resultsCount">Carregando...</span>
         </div>
       </div>
     </div>
@@ -732,23 +732,23 @@
         <!-- Loading State -->
         <div id="loadingState" class="state loading">
           <div class="icon">⚡</div>
-          <h3>Loading workflows...</h3>
-          <p>Please wait while we fetch your workflow data</p>
+          <h3>Carregando workflows...</h3>
+          <p>Aguarde enquanto buscamos os dados dos seus workflows</p>
         </div>
 
         <!-- Error State -->
         <div id="errorState" class="state error hidden">
           <div class="icon">❌</div>
-          <h3>Error Loading Workflows</h3>
-          <p id="errorMessage">Something went wrong. Please try again.</p>
-          <button id="retryBtn" class="retry-btn">Retry</button>
+          <h3>Erro ao carregar workflows</h3>
+          <p id="errorMessage">Algo deu errado. Tente novamente.</p>
+          <button id="retryBtn" class="retry-btn">Tentar novamente</button>
         </div>
 
         <!-- No Results State -->
         <div id="noResultsState" class="state hidden">
           <div class="icon">🔍</div>
-          <h3>No workflows found</h3>
-          <p>Try adjusting your search terms or filters</p>
+          <h3>Nenhum workflow encontrado</h3>
+          <p>Tente ajustar os termos de busca ou os filtros</p>
         </div>
 
         <!-- Workflows Grid -->
@@ -758,7 +758,7 @@
 
         <!-- Load More -->
         <div id="loadMoreContainer" class="load-more hidden">
-          <button id="loadMoreBtn" class="load-more-btn">Load More</button>
+          <button id="loadMoreBtn" class="load-more-btn">Carregar mais</button>
         </div>
       </div>
     </main>
@@ -767,58 +767,58 @@
     <div id="workflowModal" class="modal hidden">
       <div class="modal-content">
         <div class="modal-header">
-          <h2 class="modal-title" id="modalTitle">Workflow Details</h2>
+          <h2 class="modal-title" id="modalTitle">Detalhes do Workflow</h2>
           <button class="modal-close" id="modalClose">&times;</button>
         </div>
         <div class="modal-body">
           <div class="workflow-detail">
-            <h4>Description</h4>
-            <p id="modalDescription">Loading...</p>
+            <h4>Descrição</h4>
+            <p id="modalDescription">Carregando...</p>
           </div>
 
           <div class="workflow-detail">
-            <h4>Statistics</h4>
-            <div id="modalStats">Loading...</div>
+            <h4>Estatísticas</h4>
+            <div id="modalStats">Carregando...</div>
           </div>
 
           <div class="workflow-detail">
-            <h4>Integrations</h4>
-            <div id="modalIntegrations">Loading...</div>
+            <h4>Integrações</h4>
+            <div id="modalIntegrations">Carregando...</div>
           </div>
 
           <div class="workflow-detail">
-            <h4>Actions</h4>
+            <h4>Ações</h4>
             <div class="workflow-actions">
-              <a id="downloadBtn" class="action-btn primary" href="#" download>📥 Download JSON</a>
-              <button id="viewJsonBtn" class="action-btn">📄 View JSON</button>
-              <button id="viewDiagramBtn" class="action-btn">📊 View Diagram</button>
+              <a id="downloadBtn" class="action-btn primary" href="#" download>📥 Baixar JSON</a>
+              <button id="viewJsonBtn" class="action-btn">📄 Ver JSON</button>
+              <button id="viewDiagramBtn" class="action-btn">📊 Ver diagrama</button>
             </div>
           </div>
 
           <div class="workflow-detail hidden" id="jsonSection">
             <div class="section-header">
-              <h4>Workflow JSON</h4>
-              <button id="copyJsonBtn" class="copy-btn" title="Copy JSON to clipboard">
-                📋 Copy
+              <h4>JSON do Workflow</h4>
+              <button id="copyJsonBtn" class="copy-btn" title="Copiar JSON para a área de transferência">
+                📋 Copiar
               </button>
             </div>
-            <div class="json-viewer" id="jsonViewer">Loading...</div>
+            <div class="json-viewer" id="jsonViewer">Carregando...</div>
           </div>
 
           <div class="workflow-detail hidden" id="diagramSection">
             <div class="section-header">
-              <h4>Workflow Diagram</h4>
+              <h4>Diagrama do Workflow</h4>
               <div class="diagram-controls">
-                <button id="zoomInBtn" class="zoom-btn" title="Zoom In">🔍+</button>
-                <button id="zoomOutBtn" class="zoom-btn" title="Zoom Out">🔍-</button>
-                <button id="zoomResetBtn" class="zoom-btn" title="Reset Zoom">🔄</button>
-                <button id="copyDiagramBtn" class="copy-btn" title="Copy diagram code to clipboard">
-                  📋 Copy
+                <button id="zoomInBtn" class="zoom-btn" title="Aumentar zoom">🔍+</button>
+                <button id="zoomOutBtn" class="zoom-btn" title="Diminuir zoom">🔍-</button>
+                <button id="zoomResetBtn" class="zoom-btn" title="Redefinir zoom">🔄</button>
+                <button id="copyDiagramBtn" class="copy-btn" title="Copiar código do diagrama para a área de transferência">
+                  📋 Copiar
                 </button>
               </div>
             </div>
             <div id="diagramContainer" class="diagram-container">
-              <div id="diagramViewer">Loading diagram...</div>
+              <div id="diagramViewer">Carregando diagrama...</div>
             </div>
           </div>
         </div>
@@ -1104,7 +1104,7 @@
           console.log('Initial data loading complete');
         } catch (error) {
           console.error('Error during initial data loading:', error);
-          this.showError('Failed to load data: ' + error.message);
+          this.showError('Não foi possível carregar os dados: ' + error.message);
         }
       }
 
@@ -1248,7 +1248,7 @@
           this.updateUI();
 
         } catch (error) {
-          this.showError('Failed to load workflows: ' + error.message);
+          this.showError('Não foi possível carregar os workflows: ' + error.message);
         } finally {
           this.state.isLoading = false;
         }
@@ -1329,11 +1329,11 @@
         let text = `${count.toLocaleString()} workflows`;
 
         if (query && category !== 'all') {
-          text += ` found for "${query}" in "${category}"`;
+          text += ` encontrados para "${query}" em "${category}"`;
         } else if (query) {
-          text += ` found for "${query}"`;
+          text += ` encontrados para "${query}"`;
         } else if (category !== 'all') {
-          text += ` in "${category}"`;
+          text += ` em "${category}"`;
         }
 
         this.elements.resultsCount.textContent = text;
@@ -1370,7 +1370,7 @@
                             <div class="workflow-meta">
                                 <div class="status-dot ${statusClass}"></div>
                                 <div class="complexity-dot ${complexityClass}"></div>
-                                <span>${workflow.node_count} nodes</span>
+                                <span>${workflow.node_count} nós</span>
                                 <span class="category-badge">${this.escapeHtml(category)}</span>
                             </div>
                             <span class="trigger-badge">${this.escapeHtml(workflow.trigger_type)}</span>
@@ -1381,7 +1381,7 @@
                         
                         ${workflow.integrations.length > 0 ? `
                             <div class="workflow-integrations">
-                                <h4 class="integrations-title">Integrations (${workflow.integrations.length})</h4>
+                                <h4 class="integrations-title">Integrações (${workflow.integrations.length})</h4>
                                 <div class="integrations-list">
                                     ${integrations}
                                     ${moreIntegrations}
@@ -1401,11 +1401,11 @@
         const category = this.getWorkflowCategory(workflow.filename);
         this.elements.modalStats.innerHTML = `
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
-                        <div><strong>Status:</strong> ${workflow.active ? 'Active' : 'Inactive'}</div>
-                        <div><strong>Trigger:</strong> ${workflow.trigger_type}</div>
-                        <div><strong>Complexity:</strong> ${workflow.complexity}</div>
-                        <div><strong>Nodes:</strong> ${workflow.node_count}</div>
-                        <div><strong>Category:</strong> ${this.escapeHtml(category)}</div>
+                        <div><strong>Status:</strong> ${workflow.active ? 'Ativo' : 'Inativo'}</div>
+                        <div><strong>Gatilho:</strong> ${workflow.trigger_type}</div>
+                        <div><strong>Complexidade:</strong> ${workflow.complexity}</div>
+                        <div><strong>Nós:</strong> ${workflow.node_count}</div>
+                        <div><strong>Categoria:</strong> ${this.escapeHtml(category)}</div>
                     </div>
                 `;
 
@@ -1415,7 +1415,7 @@
             .map(integration => `<span class="integration-tag">${this.escapeHtml(integration)}</span>`)
             .join(' ');
         } else {
-          this.elements.modalIntegrations.textContent = 'No integrations found';
+          this.elements.modalIntegrations.textContent = 'Nenhuma integração encontrada';
         }
 
         // Set download link
@@ -1440,8 +1440,8 @@
         this.isDragging = false;
 
         // Reset button states
-        this.elements.viewJsonBtn.textContent = '📄 View JSON';
-        this.elements.viewDiagramBtn.textContent = '📊 View Diagram';
+        this.elements.viewJsonBtn.textContent = '📄 Ver JSON';
+        this.elements.viewDiagramBtn.textContent = '📊 Ver diagrama';
 
         // Reset copy button states
         this.resetCopyButton('copyJsonBtn');
@@ -1455,19 +1455,19 @@
 
         if (isVisible) {
           this.elements.jsonSection.classList.add('hidden');
-          this.elements.viewJsonBtn.textContent = '📄 View JSON';
+          this.elements.viewJsonBtn.textContent = '📄 Ver JSON';
         } else {
           try {
-            this.elements.jsonViewer.textContent = 'Loading...';
+            this.elements.jsonViewer.textContent = 'Carregando...';
             this.elements.jsonSection.classList.remove('hidden');
-            this.elements.viewJsonBtn.textContent = '📄 Hide JSON';
+            this.elements.viewJsonBtn.textContent = '📄 Ocultar JSON';
 
             const data = await this.apiCall(`/workflows/${this.currentWorkflow.filename}`);
             const jsonString = JSON.stringify(data.raw_json, null, 2);
             this.currentJsonData = jsonString;
             this.elements.jsonViewer.textContent = jsonString;
           } catch (error) {
-            this.elements.jsonViewer.textContent = 'Error loading JSON: ' + error.message;
+            this.elements.jsonViewer.textContent = 'Erro ao carregar o JSON: ' + error.message;
             this.currentJsonData = null;
           }
         }
@@ -1480,12 +1480,12 @@
 
         if (isVisible) {
           this.elements.diagramSection.classList.add('hidden');
-          this.elements.viewDiagramBtn.textContent = '📊 View Diagram';
+          this.elements.viewDiagramBtn.textContent = '📊 Ver diagrama';
         } else {
           try {
-            this.elements.diagramViewer.textContent = 'Loading diagram...';
+            this.elements.diagramViewer.textContent = 'Carregando diagrama...';
             this.elements.diagramSection.classList.remove('hidden');
-            this.elements.viewDiagramBtn.textContent = '📊 Hide Diagram';
+            this.elements.viewDiagramBtn.textContent = '📊 Ocultar diagrama';
 
             const data = await this.apiCall(`/workflows/${this.currentWorkflow.filename}/diagram`);
             this.currentDiagramData = data.diagram;
@@ -1507,7 +1507,7 @@
               }, 100);
             }
           } catch (error) {
-            this.elements.diagramViewer.textContent = 'Error loading diagram: ' + error.message;
+            this.elements.diagramViewer.textContent = 'Erro ao carregar o diagrama: ' + error.message;
             this.currentDiagramData = null;
           }
         }
@@ -1700,7 +1700,7 @@
         if (!button) return;
 
         const originalText = button.innerHTML;
-        button.innerHTML = '✅ Copied!';
+        button.innerHTML = '✅ Copiado!';
         button.classList.add('copied');
 
         setTimeout(() => {
@@ -1713,7 +1713,7 @@
         const button = document.getElementById(buttonId);
         if (!button) return;
 
-        button.innerHTML = '📋 Copy';
+        button.innerHTML = '📋 Copiar';
         button.classList.remove('copied');
       }
     }

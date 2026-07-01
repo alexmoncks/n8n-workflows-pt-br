@@ -1,64 +1,64 @@
-# 🚀 Quick Start - 3 Simple Steps
+# 🚀 Início Rápido - 3 Passos Simples
 
 ---
 
-## Step 1️⃣: Get Docker
+## Passo 1️⃣: Obtenha o Docker
 
 ### Windows
-1. Go to: **www.docker.com/products/docker-desktop**
-2. Click: **"Download for Windows"** (big blue button)
-3. Install it (just keep clicking "Next")
-4. Restart your computer
+1. Acesse: **www.docker.com/products/docker-desktop**
+2. Clique em: **"Download for Windows"** (botão azul grande)
+3. Instale (basta continuar clicando em "Next")
+4. Reinicie o computador
 
 ### Mac
-1. Go to: **www.docker.com/products/docker-desktop**
-2. Click: **"Download for Mac"** (big blue button)
-3. Drag Docker to Applications folder
-4. Open Docker from Applications
+1. Acesse: **www.docker.com/products/docker-desktop**
+2. Clique em: **"Download for Mac"** (botão azul grande)
+3. Arraste o Docker para a pasta Applications
+4. Abra o Docker a partir de Applications
 
-**✅ You're ready when you see a whale icon 🐳 in your taskbar/menu bar**
-
----
-
-## Step 2️⃣: Download AI Stack
-
-1. Go to: **github.com/insomniakin/n8n-workflows**
-2. Click green **"Code"** button
-3. Click **"Download ZIP"**
-4. Unzip the file
-5. Find the **"ai-stack"** folder inside
+**✅ Você está pronto quando aparecer o ícone da baleia 🐳 na barra de tarefas/barra de menu**
 
 ---
 
-## Step 3️⃣: Run It!
+## Passo 2️⃣: Baixe a AI Stack
+
+1. Acesse: **github.com/insomniakin/n8n-workflows**
+2. Clique no botão verde **"Code"**
+3. Clique em **"Download ZIP"**
+4. Descompacte o arquivo
+5. Encontre a pasta **"ai-stack"** dentro dele
+
+---
+
+## Passo 3️⃣: Execute!
 
 ### Windows
-1. Open the **ai-stack** folder
-2. **Right-click** on **start.ps1**
-3. Click **"Run with PowerShell"**
-4. Wait for "🎉 AI Stack is running!"
+1. Abra a pasta **ai-stack**
+2. **Clique com o botão direito** em **start.ps1**
+3. Clique em **"Run with PowerShell"**
+4. Aguarde a mensagem "🎉 AI Stack is running!"
 
 ### Mac
-1. Open the **ai-stack** folder
-2. **Right-click** on **start.sh**
-3. Click **"Open With"** → **"Terminal"**
-4. Wait for "🎉 AI Stack is running!"
+1. Abra a pasta **ai-stack**
+2. **Clique com o botão direito** em **start.sh**
+3. Clique em **"Open With"** → **"Terminal"**
+4. Aguarde a mensagem "🎉 AI Stack is running!"
 
 ---
 
-## 🎉 Done! Now Open These:
+## 🎉 Pronto! Agora Abra Estes Endereços:
 
-| What | Where to Go |
+| O quê | Onde ir |
 |------|-------------|
-| **n8n** (Make workflows) | http://localhost:5678 |
-| **Agent Zero** (AI chat) | http://localhost:50080 |
-| **ComfyUI** (Make images) | http://localhost:8188 |
+| **n8n** (Criar workflows) | http://localhost:5678 |
+| **Agent Zero** (Chat de IA) | http://localhost:50080 |
+| **ComfyUI** (Criar imagens) | http://localhost:8188 |
 
-**Just copy and paste these into your web browser!**
+**Basta copiar e colar estes endereços no seu navegador!**
 
 ---
 
-## 🛑 To Stop:
+## 🛑 Para Parar:
 
 ### Windows
 ```
@@ -72,10 +72,10 @@
 
 ---
 
-## ❌ If It Doesn't Work:
+## ❌ Se Não Funcionar:
 
-1. **Make sure Docker is running** (look for whale icon 🐳)
-2. **Restart your computer**
-3. **Try again**
+1. **Certifique-se de que o Docker está em execução** (procure o ícone da baleia 🐳)
+2. **Reinicie o computador**
+3. **Tente novamente**
 
-Still stuck? Check **EASY-INSTALL.md** for detailed help!
+Ainda com problemas? Consulte o **EASY-INSTALL.md** para ajuda detalhada!

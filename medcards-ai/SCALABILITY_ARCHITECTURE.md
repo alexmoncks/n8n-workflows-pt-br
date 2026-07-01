@@ -1,65 +1,65 @@
-# MEDCARDS.AI - Scalability Architecture & Technical Infrastructure
+# MEDCARDS.AI - Arquitetura de Escalabilidade & Infraestrutura Técnica
 
-## 🎯 Scaling Philosophy
+## 🎯 Filosofia de Escalonamento
 
-**Build for 10k users, architect for 1M users.**
+**Construa para 10 mil usuários, arquitete para 1 milhão de usuários.**
 
-This document outlines how MEDCARDS.AI scales from MVP (1k users) to platform (1M+ users) without major rewrites.
+Este documento descreve como o MEDCARDS.AI escala do MVP (1 mil usuários) até plataforma (1 milhão+ de usuários) sem grandes reescritas.
 
 ---
 
-## 📊 Growth Stages & Infrastructure Evolution
+## 📊 Estágios de Crescimento & Evolução da Infraestrutura
 
-### Stage 1: MVP (0-10k users)
-**Monthly Active Users**: 0-10,000
-**Daily Interactions**: 0-100k
-**Infrastructure Cost**: $500-1,000/month
+### Estágio 1: MVP (0-10 mil usuários)
+**Usuários Ativos Mensais**: 0-10.000
+**Interações Diárias**: 0-100 mil
+**Custo de Infraestrutura**: US$ 500-1.000/mês
 
 **Stack:**
 ```
 Frontend: Vercel Edge Network
 Backend: Next.js Server Actions (Vercel Serverless)
 Database: Supabase Free/Pro (PostgreSQL)
-AI: Anthropic Claude API (pay-per-use)
-Cache: None (database only)
-CDN: Vercel automatic
+AI: Anthropic Claude API (pagamento por uso)
+Cache: Nenhum (apenas banco de dados)
+CDN: Vercel automático
 ```
 
-**Why it works:**
-- Serverless scales automatically
-- No DevOps required
-- Pay only for usage
-- Deploy in minutes
+**Por que funciona:**
+- Serverless escala automaticamente
+- Nenhum DevOps necessário
+- Pague apenas pelo uso
+- Deploy em minutos
 
-**Bottlenecks:**
-- None at this scale
-- Database has 10GB limit (sufficient for 10k users)
+**Gargalos:**
+- Nenhum nesta escala
+- O banco de dados tem limite de 10GB (suficiente para 10 mil usuários)
 
 ---
 
-### Stage 2: Growth (10k-100k users)
-**Monthly Active Users**: 10,000-100,000
-**Daily Interactions**: 100k-1M
-**Infrastructure Cost**: $2,000-5,000/month
+### Estágio 2: Crescimento (10 mil-100 mil usuários)
+**Usuários Ativos Mensais**: 10.000-100.000
+**Interações Diárias**: 100 mil-1 milhão
+**Custo de Infraestrutura**: US$ 2.000-5.000/mês
 
-**Stack Upgrades:**
+**Upgrades da Stack:**
 ```
-Frontend: Vercel Edge Network (same)
-Backend: Next.js Server Actions (same)
-Database: Supabase Pro → Team plan
+Frontend: Vercel Edge Network (igual)
+Backend: Next.js Server Actions (igual)
+Database: Supabase Pro → plano Team
   - Connection pooling (pgBouncer)
-  - Read replicas for analytics
-  - 100GB storage
-AI: Anthropic Claude API + Response caching
+  - Read replicas para analytics
+  - 100GB de armazenamento
+AI: Anthropic Claude API + Cache de respostas
 Cache: Upstash Redis (Vercel KV)
-  - Cache AI responses (24h TTL)
-  - Cache user sessions
+  - Cache das respostas de IA (TTL de 24h)
+  - Cache das sessões de usuário
   - Rate limiting
-CDN: CloudFlare in front of Vercel (optional)
+CDN: CloudFlare na frente do Vercel (opcional)
 Monitoring: Vercel Analytics + Sentry
 ```
 
-**Architecture Pattern:**
+**Padrão de Arquitetura:**
 
 ```typescript
 // lib/cache/redis.ts
@@ -74,48 +74,48 @@ export async function getCachedAIResponse(cacheKey: string) {
 export async function setCachedAIResponse(
   cacheKey: string,
   response: any,
-  ttlSeconds: number = 86400 // 24 hours
+  ttlSeconds: number = 86400 // 24 horas
 ) {
   await redis.setex(cacheKey, ttlSeconds, JSON.stringify(response));
 }
 
-// Usage in AI feedback generation
+// Uso na geração de feedback de IA
 export async function generateFeedback(context: FeedbackContext): Promise<AIFeedback> {
   const cacheKey = `feedback:${context.case.id}:${context.student_answer.selected_answer_id}`;
 
-  // Try cache first
+  // Tenta o cache primeiro
   const cached = await getCachedAIResponse(cacheKey);
   if (cached) {
     console.log('Cache hit for feedback');
     return JSON.parse(cached as string);
   }
 
-  // Generate new feedback
+  // Gera novo feedback
   const feedback = await callClaudeAPI(context);
 
-  // Cache for future students
+  // Faz cache para futuros estudantes
   await setCachedAIResponse(cacheKey, feedback);
 
   return feedback;
 }
 ```
 
-**Database Optimizations:**
+**Otimizações do Banco de Dados:**
 
 ```sql
--- Partition interactions table by month (reduces query time)
+-- Particiona a tabela interactions por mês (reduz o tempo de consulta)
 CREATE TABLE interactions_2025_01 PARTITION OF interactions
 FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
 
 CREATE TABLE interactions_2025_02 PARTITION OF interactions
 FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
 
--- Indexes for hot queries
+-- Índices para consultas quentes
 CREATE INDEX CONCURRENTLY idx_interactions_user_recent
 ON interactions(user_id, created_at DESC)
 WHERE created_at > NOW() - INTERVAL '30 days';
 
--- Materialized view for dashboard stats (refresh every hour)
+-- View materializada para estatísticas do dashboard (atualiza a cada hora)
 CREATE MATERIALIZED VIEW user_stats_cache AS
 SELECT
   user_id,
@@ -127,43 +127,43 @@ GROUP BY user_id;
 
 CREATE UNIQUE INDEX ON user_stats_cache(user_id);
 
--- Auto-refresh via pg_cron
+-- Atualização automática via pg_cron
 SELECT cron.schedule('refresh-user-stats', '0 * * * *',
   'REFRESH MATERIALIZED VIEW CONCURRENTLY user_stats_cache');
 ```
 
-**Expected Performance:**
-- API response time: <200ms (p95)
-- Database query time: <50ms (p95)
-- AI response time: 1-3s (depending on Claude API)
-- Cache hit rate: 70-80% for common operations
+**Desempenho Esperado:**
+- Tempo de resposta da API: <200ms (p95)
+- Tempo de consulta ao banco: <50ms (p95)
+- Tempo de resposta da IA: 1-3s (dependendo da Claude API)
+- Taxa de cache hit: 70-80% para operações comuns
 
 ---
 
-### Stage 3: Scale (100k-1M users)
-**Monthly Active Users**: 100,000-1,000,000
-**Daily Interactions**: 1M-10M
-**Infrastructure Cost**: $10,000-30,000/month
+### Estágio 3: Escala (100 mil-1 milhão de usuários)
+**Usuários Ativos Mensais**: 100.000-1.000.000
+**Interações Diárias**: 1 milhão-10 milhões
+**Custo de Infraestrutura**: US$ 10.000-30.000/mês
 
-**Major Architecture Changes:**
+**Principais Mudanças de Arquitetura:**
 
-#### 1. **Database Sharding Strategy**
+#### 1. **Estratégia de Sharding do Banco de Dados**
 
-**Shard by User ID** (most queries are user-scoped):
+**Shard por User ID** (a maioria das consultas tem escopo de usuário):
 
 ```sql
--- Shard 1: Users with ID hash % 4 = 0
--- Shard 2: Users with ID hash % 4 = 1
--- Shard 3: Users with ID hash % 4 = 2
--- Shard 4: Users with ID hash % 4 = 3
+-- Shard 1: Usuários com hash do ID % 4 = 0
+-- Shard 2: Usuários com hash do ID % 4 = 1
+-- Shard 3: Usuários com hash do ID % 4 = 2
+-- Shard 4: Usuários com hash do ID % 4 = 3
 
--- Routing logic in application
+-- Lógica de roteamento na aplicação
 function getShardForUser(userId: string): number {
   const hash = hashUserId(userId);
   return hash % 4;
 }
 
-// Connection pool per shard
+// Pool de conexões por shard
 const shardConnections = {
   0: createSupabaseClient(SHARD_0_URL),
   1: createSupabaseClient(SHARD_1_URL),
@@ -177,17 +177,17 @@ export function getDbForUser(userId: string) {
 }
 ```
 
-**Cross-shard queries** (leaderboards, analytics) go to read replicas or data warehouse.
+**Consultas entre shards** (rankings, analytics) vão para read replicas ou data warehouse.
 
-#### 2. **AI Infrastructure Optimization**
+#### 2. **Otimização da Infraestrutura de IA**
 
-**Problem**: Claude API costs scale linearly ($1M+ users = $50k+/month in AI costs)
+**Problema**: Os custos da Claude API escalam linearmente (1 milhão+ de usuários = US$ 50 mil+/mês em custos de IA)
 
-**Solution**: Multi-tier AI strategy
+**Solução**: Estratégia de IA multicamada
 
 ```typescript
-// Tier 1: Pre-computed responses (instant, free)
-// For common case + answer combinations (80% of traffic)
+// Tier 1: Respostas pré-computadas (instantâneas, gratuitas)
+// Para combinações comuns de caso + resposta (80% do tráfego)
 const precomputedFeedback = await db
   .from('precomputed_feedback')
   .select('*')
@@ -197,26 +197,26 @@ const precomputedFeedback = await db
 
 if (precomputedFeedback) return precomputedFeedback;
 
-// Tier 2: Cached responses (fast, cheap)
-// For less common combinations (15% of traffic)
+// Tier 2: Respostas em cache (rápidas, baratas)
+// Para combinações menos comuns (15% do tráfego)
 const cached = await redis.get(`feedback:${caseId}:${answerId}`);
 if (cached) return JSON.parse(cached);
 
-// Tier 3: Real-time AI generation (slow, expensive)
-// For rare combinations or premium users (5% of traffic)
+// Tier 3: Geração de IA em tempo real (lenta, cara)
+// Para combinações raras ou usuários premium (5% do tráfego)
 const feedback = await generateWithClaude(context);
 await redis.setex(`feedback:${caseId}:${answerId}`, 86400, JSON.stringify(feedback));
 return feedback;
 ```
 
-**Cost Impact:**
-- Before: 1M API calls/day × $0.003 = $3,000/day = $90,000/month
-- After: 50k API calls/day × $0.003 = $150/day = $4,500/month
-- **Savings**: $85,500/month (95% reduction)
+**Impacto no Custo:**
+- Antes: 1 milhão de chamadas de API/dia × US$ 0,003 = US$ 3.000/dia = US$ 90.000/mês
+- Depois: 50 mil chamadas de API/dia × US$ 0,003 = US$ 150/dia = US$ 4.500/mês
+- **Economia**: US$ 85.500/mês (redução de 95%)
 
-#### 3. **Background Job Processing**
+#### 3. **Processamento de Jobs em Background**
 
-**Move heavy operations off request path:**
+**Mova operações pesadas para fora do caminho da requisição:**
 
 ```typescript
 // lib/jobs/queue.ts
@@ -224,56 +224,56 @@ import { Inngest } from 'inngest';
 
 const inngest = new Inngest({ name: 'MedCards' });
 
-// Heavy operations run async
+// Operações pesadas rodam de forma assíncrona
 export const calculateUserMetrics = inngest.createFunction(
   { name: 'Calculate User Metrics' },
   { event: 'user/interaction.created' },
   async ({ event }) => {
     const userId = event.data.userId;
 
-    // Recalculate all user stats
+    // Recalcula todas as estatísticas do usuário
     const stats = await computeComprehensiveStats(userId);
 
-    // Update database
+    // Atualiza o banco de dados
     await db.from('users').update({ progress: stats }).eq('id', userId);
 
-    // Check for badge unlocks
+    // Verifica desbloqueios de badges
     await checkBadgeUnlocks(userId, stats);
 
-    // Update leaderboards
+    // Atualiza os rankings
     await updateLeaderboards(userId, stats);
   }
 );
 
-// Badge unlock notifications
+// Notificações de desbloqueio de badge
 export const notifyBadgeUnlock = inngest.createFunction(
   { name: 'Notify Badge Unlock' },
   { event: 'badge/unlocked' },
   async ({ event }) => {
-    // Send email
+    // Enviar email
     // Push notification
-    // Update UI via WebSocket
+    // Atualizar UI via WebSocket
   }
 );
 ```
 
-**Benefits:**
-- API response time: 2s → 200ms
-- Better user experience
-- Can retry failed jobs
-- Scale workers independently
+**Benefícios:**
+- Tempo de resposta da API: 2s → 200ms
+- Melhor experiência do usuário
+- Pode reprocessar jobs que falharam
+- Escala os workers de forma independente
 
-#### 4. **Read/Write Separation**
+#### 4. **Separação de Leitura/Escrita**
 
 ```typescript
 // lib/db/routing.ts
 
-// Write operations → Primary database
+// Operações de escrita → Banco de dados primário
 export async function writeInteraction(data: InteractionData) {
   return await primaryDb.from('interactions').insert(data);
 }
 
-// Read operations → Read replicas (distribute load)
+// Operações de leitura → Read replicas (distribui a carga)
 const readReplicas = [replicaDb1, replicaDb2, replicaDb3];
 let currentReplica = 0;
 
@@ -290,33 +290,33 @@ export async function getUser Interactions(userId: string) {
 }
 ```
 
-#### 5. **CDN & Static Asset Optimization**
+#### 5. **Otimização de CDN & Assets Estáticos**
 
 ```typescript
 // next.config.ts
 export default {
   images: {
-    loader: 'cloudinary', // Or imgix, cloudflare
+    loader: 'cloudinary', // Ou imgix, cloudflare
     domains: ['res.cloudinary.com'],
   },
-  // Serve heavy assets from CDN
+  // Serve assets pesados a partir da CDN
   assetPrefix: process.env.CDN_URL,
 };
 ```
 
-**Asset Strategy:**
-- Case images → CloudFlare R2 (S3-compatible, cheaper)
-- User avatars → CloudFlare Images (auto-optimization)
-- Video explanations → Mux (video streaming CDN)
+**Estratégia de Assets:**
+- Imagens de casos → CloudFlare R2 (compatível com S3, mais barato)
+- Avatares de usuário → CloudFlare Images (auto-otimização)
+- Explicações em vídeo → Mux (CDN de streaming de vídeo)
 
 ---
 
-### Stage 4: Platform (1M+ users)
-**Monthly Active Users**: 1M+
-**Daily Interactions**: 10M+
-**Infrastructure Cost**: $50,000-100,000/month
+### Estágio 4: Plataforma (1 milhão+ de usuários)
+**Usuários Ativos Mensais**: 1 milhão+
+**Interações Diárias**: 10 milhões+
+**Custo de Infraestrutura**: US$ 50.000-100.000/mês
 
-**Full Microservices Architecture:**
+**Arquitetura Completa de Microsserviços:**
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -360,113 +360,113 @@ export default {
                     └────────────────────┘
 ```
 
-**Service Breakdown:**
+**Detalhamento dos Serviços:**
 
-| Service | Tech | Purpose |
+| Serviço | Tecnologia | Objetivo |
 |---------|------|---------|
-| User Service | Supabase | User profiles, auth, progress |
-| Case Service | Dedicated PostgreSQL | Clinical cases, interactions |
-| AI Service | Claude API + Custom models | Feedback, coaching, adaptive |
-| Analytics | ClickHouse | Real-time analytics, dashboards |
-| Search | Elasticsearch | Case search, user search |
-| Notifications | Pusher / Socket.io | Real-time updates |
-| Jobs | Temporal | Background processing |
-| Cache | Redis Cluster | Multi-layer caching |
+| User Service | Supabase | Perfis de usuário, auth, progresso |
+| Case Service | PostgreSQL dedicado | Casos clínicos, interações |
+| AI Service | Claude API + Modelos customizados | Feedback, coaching, adaptativo |
+| Analytics | ClickHouse | Analytics em tempo real, dashboards |
+| Search | Elasticsearch | Busca de casos, busca de usuários |
+| Notifications | Pusher / Socket.io | Atualizações em tempo real |
+| Jobs | Temporal | Processamento em background |
+| Cache | Redis Cluster | Cache multicamada |
 
 ---
 
-## 💰 Cost Breakdown by Stage
+## 💰 Detalhamento de Custos por Estágio
 
-### Stage 1: MVP (10k users)
+### Estágio 1: MVP (10 mil usuários)
 ```
-Vercel Pro:              $20/month
-Supabase Pro:           $25/month
-Anthropic API:         $300/month  (100k AI calls)
-Domain + SSL:           $15/month
-Monitoring:            $50/month
+Vercel Pro:              US$ 20/mês
+Supabase Pro:           US$ 25/mês
+Anthropic API:         US$ 300/mês  (100 mil chamadas de IA)
+Domínio + SSL:          US$ 15/mês
+Monitoring:             US$ 50/mês
 ──────────────────────────────────
-TOTAL:                 $410/month
-Cost per user:         $0.041/month
+TOTAL:                 US$ 410/mês
+Custo por usuário:     US$ 0,041/mês
 ```
 
-### Stage 2: Growth (100k users)
+### Estágio 2: Crescimento (100 mil usuários)
 ```
-Vercel Enterprise:     $500/month
-Supabase Team:         $599/month
-Anthropic API:       $1,500/month  (500k AI calls, 70% cached)
-Upstash Redis:         $200/month
-CloudFlare Pro:         $20/month
-Sentry:                $100/month
+Vercel Enterprise:     US$ 500/mês
+Supabase Team:         US$ 599/mês
+Anthropic API:       US$ 1.500/mês  (500 mil chamadas de IA, 70% em cache)
+Upstash Redis:         US$ 200/mês
+CloudFlare Pro:         US$ 20/mês
+Sentry:                US$ 100/mês
 ──────────────────────────────────
-TOTAL:               $2,919/month
-Cost per user:        $0.029/month
+TOTAL:               US$ 2.919/mês
+Custo por usuário:    US$ 0,029/mês
 ```
 
-### Stage 3: Scale (1M users)
+### Estágio 3: Escala (1 milhão de usuários)
 ```
-Vercel Enterprise:   $2,000/month
-Supabase (4 shards): $2,400/month  ($600 each)
-Anthropic API:       $4,500/month  (cached 95%)
-Redis Cluster:       $1,000/month
-CloudFlare:            $200/month
-Sentry:                $500/month
-Inngest (jobs):        $300/month
-Datadog:               $800/month
+Vercel Enterprise:   US$ 2.000/mês
+Supabase (4 shards): US$ 2.400/mês  (US$ 600 cada)
+Anthropic API:       US$ 4.500/mês  (95% em cache)
+Redis Cluster:       US$ 1.000/mês
+CloudFlare:            US$ 200/mês
+Sentry:                US$ 500/mês
+Inngest (jobs):        US$ 300/mês
+Datadog:               US$ 800/mês
 ──────────────────────────────────
-TOTAL:              $11,700/month
-Cost per user:       $0.012/month
+TOTAL:              US$ 11.700/mês
+Custo por usuário:   US$ 0,012/mês
 ```
 
-**Key Insight**: Cost per user DECREASES as you scale (economies of scale).
+**Insight-Chave**: O custo por usuário DIMINUI conforme você escala (economias de escala).
 
 ---
 
-## 🔥 Performance Targets
+## 🔥 Metas de Desempenho
 
-### API Response Times (p95)
-- **Homepage load**: <500ms
-- **Dashboard load**: <800ms
-- **Case presentation**: <300ms
-- **Submit answer**: <400ms
-- **AI feedback**: <2s (with streaming)
-- **Chat message**: <500ms (streaming)
+### Tempos de Resposta da API (p95)
+- **Carregamento da homepage**: <500ms
+- **Carregamento do dashboard**: <800ms
+- **Apresentação do caso**: <300ms
+- **Enviar resposta**: <400ms
+- **Feedback de IA**: <2s (com streaming)
+- **Mensagem de chat**: <500ms (streaming)
 
-### Database Query Times (p95)
-- **Simple SELECT**: <10ms
-- **Complex JOIN**: <50ms
-- **Analytics query**: <200ms
-- **Leaderboard**: <100ms (cached)
+### Tempos de Consulta ao Banco de Dados (p95)
+- **SELECT simples**: <10ms
+- **JOIN complexo**: <50ms
+- **Consulta de analytics**: <200ms
+- **Ranking**: <100ms (em cache)
 
-### Availability
-- **Uptime SLA**: 99.9% (8.76 hours downtime/year)
-- **Zero-downtime deployments**: Required
-- **Disaster recovery**: <15 minute RPO/RTO
+### Disponibilidade
+- **SLA de uptime**: 99,9% (8,76 horas de downtime/ano)
+- **Deploys sem downtime**: Obrigatório
+- **Recuperação de desastres**: RPO/RTO < 15 minutos
 
 ---
 
-## 🛡️ Reliability & Monitoring
+## 🛡️ Confiabilidade & Monitoramento
 
-### Error Budget
+### Orçamento de Erros
 ```
-Monthly Uptime Target: 99.9%
-Error Budget: 0.1% = 43 minutes downtime/month
+Meta de Uptime Mensal: 99,9%
+Orçamento de Erros: 0,1% = 43 minutos de downtime/mês
 
-Week 1: 5 minutes → 37 minutes left
-Week 2: 10 minutes → 27 minutes left
-Week 3: 30 minutes → -3 minutes (EXCEEDED!)
-  → Freeze feature releases
-  → Focus on stability
-  → Root cause analysis
+Semana 1: 5 minutos → 37 minutos restantes
+Semana 2: 10 minutos → 27 minutos restantes
+Semana 3: 30 minutos → -3 minutos (EXCEDIDO!)
+  → Congelar lançamentos de recursos
+  → Focar em estabilidade
+  → Análise de causa raiz
 ```
 
-### Monitoring Stack
+### Stack de Monitoramento
 
 ```typescript
 // lib/monitoring/metrics.ts
 import * as Sentry from '@sentry/nextjs';
 import { track } from '@vercel/analytics';
 
-// Track all API calls
+// Rastreia todas as chamadas de API
 export async function monitoredAPICall<T>(
   operation: string,
   fn: () => Promise<T>
@@ -477,7 +477,7 @@ export async function monitoredAPICall<T>(
     const result = await fn();
     const duration = Date.now() - startTime;
 
-    // Success metrics
+    // Métricas de sucesso
     track('api_call_success', {
       operation,
       duration,
@@ -485,13 +485,13 @@ export async function monitoredAPICall<T>(
 
     return result;
   } catch (error) {
-    // Error tracking
+    // Rastreamento de erros
     Sentry.captureException(error, {
       tags: { operation },
       extra: { duration: Date.now() - startTime },
     });
 
-    // Error metrics
+    // Métricas de erro
     track('api_call_error', {
       operation,
       error: error.message,
@@ -501,15 +501,15 @@ export async function monitoredAPICall<T>(
   }
 }
 
-// Usage
+// Uso
 export async function submitAnswer(data: AnswerData) {
   return monitoredAPICall('submit_answer', async () => {
-    // ... actual implementation
+    // ... implementação real
   });
 }
 ```
 
-### Alerts Configuration
+### Configuração de Alertas
 
 ```yaml
 alerts:
@@ -543,94 +543,94 @@ alerts:
 
 ---
 
-## 📈 Capacity Planning
+## 📈 Planejamento de Capacidade
 
-### User Growth Projections
+### Projeções de Crescimento de Usuários
 
 ```
-Month 1:     100 users
-Month 3:   1,000 users  (10x growth)
-Month 6:  10,000 users  (10x growth)
-Month 12: 50,000 users  (5x growth)
-Month 18: 150,000 users (3x growth)
-Month 24: 500,000 users (3.3x growth)
+Mês 1:      100 usuários
+Mês 3:    1.000 usuários  (crescimento de 10x)
+Mês 6:   10.000 usuários  (crescimento de 10x)
+Mês 12:  50.000 usuários  (crescimento de 5x)
+Mês 18: 150.000 usuários (crescimento de 3x)
+Mês 24: 500.000 usuários (crescimento de 3,3x)
 ```
 
-### Infrastructure Scaling Triggers
+### Gatilhos de Escalonamento de Infraestrutura
 
-| Metric | Trigger | Action |
+| Métrica | Gatilho | Ação |
 |--------|---------|--------|
-| Database CPU | >70% for 1h | Add read replica |
-| Database Storage | >80% used | Upgrade plan OR archive old data |
-| API Error Rate | >5% for 5min | Scale up serverless OR rollback |
-| Redis Memory | >80% used | Upgrade OR implement LRU eviction |
-| AI API Costs | >$10k/month | Implement aggressive caching |
+| CPU do Banco | >70% por 1h | Adicionar read replica |
+| Armazenamento do Banco | >80% usado | Fazer upgrade do plano OU arquivar dados antigos |
+| Taxa de Erro da API | >5% por 5min | Escalar serverless OU fazer rollback |
+| Memória do Redis | >80% usada | Fazer upgrade OU implementar LRU eviction |
+| Custos da AI API | >US$ 10 mil/mês | Implementar cache agressivo |
 
-### Scaling Checklist
+### Checklist de Escalonamento
 
-**At 10k users:**
-- [ ] Enable Redis caching
-- [ ] Add database indexes
-- [ ] Set up monitoring
-- [ ] Implement rate limiting
+**Em 10 mil usuários:**
+- [ ] Habilitar cache Redis
+- [ ] Adicionar índices ao banco de dados
+- [ ] Configurar monitoramento
+- [ ] Implementar rate limiting
 
-**At 50k users:**
-- [ ] Add read replicas
-- [ ] Implement job queue
-- [ ] Aggressive AI response caching
+**Em 50 mil usuários:**
+- [ ] Adicionar read replicas
+- [ ] Implementar fila de jobs
+- [ ] Cache agressivo das respostas de IA
 - [ ] CloudFlare Pro
 
-**At 100k users:**
-- [ ] Database sharding
-- [ ] Microservices architecture
-- [ ] Dedicated analytics database
-- [ ] Content delivery optimization
+**Em 100 mil usuários:**
+- [ ] Sharding do banco de dados
+- [ ] Arquitetura de microsserviços
+- [ ] Banco de dados dedicado para analytics
+- [ ] Otimização de entrega de conteúdo
 
 ---
 
-## 🚀 Deployment Strategy
+## 🚀 Estratégia de Deploy
 
-### Zero-Downtime Deployments
+### Deploys Sem Downtime
 
 ```bash
-# Blue-Green Deployment on Vercel
-1. Deploy new version to staging
-2. Run smoke tests
-3. Deploy to production (Vercel handles canary rollout)
-4. Monitor error rates for 15 minutes
-5. If errors spike: automatic rollback
-6. If stable: full rollout
+# Deploy Blue-Green no Vercel
+1. Fazer deploy da nova versão em staging
+2. Rodar smoke tests
+3. Fazer deploy em produção (o Vercel cuida do canary rollout)
+4. Monitorar taxas de erro por 15 minutos
+5. Se os erros dispararem: rollback automático
+6. Se estável: rollout completo
 ```
 
-### Database Migrations
+### Migrações de Banco de Dados
 
 ```typescript
 // migrations/0015_add_community_cases.ts
 export async function up() {
-  // Safe migration: additive only
+  // Migração segura: apenas aditiva
   await db.schema
     .createTable('community_cases')
     .addColumn('id', 'uuid', (col) => col.primaryKey())
     .addColumn('created_at', 'timestamp')
-    // ... other columns
+    // ... outras colunas
     .execute();
 }
 
 export async function down() {
-  // Rollback (but never run in production!)
+  // Rollback (mas nunca rode em produção!)
   await db.schema.dropTable('community_cases').execute();
 }
 ```
 
-**Migration Rules:**
-1. Never drop columns (deprecate instead)
-2. Add new columns as nullable
-3. Backfill data async
-4. Test on staging with production data snapshot
+**Regras de Migração:**
+1. Nunca remova colunas (marque como deprecated em vez disso)
+2. Adicione novas colunas como nullable
+3. Faça o backfill dos dados de forma assíncrona
+4. Teste em staging com um snapshot de dados de produção
 
 ---
 
-## 🔒 Security at Scale
+## 🔒 Segurança em Escala
 
 ### Rate Limiting
 
@@ -641,7 +641,7 @@ import { Redis } from '@upstash/redis';
 
 const ratelimit = new Ratelimit({
   redis: Redis.fromEnv(),
-  limiter: Ratelimit.slidingWindow(100, '1 m'), // 100 requests per minute
+  limiter: Ratelimit.slidingWindow(100, '1 m'), // 100 requisições por minuto
 });
 
 export async function middleware(request: Request) {
@@ -656,33 +656,33 @@ export async function middleware(request: Request) {
 }
 ```
 
-### DDoS Protection
+### Proteção contra DDoS
 
 ```
-CloudFlare WAF → Vercel → Application
+CloudFlare WAF → Vercel → Aplicação
 
-- CloudFlare: Block malicious IPs, rate limit per IP
-- Vercel: Edge protection, DDoS mitigation
-- Application: User-level rate limits
+- CloudFlare: Bloqueia IPs maliciosos, rate limit por IP
+- Vercel: Proteção na edge, mitigação de DDoS
+- Aplicação: Rate limits em nível de usuário
 ```
 
-### Data Encryption
+### Criptografia de Dados
 
 ```
-- At Rest: Supabase encrypts all data (AES-256)
-- In Transit: TLS 1.3 everywhere
-- Backups: Encrypted, geographically distributed
-- Secrets: Managed via Vercel environment variables
+- Em Repouso: O Supabase criptografa todos os dados (AES-256)
+- Em Trânsito: TLS 1.3 em todos os lugares
+- Backups: Criptografados, distribuídos geograficamente
+- Segredos: Gerenciados via variáveis de ambiente do Vercel
 ```
 
 ---
 
-## 📊 Analytics Architecture
+## 📊 Arquitetura de Analytics
 
-### Real-Time Analytics
+### Analytics em Tempo Real
 
 ```sql
--- ClickHouse table for real-time analytics (better than PostgreSQL for OLAP)
+-- Tabela ClickHouse para analytics em tempo real (melhor que PostgreSQL para OLAP)
 CREATE TABLE analytics.interactions (
     user_id UUID,
     case_id UUID,
@@ -694,7 +694,7 @@ CREATE TABLE analytics.interactions (
 PARTITION BY toYYYYMM(created_at)
 ORDER BY (created_at, user_id);
 
--- Fast aggregations
+-- Agregações rápidas
 SELECT
     specialty,
     COUNT(*) as total,
@@ -703,29 +703,29 @@ FROM analytics.interactions
 WHERE created_at > now() - INTERVAL 7 DAY
 GROUP BY specialty;
 
--- Executes in <50ms on 100M rows
+-- Executa em <50ms em 100 milhões de linhas
 ```
 
-### Data Warehouse Strategy
+### Estratégia de Data Warehouse
 
 ```
-Operational DB (PostgreSQL) → CDC → Data Warehouse (ClickHouse)
+DB Operacional (PostgreSQL) → CDC → Data Warehouse (ClickHouse)
                                    ↓
-                            Analytics Dashboard (Metabase/Looker)
+                            Dashboard de Analytics (Metabase/Looker)
 ```
 
 ---
 
-## 🎯 Summary: Scaling Path
+## 🎯 Resumo: Caminho de Escalonamento
 
 ```
-MVP (0-10k):        Simple stack, manual processes, good enough
-Growth (10-100k):   Add caching, optimize database, automate
-Scale (100k-1M):    Sharding, microservices, background jobs
-Platform (1M+):     Full distribution, dedicated services, ML ops
+MVP (0-10k):        Stack simples, processos manuais, bom o suficiente
+Crescimento (10-100k): Adicionar cache, otimizar banco de dados, automatizar
+Escala (100k-1M):   Sharding, microsserviços, jobs em background
+Plataforma (1M+):   Distribuição total, serviços dedicados, ML ops
 
-Philosophy: Scale progressively, not prematurely.
-Build what you need TODAY, architect for TOMORROW.
+Filosofia: Escale progressivamente, não prematuramente.
+Construa o que você precisa HOJE, arquitete para AMANHÃ.
 ```
 
-**Next Steps**: Implement MVP stack, monitor metrics, scale when triggers hit.
+**Próximos Passos**: Implementar a stack do MVP, monitorar métricas, escalar quando os gatilhos forem atingidos.
